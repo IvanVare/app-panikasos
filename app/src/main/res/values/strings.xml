@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App_BotonPanico</string>
     <string name="app_nick_name">Botón de pánico</string>
+    <string name="btn_sing_in">Iniciar sesión</string>
 </resources>
