@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bkgroud"
-    tools:context=".sing_in_user">
+    tools:context=".sign_in_user">
 
         <FrameLayout
-            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="600dp"
             android:layout_gravity="center"
-            android:background="@color/white"
+            style="@style/BackGround_screen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -21,17 +20,25 @@
 
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/SignIn_button_activitySign_in"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="150dp"
                     android:layout_gravity="center"
                     android:paddingStart="35dp"
                     android:paddingEnd="35dp"
-                    android:text="@string/btn_sing_in" />
+                    android:text="@string/btn_sign_in" />
+
+                <TextView
+                    android:id="@+id/LogIn_button_activitySign_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="200dp"
+                    android:layout_gravity="center"
+                    android:text="@string/btn_log_in" />
         </FrameLayout>
 
-        <FrameLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="40dp"
@@ -39,56 +46,58 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="300dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/style_appdata">
-
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="123dp"
-                    android:layout_height="160dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_user" />
-
-
-                <com.google.android.material.textfield.TextInputLayout
+            app:cardCornerRadius="21dp"
+            app:cardElevation="20dp"
+            style="@style/BackGround_screen_appdata">
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:hint="Ingresa tu número"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusTopEnd="10dp"
-                    app:boxCornerRadiusTopStart="10dp"
-                    app:boxBackgroundMode="outline">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputPhoneNumber"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/style_appdata">
+                        <ImageView
+                            android:layout_width="123dp"
+                            android:layout_height="160dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_user" />
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:hint="Ingresa tu número"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxBackgroundMode="outline">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/InputPhoneNumber_activitySign_in"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
-                    android:layout_gravity="center"
-                    android:hint="Ingresa tu número"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusTopEnd="10dp"
-                    app:boxCornerRadiusTopStart="10dp"
-                    app:boxBackgroundMode="outline">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputPassword"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="80dp"
+                            android:layout_gravity="center"
+                            android:hint="Contraseña"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxBackgroundMode="outline">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/InputPassword_activitySign_in"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="150dp"
-                    android:layout_gravity="center"
-                    android:text="¿Olvidaste tu contraseña?" />
-        </FrameLayout>
+                        <TextView
+                            android:id="@+id/ForgotPassword_button_activitySign_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="150dp"
+                            android:layout_gravity="center"
+                            android:text="¿Olvidaste tu contraseña?" />
+                </FrameLayout>
+        </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bkgroud"
+    style="@style/BackGround_screen"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="600dp"
             android:layout_gravity="center"
-            android:background="@color/white">
+            style="@style/BackGround_screen">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,10 +33,10 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="1dp"
                     android:layout_margin="50dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_user" />
+                    android:src="@drawable/icon_sospwhite" />
 
                 <TextView
                     android:layout_width="match_parent"

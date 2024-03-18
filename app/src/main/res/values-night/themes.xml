@@ -2,6 +2,23 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.App_BotonPanico" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/white</item>
     </style>
+
+
+    <style name="BackGround_screen">
+        <item name="android:background">@color/black</item>
+    </style>
+    <style name="BackGround_screen_appdata">
+        <item name="android:background">@color/gray_bkgroud_appdata_night</item>
+    </style>
+
+    <style name="DownBackGround_screen_menu">
+        <item name="android:background">@color/DownfontBackgroundDark</item>
+    </style>
+    <style name="UpBackGround_screen_menu">
+        <item name="android:background">@color/UpfontBackgroundDark</item>
+    </style>
+
 </resources>
+

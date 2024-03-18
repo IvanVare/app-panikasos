@@ -4,6 +4,4 @@
         android:left="10sp"
         android:right="10sp"
         android:top="10sp"/>
-    <corners android:radius="21dp" />
-    <solid android:color="@color/gray_bkgroud_appdata"/>
 </shape>
