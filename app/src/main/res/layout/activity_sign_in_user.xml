@@ -58,9 +58,18 @@
                             android:layout_height="160dp"
                             android:layout_gravity="center_horizontal"
                             android:src="@drawable/ic_user" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="150dp"
+                            android:text="Iniciar sesión" />
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
                             android:layout_gravity="center"
                             android:hint="Ingresa tu número"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -76,7 +85,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="80dp"
+                            android:layout_marginTop="100dp"
                             android:layout_gravity="center"
                             android:hint="Contraseña"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
