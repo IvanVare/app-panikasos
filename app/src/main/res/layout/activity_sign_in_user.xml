@@ -19,22 +19,31 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/SignIn_button_activitySign_in"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/button_style"
                     android:layout_marginTop="150dp"
                     android:layout_gravity="center"
-                    android:paddingStart="35dp"
-                    android:paddingEnd="35dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="45dp"
+                    android:paddingEnd="45dp"
+                    android:textSize="@dimen/text_size_sign_in"
+                    android:textAllCaps="false"
                     android:text="@string/btn_sign_in" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/LogIn_button_activitySign_in"
+                    style="@style/button_style_without_background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="200dp"
+                    android:padding="10dp"
                     android:layout_gravity="center"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/text_size_log_in"
                     android:text="@string/btn_log_in" />
         </FrameLayout>
 
@@ -55,9 +64,9 @@
                     android:background="@drawable/style_appdata">
                         <ImageView
                             android:layout_width="123dp"
-                            android:layout_height="160dp"
+                            android:layout_height="135dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/ic_user" />
+                            android:src="@drawable/user_light" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -79,7 +88,8 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/InputPhoneNumber_activitySign_in"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:inputType="phone"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -87,24 +97,30 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="100dp"
                             android:layout_gravity="center"
-                            android:hint="Contraseña"
+                            android:hint="@string/input_text_password"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             app:boxCornerRadiusTopEnd="10dp"
                             app:boxCornerRadiusTopStart="10dp"
-                            app:boxBackgroundMode="outline">
+                            app:boxBackgroundMode="outline"
+                            app:endIconMode="password_toggle">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/InputPassword_activitySign_in"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textPassword"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/ForgotPassword_button_activitySign_in"
+                            style="@style/button_style_without_background"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="150dp"
                             android:layout_gravity="center"
-                            android:text="¿Olvidaste tu contraseña?" />
+                            android:layout_marginTop="165dp"
+                            android:padding="10dp"
+                            android:text="¿Olvidaste tu contraseña?"
+                            android:textAllCaps="false" />
+
                 </FrameLayout>
         </androidx.cardview.widget.CardView>
 

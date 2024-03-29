@@ -33,28 +33,58 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:src="@drawable/icon_sospwhite" />
+                    android:src="@drawable/icn_btnpanic_light" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20dp"
                     android:text="@string/app_nick_name" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/sing_in_button_activitymain"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:layout_margin="15dp"
-                    android:text="Inicio sesión" />
-
-                <Button
-                    android:id="@+id/log_in_button_activitymain"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    style="@style/button_style"
+                    android:layout_margin="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="@dimen/text_size_sign_in"
+                    android:textAllCaps="false"
+                    android:text="@string/btn_sign_in" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="center"
+                        android:text="@string/message_log_in_quest"
+                        android:textSize="@dimen/text_size_log_in" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/log_in_button_activitymain"
+                        style="@style/button_style_without_background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Registrate"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/text_size_log_in" />
+                </LinearLayout>
+
             </LinearLayout>
         </RelativeLayout>
 

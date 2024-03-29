@@ -3,8 +3,19 @@
     <style name="Base.Theme.App_BotonPanico" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/white</item>
+        <item name="colorSecondary">@color/black</item>
     </style>
 
+
+    <style name="button_style_without_background">
+        <item name="android:background">@drawable/style_btn_olvidaste_tu_contasena_dark</item>
+    </style>
+
+    <style name="button_style">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/style_btn_signin_login</item>
+    </style>
 
     <style name="BackGround_screen">
         <item name="android:background">@color/black</item>
@@ -13,11 +24,8 @@
         <item name="android:background">@color/gray_bkgroud_appdata_night</item>
     </style>
 
-    <style name="DownBackGround_screen_menu">
-        <item name="android:background">@color/DownfontBackgroundDark</item>
-    </style>
-    <style name="UpBackGround_screen_menu">
-        <item name="android:background">@color/UpfontBackgroundDark</item>
+    <style name="BackGround_screen_menu">
+        <item name="android:background">@drawable/background_qa_dark</item>
     </style>
 
 </resources>

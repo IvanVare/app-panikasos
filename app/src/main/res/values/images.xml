@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="user_light" type="drawable">@drawable/icon_user_light</item>
+    <item name="menu" type="drawable">@drawable/icon_menu32</item>
+</resources>

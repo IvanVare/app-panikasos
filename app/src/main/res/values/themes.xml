@@ -3,10 +3,22 @@
     <style name="Base.Theme.App_BotonPanico" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/black</item>
+        <item name="colorSecondary">@color/white</item>
+    </style>
+    <style name="Theme.App_BotonPanico" parent="Base.Theme.App_BotonPanico" />
+
+    <!-- My styles -->
+
+    <style name="button_style_without_background">
+        <item name="android:background">@drawable/style_btn_olvidaste_tu_contasena</item>
     </style>
 
-    <style name="Theme.App_BotonPanico" parent="Base.Theme.App_BotonPanico" />
-    
+    <style name="button_style">
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/style_btn_signin_login</item>
+    </style>
+
     <style name="BackGround_screen">
         <item name="android:background">@color/white</item>
     </style>
@@ -15,11 +27,8 @@
         <item name="cardBackgroundColor">@color/gray_bkgroud_appdata</item>
     </style>
 
-    <style name="DownBackGround_screen_menu">
-        <item name="android:background">@color/DownfontBackgroundLight</item>
-    </style>
-    <style name="UpBackGround_screen_menu">
-        <item name="android:background">@color/UpfontBackgroundLight</item>
+    <style name="BackGround_screen_menu">
+        <item name="android:background">@drawable/background_qa_light</item>
     </style>
 
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_sign_in">20dp</dimen>
+    <dimen name="text_size_log_in">17dp</dimen>
+    <dimen name="separation_of_ET_log_in">10dp</dimen>
+</resources>
