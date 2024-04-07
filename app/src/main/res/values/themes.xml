@@ -31,6 +31,10 @@
         <item name="android:background">@drawable/background_qa_light</item>
     </style>
 
+    <style name="BackGround_toolbar">
+        <item name="android:background">@color/toolbar_bkgroud_light</item>
+    </style>
+
 
 
 

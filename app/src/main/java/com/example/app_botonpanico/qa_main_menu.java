@@ -11,47 +11,41 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.data_register.data_register;
+public class qa_main_menu extends AppCompatActivity {
 
-public class sign_in_user extends AppCompatActivity {
-
-    Button ForgotPasswordButton, SignInButtonToMenu, LogInButtonToLogIn;
-
+    Button ToMapButton, ToContactsButtom, ToPanicButtom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_sign_in_user);
-        ForgotPasswordButton=findViewById(R.id.ForgotPassword_button_activitySign_in);
-        SignInButtonToMenu=findViewById(R.id.SignIn_button_activitySign_in);
-        LogInButtonToLogIn=findViewById(R.id.LogIn_button_activitySign_in);
-
-        ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_qa_main_menu);
+        ToMapButton=findViewById(R.id.ToMap_button_activityqa_MainMenu);
+        ToContactsButtom=findViewById(R.id.ToContacts_button_activityqa_MainMenu);
+        ToPanicButtom=findViewById(R.id.ToPanicButtom_button_activityqa_MainMenu);
+        ToMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(sign_in_user.this, reset_password.class);
+                Intent i = new Intent(qa_main_menu.this, qa_map.class);
                 startActivity(i);
             }
         });
 
-        LogInButtonToLogIn.setOnClickListener(new View.OnClickListener() {
+        ToContactsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(sign_in_user.this, data_register.class);
-                startActivity(i);
-            }
-        });
-
-        SignInButtonToMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(sign_in_user.this, main_menu.class);
+                Intent i = new Intent(qa_main_menu.this,qa_contacts.class);
                 startActivity(i);
             }
         });
 
 
-
+        ToPanicButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(qa_main_menu.this, qa_panic_button.class);
+                startActivity(i);
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

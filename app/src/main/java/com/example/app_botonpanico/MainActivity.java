@@ -11,7 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.data_register.data_register;
+import com.example.app_botonpanico.data_register.Controller_data_register;
+import com.example.app_botonpanico.sign_in.Controller_sign_in_user;
 
 public class MainActivity extends AppCompatActivity {
     Button singInButton,logInButton;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         singInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, sign_in_user.class);
+                Intent i = new Intent(MainActivity.this, Controller_sign_in_user.class);
                 startActivity(i);
             }
         });
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, data_register.class);
+                Intent i = new Intent(MainActivity.this, Controller_data_register.class);
                 startActivity(i);
             }
         });

@@ -1,4 +1,4 @@
-package com.example.app_botonpanico;
+package com.example.app_botonpanico.inser_new_password;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.app_botonpanico.R;
 
 public class insert_new_password extends AppCompatActivity {
 

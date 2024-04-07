@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App_BotonPanico</string>
+    <string name="app_name">App_BotonPanicoV1</string>
     <string name="app_nick_name">Botón de pánico</string>
     <string name="btn_sign_in">Iniciar sesión</string>
     <string name="btn_log_in">Registrarse</string>
@@ -9,4 +9,7 @@
     <string name="message_post_code">Envíe el codigo de recuperación</string>
     <string name="message_log_in_quest">¿No tienes cuenta?</string>
     <string name="input_text_password">Contraseña</string>
+    <string name="option_map">Mapa</string>
+    <string name="option_contacts">Contactos</string>
+    <string name="option_panicbuttom">Botón de pánico</string>
 </resources>

@@ -28,5 +28,9 @@
         <item name="android:background">@drawable/background_qa_dark</item>
     </style>
 
+    <style name="BackGround_toolbar">
+        <item name="android:background">@color/toolbar_bkgroud_dark</item>
+    </style>
+
 </resources>
 

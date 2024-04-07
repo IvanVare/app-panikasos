@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_botonpanico.inser_new_password.insert_new_password;
+
 public class reset_password extends AppCompatActivity {
 
     Button SendCodeButton;
@@ -24,7 +26,7 @@ public class reset_password extends AppCompatActivity {
         SendCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(reset_password.this,insert_new_password.class);
+                Intent i = new Intent(reset_password.this, insert_new_password.class);
                 startActivity(i);
             }
         });

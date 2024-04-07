@@ -42,7 +42,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/text_title_size_sign_in"
                     android:text="@string/app_nick_name" />
 
                 <androidx.appcompat.widget.AppCompatButton

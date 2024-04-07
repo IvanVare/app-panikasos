@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="gray_bkgroud">#3A3A3A</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray_bkgroud">#191919</color>
+    <color name="toolbar_bkgroud_light">#BDBDBD</color>
+    <color name="toolbar_bkgroud_dark">#252525</color>
     <color name="gray_bkgroud_appdata_night">#3A3A3A</color>
     <color name="gray_bkgroud_appdata">#D4D4D4</color>
     <color name="buttonBackgroundLight">#FFFFFF</color> <!-- Color de fondo para el tema claro -->
@@ -11,5 +13,7 @@
     <color name="DownfontBackgroundLight">#F0F0F0</color>
     <color name="UpfontBackgroundDark">#4B4B4B</color>
     <color name="DownfontBackgroundDark">#2F2F2F</color>
+    <color name="FloatingButton">#0066FF</color>
+    <color name="PressFloatingButton">#2A79EF</color>
 
 </resources>
