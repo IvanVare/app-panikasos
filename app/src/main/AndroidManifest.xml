@@ -5,12 +5,13 @@
     <permission
         android:name="com.example.usuario.googlemapatest.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.usuario.googlemapstest.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -21,9 +22,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App_BotonPanico"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAg4AZWPMCqGoQt_rzjvKDDLF9OEWR1IvA"></meta-data>
+        <activity
+            android:name=".Main_screen"
+            android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAg4AZWPMCqGoQt_rzjvKDDLF9OEWR1IvA" />
+
         <activity
             android:name=".qa_contact"
             android:exported="false" />
@@ -37,7 +51,7 @@
             android:name=".qa_panic_button"
             android:exported="false" />
         <activity
-            android:name=".inser_new_password.insert_new_password"
+            android:name=".insert_new_password.insert_new_password"
             android:exported="false" />
         <activity
             android:name=".reset_password"
@@ -53,12 +67,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
     </application>
 

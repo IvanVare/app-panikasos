@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.inser_new_password;
+package com.example.app_botonpanico.insert_new_password;
 
 import android.os.Bundle;
 

@@ -85,6 +85,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/option_map" />
 
+                <Button
+                    android:id="@+id/LogOut_button_activityqa_MainMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/log_out" />
+
             </LinearLayout>
 
         </LinearLayout>
