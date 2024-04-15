@@ -53,46 +53,53 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Switch" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="horizontal">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/ToPanicButtom_button_activityqa_MainMenu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textAllCaps="false"
+                    android:background="@drawable/panicbuttomv2"
                     android:text="@string/option_panicbuttom" />
             </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/ToContacts_button_activityqa_MainMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/option_contacts" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/ToMap_button_activityqa_MainMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/option_map" />
 
-                <Button
-                    android:id="@+id/LogOut_button_activityqa_MainMenu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/log_out" />
-
             </LinearLayout>
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/LogOut_button_activityqa_MainMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/log_out" />
 
         </LinearLayout>
     </FrameLayout>

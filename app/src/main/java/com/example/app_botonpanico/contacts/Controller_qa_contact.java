@@ -1,4 +1,4 @@
-package com.example.app_botonpanico;
+package com.example.app_botonpanico.contacts;
 
 import android.os.Bundle;
 
@@ -8,7 +8,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class qa_contact extends AppCompatActivity {
+import com.example.app_botonpanico.R;
+
+public class Controller_qa_contact extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

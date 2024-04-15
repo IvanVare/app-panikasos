@@ -92,12 +92,13 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
         });
     }
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        gmap=googleMap;
+    public void onMapReady(@NonNull GoogleMap googleMap) { //llama al objeto GoogleMap
+        gmap=googleMap; // se asigna el objeto googlmap a la variable gmap
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            return; //verificar que la aplicación tiene permiso de acceder a la ubicación
         }
-        gmap.setMyLocationEnabled(true);
+        gmap.setMyLocationEnabled(true); // Habilita función de visulizar la ubicación actual del usuario en el mapa.
         gmap.getUiSettings().setMyLocationButtonEnabled(false);
         gmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(qa_map.this,R.raw.map_style));
     }
