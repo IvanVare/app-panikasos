@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 public class daoContact {
     SQLiteDatabase db;
-    ArrayList<Contact_data> list=new ArrayList<Contact_data>();
-    Contact_data contactData;
+    ArrayList<Model_Contact_data> list=new ArrayList<Model_Contact_data>();
+    Model_Contact_data contactData;
     Context context;
     String DataBaseName = "DBContacts";
+    //Creación de base de datos
     String table = "create table if not exists contact(id integer primary key autoincrement, " +
             "first_name text, last_name text, nickname text, phone_number text)";
 
@@ -20,10 +21,8 @@ public class daoContact {
         this.context = context;
         db = context.openOrCreateDatabase(DataBaseName, Context.MODE_PRIVATE, null);
         db.execSQL(table);
-
     }
-
-    public boolean insert(Contact_data contactData) {
+    public boolean insert(Model_Contact_data contactData) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("first_name", contactData.getFirst_name());
         contentValues.put("last_name", contactData.getLast_name());
@@ -37,7 +36,7 @@ public class daoContact {
 
     }
 
-    public boolean update(Contact_data contactData) {
+    public boolean update(Model_Contact_data contactData) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("first_name", contactData.getFirst_name());
         contentValues.put("last_name", contactData.getLast_name());
@@ -46,14 +45,30 @@ public class daoContact {
         return (db.update("contact",contentValues,"id="+contactData.getId(),null))>0;
     }
 
-    public ArrayList<Contact_data> getAll(){
+
+    public ArrayList<Model_Contact_data> getAllFirstNameAndPhoneNumber() {
+        list.clear();
+        Cursor cursor = db.rawQuery("SELECT first_name, phone_number FROM contact", null);
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            do {
+                list.add(new Model_Contact_data(cursor.getInt(0)
+                        ,cursor.getString(0)
+                        ,cursor.getString(1)));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Model_Contact_data> getAll(){
         list.clear();
         Cursor cursor= db.rawQuery("select * from contact", null);
 
         if (cursor!=null && cursor.getCount()>0){
             cursor.moveToFirst();
             do {
-                list.add(new Contact_data(cursor.getInt(0)
+                list.add(new Model_Contact_data(cursor.getInt(0)
                         ,cursor.getString(1)
                         ,cursor.getString(2)
                         ,cursor.getString(3)
@@ -63,10 +78,10 @@ public class daoContact {
         return list;
     }
 
-    public Contact_data findOne(int position){
+    public Model_Contact_data findOne(int position){
         Cursor cursor= db.rawQuery("select * from contact", null);
         cursor.moveToPosition(position);
-        contactData= new Contact_data(cursor.getInt(0)
+        contactData= new Model_Contact_data(cursor.getInt(0)
                 ,cursor.getString(1)
                 ,cursor.getString(2)
                 ,cursor.getString(3)

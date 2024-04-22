@@ -36,7 +36,7 @@ public class Controller_data_register extends AppCompatActivity {
         DataRegisterButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modelDataRegister.Register_User(InputFirstName.getText().toString(),InputLastName.getText().toString(),InputPhoneNumber.getText().toString(),InputAge.getText().toString(),InputPassword.getText().toString());
+                modelDataRegister.register_User(InputFirstName.getText().toString(),InputLastName.getText().toString(),InputPhoneNumber.getText().toString(),InputAge.getText().toString(),InputPassword.getText().toString());
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

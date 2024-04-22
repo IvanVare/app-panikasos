@@ -1,5 +1,6 @@
 package com.example.app_botonpanico;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -33,7 +34,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageButton mainMenuButtom;
-    GoogleMap gmap;
+    GoogleMap gOmap;
     FloatingActionsMenu floatingActionsMenu_group;
     FloatingActionButton fabButtonLayer, fabButtonFindMyLocation, fabButtonEmergencyButton;
 
@@ -60,7 +61,7 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
         fabButtonLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gmap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                gOmap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             }
         });
         fabButtonFindMyLocation.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +69,7 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(qa_map.this);
                 if (ActivityCompat.checkSelfPermission(qa_map.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(qa_map.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
+                    ActivityCompat.requestPermissions(qa_map.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
                 }
                 fusedLocationClient.getLastLocation()
                         .addOnSuccessListener(qa_map.this, new OnSuccessListener<Location>() {
@@ -76,7 +77,7 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
                             public void onSuccess(Location location) {
                                 if (location != null) {
                                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15)); // Zoom de 15 (puedes ajustar este valor según tus necesidades)
+                                    gOmap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15)); // Zoom de 15 (puedes ajustar este valor según tus necesidades)
                                 } else {
                                     Toast.makeText(qa_map.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
                                 }
@@ -92,15 +93,15 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
         });
     }
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) { //llama al objeto GoogleMap
-        gmap=googleMap; // se asigna el objeto googlmap a la variable gmap
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        gOmap=googleMap;
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return; //verificar que la aplicación tiene permiso de acceder a la ubicación
+            return;
         }
-        gmap.setMyLocationEnabled(true); // Habilita función de visulizar la ubicación actual del usuario en el mapa.
-        gmap.getUiSettings().setMyLocationButtonEnabled(false);
-        gmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(qa_map.this,R.raw.map_style));
+        gOmap.setMyLocationEnabled(true);
+        gOmap.getUiSettings().setMyLocationButtonEnabled(false);
+        gOmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(qa_map.this,R.raw.map_style));
     }
 
 

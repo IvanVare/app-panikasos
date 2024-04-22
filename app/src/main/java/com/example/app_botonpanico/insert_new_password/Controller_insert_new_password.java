@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
 
-public class insert_new_password extends AppCompatActivity {
+public class Controller_insert_new_password extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

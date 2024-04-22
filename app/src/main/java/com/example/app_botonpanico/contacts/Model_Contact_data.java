@@ -1,28 +1,34 @@
 package com.example.app_botonpanico.contacts;
 
-public class Contact_data {
+public class Model_Contact_data {
     int id;
     String first_name;
     String last_name;
     String nickname;
     String phone_number;
 
-    public Contact_data() {
+    public Model_Contact_data() {
 
     }
 
-    public Contact_data(String first_name, String last_name, String nickname, String phone_number) {
+    public Model_Contact_data(String first_name, String last_name, String nickname, String phone_number) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.nickname = nickname;
         this.phone_number = phone_number;
     }
 
-    public Contact_data(int id, String first_name, String last_name, String nickname, String phone_number) {
+    public Model_Contact_data(int id, String first_name, String last_name, String nickname, String phone_number) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.nickname = nickname;
+        this.phone_number = phone_number;
+    }
+
+    public Model_Contact_data(int id, String first_name,String phone_number) {
+        this.id = id;
+        this.first_name = first_name;
         this.phone_number = phone_number;
     }
 

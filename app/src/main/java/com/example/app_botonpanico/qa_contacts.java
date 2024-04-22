@@ -20,35 +20,32 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.contacts.AdapterContact;
-import com.example.app_botonpanico.contacts.Contact_data;
+import com.example.app_botonpanico.contacts.Model_Contact_data;
 import com.example.app_botonpanico.contacts.daoContact;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 
 public class qa_contacts extends AppCompatActivity {
     daoContact daoContact;
     AdapterContact adapterContact;
-    Contact_data contactData;
-    ArrayList<Contact_data> list;
+    Model_Contact_data contactData;
+    ArrayList<Model_Contact_data> list;
     Button floatingActionsMenu_buttom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_qa_contacts);
+
+        //Establecer lista de contactos
         daoContact = new daoContact(this);
         list=daoContact.getAll();
         adapterContact= new AdapterContact(this,list,daoContact);
         ListView listViewContacts= findViewById(R.id.ListView_activityQaContacts);
         listViewContacts.setAdapter(adapterContact);
-        floatingActionsMenu_buttom= findViewById(R.id.GroupButton_FloatingButton_activityQaContacts);
-        listViewContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-        });
+        //botón para agregar contacto
+        floatingActionsMenu_buttom= findViewById(R.id.GroupButton_FloatingButton_activityQaContacts);
 
         floatingActionsMenu_buttom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +72,7 @@ public class qa_contacts extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            contactData = new Contact_data(firstName.getText().toString()
+                            contactData = new Model_Contact_data(firstName.getText().toString()
                                     ,lastName.getText().toString()
                                     ,nickName.getText().toString()
                                     ,phoneNumber.getText().toString());

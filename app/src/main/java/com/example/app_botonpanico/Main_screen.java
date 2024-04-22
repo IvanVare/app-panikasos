@@ -16,14 +16,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Main_screen extends AppCompatActivity {
 
-    ProgressBar progressBarMs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_screen);
-        progressBarMs=findViewById(R.id.progressBar_ActiviyMainScreen);
-        progressBarMs.setVisibility(View.VISIBLE);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -40,7 +38,7 @@ public class Main_screen extends AppCompatActivity {
                     finish();
                 }
             }
-        },2000);
+        },3000);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

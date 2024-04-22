@@ -5,7 +5,11 @@
     <permission
         android:name="com.example.usuario.googlemapatest.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
+    <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="com.example.usuario.googlemapstest.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE EXTERNAL_STORAGE" />
@@ -39,7 +43,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAg4AZWPMCqGoQt_rzjvKDDLF9OEWR1IvA" />
+            android:value="AIzaSyA54K14ONuyX_gk4fHp6TEBKbXnOZFvA8I" />
 
         <activity
             android:name=".contacts.Controller_qa_contact"
@@ -54,7 +58,7 @@
             android:name=".qa_panic_button"
             android:exported="false" />
         <activity
-            android:name=".insert_new_password.insert_new_password"
+            android:name=".insert_new_password.Controller_insert_new_password"
             android:exported="false" />
         <activity
             android:name=".reset_password"

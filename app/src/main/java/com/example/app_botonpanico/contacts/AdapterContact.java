@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +21,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.qa_contacts;
 
 import java.util.ArrayList;
 
 public class AdapterContact extends BaseAdapter {
-    ArrayList<Contact_data> list;
+    ArrayList<Model_Contact_data> list;
     daoContact daoContact;
-    Contact_data contactData;
+    Model_Contact_data contactData;
     Activity activity;
 
     public int getId() {
@@ -38,12 +40,11 @@ public class AdapterContact extends BaseAdapter {
 
     int id=0;
 
-    public AdapterContact(Activity activity,ArrayList<Contact_data> list, daoContact daoContact) {
+    public AdapterContact(Activity activity, ArrayList<Model_Contact_data> list, daoContact daoContact) {
         this.list = list;
         this.activity = activity;
         this.daoContact = daoContact;
     }
-
     @Override
     public int getCount() {
         if (list != null) {
@@ -93,6 +94,11 @@ public class AdapterContact extends BaseAdapter {
                 Dialog dialog= new Dialog(activity);dialog.setTitle("Editar registro");dialog.setCancelable(true);
                 dialog.setContentView(R.layout.activity_qa_contact);
                 dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
+                dialog.getWindow().setGravity(Gravity.BOTTOM);
+
                 final EditText firstName = dialog.findViewById(R.id.firstName_activityQaContact);
                 final EditText lastName = dialog.findViewById(R.id.lastName_activityQaContact);
                 final EditText nickName = dialog.findViewById(R.id.nickName_activityQaContact);
@@ -109,7 +115,8 @@ public class AdapterContact extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             try {
-                                contactData = new Contact_data(getId(),firstName.getText().toString()
+                                contactData = new Model_Contact_data(getId()
+                                        ,firstName.getText().toString()
                                         ,lastName.getText().toString()
                                         ,nickName.getText().toString()
                                         ,phoneNumber.getText().toString());
@@ -140,7 +147,6 @@ public class AdapterContact extends BaseAdapter {
                 deleteAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
                 deleteAlert.show();

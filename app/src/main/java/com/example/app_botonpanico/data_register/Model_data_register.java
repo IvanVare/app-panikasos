@@ -14,8 +14,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.app_botonpanico.sign_in.Controller_sign_in_user;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
+import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Model_data_register {
 
@@ -27,7 +32,7 @@ public class Model_data_register {
         this.panicButtomConfig = new PanicButtomConfig();
     }
 
-    public void Register_User(String firstName,String lastName,String phoneNumber,String age, String password){
+    public void register_User(String firstName,String lastName,String phoneNumber,String age, String password){
         String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/register_user.php";
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
@@ -43,6 +48,8 @@ public class Model_data_register {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error: "+volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println("Error: "+volleyError.getMessage());
             }
         }) {
             @Override
@@ -61,4 +68,21 @@ public class Model_data_register {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
     }
+
+    /*private String encryptPassword(String data,String password) throws Exception{
+        SecretKeySpec secretKeySpec = generateKey(password);
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+        byte[] encryptDataBytes = cipher.doFinal(data.getBytes());
+        String encryptDataString = Base64.getEncoder().encodeToString(encryptDataBytes, Base64);
+    }
+
+    private SecretKeySpec generateKey(String password) throws Exception{
+        MessageDigest sha= MessageDigest.getInstance("SHA-256");
+        byte[] key = password.getBytes("UTF-8");
+        key=sha.digest(key);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
+        return secretKeySpec;
+    }*/
 }
+
