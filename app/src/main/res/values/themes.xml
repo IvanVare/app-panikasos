@@ -40,7 +40,4 @@
         <item name="android:windowExitAnimation">@anim/slide_out_buttom</item>
     </style>
 
-
-
-
 </resources>

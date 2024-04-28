@@ -22,6 +22,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.app_botonpanico.contacts.AdapterContact;
 import com.example.app_botonpanico.contacts.Model_Contact_data;
 import com.example.app_botonpanico.contacts.daoContact;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class qa_contacts extends AppCompatActivity {
     AdapterContact adapterContact;
     Model_Contact_data contactData;
     ArrayList<Model_Contact_data> list;
-    Button floatingActionsMenu_buttom;
+    FloatingActionButton floatingActionsMenu_buttom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

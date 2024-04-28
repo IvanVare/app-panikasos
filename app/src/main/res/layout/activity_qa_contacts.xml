@@ -75,10 +75,14 @@
 
     </FrameLayout>
 
-    <Button
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/GroupButton_FloatingButton_activityQaContacts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:fab_colorNormal="@color/FloatingButton"
+        app:fab_colorPressed="@color/PressFloatingButton"
+        app:fab_icon="@drawable/icon_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
