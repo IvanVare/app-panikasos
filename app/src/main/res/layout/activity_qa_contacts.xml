@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         app:fab_colorNormal="@color/FloatingButton"
         app:fab_colorPressed="@color/PressFloatingButton"
-        app:fab_icon="@drawable/icon_add"
+        app:fab_icon="@drawable/icon_add_user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

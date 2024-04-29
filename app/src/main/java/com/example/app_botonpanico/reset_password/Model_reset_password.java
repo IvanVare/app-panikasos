@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.sign_in;
+package com.example.app_botonpanico.reset_password;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_botonpanico.sign_in.CheckData;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
 import org.json.JSONArray;
@@ -19,26 +20,26 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Model_sign_in {
+public class Model_reset_password {
     private Context context;
     private PanicButtomConfig panicButtomConfig;
-    private CheckData checkData;
-    String phone_number, password;
-    String[] res = new String[5];
+    private CheckDataRP checkDataRP;
+    String phone_number;
 
-    public Model_sign_in(Context context) {
+    public Model_reset_password(Context context) {
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
+
     }
-    public Model_sign_in(String phone_number, String password,Context context, CheckData checkData) {
+    public Model_reset_password(String phone_number,Context context,CheckDataRP checkDataRP) {
         this.phone_number = phone_number;
-        this.password= password;
         this.context = context;
-        this.checkData = checkData;
         this.panicButtomConfig = new PanicButtomConfig();
+        this.checkDataRP = checkDataRP;
     }
-    public void validateUser() {
-        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/validate_user.php";
+
+    public void validatePhoneNumber(){
+        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/validate_phone_number_user.php";
         String phoneNumber = String.valueOf(getPhone_number());
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
@@ -48,7 +49,7 @@ public class Model_sign_in {
                     String exito = jsonObject.getString("exito");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     if (jsonArray.length() == 0){
-                        System.out.println("model_general_usuario -> login -> datos vacío");}
+                        System.out.println("model_generalUser -> login -> datos vacío");}
                     else{
                         if (exito.equals("1")){
                             JSONObject object = jsonArray.getJSONObject(0);
@@ -56,9 +57,8 @@ public class Model_sign_in {
                             String last_name = object.getString("last_name_user");
                             String phone_number = object.getString("phone_number_user");
                             String age = object.getString("age_user");
-                            String password = object.getString("password_user");
-                            String[] res = {first_name, last_name, phone_number, age,password};
-                            checkData.OnSuccess(password);
+                            String[] res = {first_name, last_name, phone_number, age};
+                            checkDataRP.CheckPhoneNumber(phone_number);
                         }
                     }
                 }catch (JSONException jsonException){
@@ -82,7 +82,6 @@ public class Model_sign_in {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
     }
-
 
     public String getPhone_number() {
         return phone_number;

@@ -17,9 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.data_register.Controller_data_register;
-import com.example.app_botonpanico.reset_password;
+import com.example.app_botonpanico.qa_main_menu;
+import com.example.app_botonpanico.reset_password.Controller_reset_password;
+import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
-public class Controller_sign_in_user extends AppCompatActivity {
+public class Controller_sign_in_user extends AppCompatActivity implements CheckData {
 
     EditText InputPhoneNumber, InputPassword;
     Button ForgotPasswordButton, SignInButtonToMenu, RegisterButtonToLogIn;
@@ -40,7 +42,7 @@ public class Controller_sign_in_user extends AppCompatActivity {
         ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_sign_in_user.this, reset_password.class);
+                Intent i = new Intent(Controller_sign_in_user.this, Controller_reset_password.class);
                 startActivity(i);
             }
         });
@@ -58,10 +60,9 @@ public class Controller_sign_in_user extends AppCompatActivity {
             public void onClick(View v) {
                 phonenumberString=InputPhoneNumber.getText().toString();
                 passwordString=InputPassword.getText().toString();
-
                 if (!phonenumberString.isEmpty() && !passwordString.isEmpty()){
-                    saveSesion();
-                    modelSignIn.validateUser(phonenumberString, passwordString);
+                    //saveSesion();
+                    Login(v);
                 }else {
                     Toast.makeText(Controller_sign_in_user.this,"Numero telefonico o contraseña incorrectos",Toast.LENGTH_SHORT).show();
                 }
@@ -75,6 +76,19 @@ public class Controller_sign_in_user extends AppCompatActivity {
         });
     }
 
+
+    public void Login(View view) {
+        phonenumberString=InputPhoneNumber.getText().toString();
+        passwordString=InputPassword.getText().toString();
+
+        if (!phonenumberString.isEmpty() && !passwordString.isEmpty()){
+            //saveSesion();
+            Model_sign_in modelsignin = new Model_sign_in(phonenumberString, passwordString,this,this);
+            modelsignin.validateUser();
+        }else {
+            Toast.makeText(Controller_sign_in_user.this,"Numero telefonico o contraseña incorrectos",Toast.LENGTH_SHORT).show();
+        }
+    }
     private void saveSesion(){
         SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasLogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -88,5 +102,18 @@ public class Controller_sign_in_user extends AppCompatActivity {
         InputPhoneNumber.setText(sharedPreferences.getString("phone_number_user",""));
         InputPassword.setText(sharedPreferences.getString("password_user",""));
     }
-
+    @Override
+    public void OnSuccess(String data){
+        EncryptAndDesencrypt encryptAndDesencrypt = new EncryptAndDesencrypt();
+        try {
+            if (passwordString.equals(encryptAndDesencrypt.decrypt(data))){
+                Intent IntentToMainMenu = new Intent(this, qa_main_menu.class);
+                startActivity(IntentToMainMenu);
+            } else {
+                Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

@@ -61,7 +61,7 @@
             android:name=".insert_new_password.Controller_insert_new_password"
             android:exported="false" />
         <activity
-            android:name=".reset_password"
+            android:name=".reset_password.Controller_reset_password"
             android:exported="false" />
         <activity
             android:name=".qa_main_menu"

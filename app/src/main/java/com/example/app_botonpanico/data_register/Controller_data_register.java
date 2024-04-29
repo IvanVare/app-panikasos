@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.sign_in.Model_sign_in;
+import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
 public class Controller_data_register extends AppCompatActivity {
 
@@ -33,10 +33,18 @@ public class Controller_data_register extends AppCompatActivity {
         InputConfirmPassword=findViewById(R.id.InputConfirmPassword_activityData_register);
         DataRegisterButtom=findViewById(R.id.Register_button_activityData_register);
         Model_data_register modelDataRegister = new Model_data_register(this);
+        EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();
         DataRegisterButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modelDataRegister.register_User(InputFirstName.getText().toString(),InputLastName.getText().toString(),InputPhoneNumber.getText().toString(),InputAge.getText().toString(),InputPassword.getText().toString());
+                String encryptPassword = "";
+                encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
+                modelDataRegister.registerUser(
+                        InputFirstName.getText().toString()
+                        ,InputLastName.getText().toString()
+                        ,InputPhoneNumber.getText().toString()
+                        ,InputAge.getText().toString()
+                        ,encryptPassword);
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
