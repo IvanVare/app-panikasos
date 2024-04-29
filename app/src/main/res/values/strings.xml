@@ -13,4 +13,11 @@
     <string name="log_out">Cerrar sesion</string>
     <string name="option_contacts">Contactos</string>
     <string name="option_panicbuttom">Botón de pánico</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="verificar">Verificar coidgo</string>
 </resources>

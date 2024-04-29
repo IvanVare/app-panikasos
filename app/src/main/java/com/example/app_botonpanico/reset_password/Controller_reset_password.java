@@ -59,7 +59,8 @@ public class Controller_reset_password extends AppCompatActivity implements Chec
     public void CheckPhoneNumber(String phoneNumber){
         try {
             if (phoneNumber.equals(phonenumberString)){
-                Intent IntentToInsertNewPassword = new Intent(this, Controller_insert_new_password.class);
+                Intent IntentToInsertNewPassword = new Intent(this, reset_password_code.class);
+                IntentToInsertNewPassword.putExtra("mobile",phonenumberString);
                 startActivity(IntentToInsertNewPassword);
             } else {
                 Toast.makeText(this, "No está registrado ese numero", Toast.LENGTH_SHORT).show();
