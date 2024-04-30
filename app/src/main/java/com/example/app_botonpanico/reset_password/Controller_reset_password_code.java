@@ -3,8 +3,11 @@ package com.example.app_botonpanico.reset_password;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
 
-public class reset_password_code extends AppCompatActivity {
+public class Controller_reset_password_code extends AppCompatActivity {
 
     EditText editTextNumber_01, editTextNumber_02, editTextNumber_03, editTextNumber_04, editTextNumber_05, editTextNumber_06;
+    Button verifyCodeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,28 @@ public class reset_password_code extends AppCompatActivity {
         ));
 
         setupOtpInputs();
+
+        verifyCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextNumber_01.getText().toString().trim().isEmpty()
+                        ||editTextNumber_02.getText().toString().trim().isEmpty()
+                        ||editTextNumber_03.getText().toString().trim().isEmpty()
+                        ||editTextNumber_04.getText().toString().trim().isEmpty()
+                        ||editTextNumber_05.getText().toString().trim().isEmpty()
+                        ||editTextNumber_06.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Controller_reset_password_code.this,"Insertar codigo completo",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String code = editTextNumber_01.getText().toString().trim()
+                        +editTextNumber_02.getText().toString().trim()
+                        +editTextNumber_03.getText().toString().trim()
+                        +editTextNumber_04.getText().toString().trim()
+                        +editTextNumber_05.getText().toString().trim()
+                        +editTextNumber_06.getText().toString().trim();
+
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -30,7 +30,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
-            android:name=".reset_password.reset_password_code"
+            android:name=".reset_password.Controller_reset_password_code"
             android:exported="false"
             android:theme="@style/Theme.App_BotonPanico" />
         <activity

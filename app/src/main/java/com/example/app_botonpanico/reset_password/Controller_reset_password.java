@@ -14,17 +14,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.insert_new_password.Controller_insert_new_password;
-import com.example.app_botonpanico.qa_main_menu;
-import com.example.app_botonpanico.sign_in.Controller_sign_in_user;
-import com.example.app_botonpanico.sign_in.Model_sign_in;
-import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
 public class Controller_reset_password extends AppCompatActivity implements CheckDataRP{
 
     EditText InputPhoneNumber;
     Button SendCodeButton;
-    String phonenumberString;
+    String phonenumberString, otp, phoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +54,7 @@ public class Controller_reset_password extends AppCompatActivity implements Chec
     public void CheckPhoneNumber(String phoneNumber){
         try {
             if (phoneNumber.equals(phonenumberString)){
-                Intent IntentToInsertNewPassword = new Intent(this, reset_password_code.class);
+                Intent IntentToInsertNewPassword = new Intent(this, Controller_reset_password_code.class);
                 IntentToInsertNewPassword.putExtra("mobile",phonenumberString);
                 startActivity(IntentToInsertNewPassword);
             } else {
