@@ -15,7 +15,7 @@ public class daoContact {
     String DataBaseName = "DBContacts";
     //Creación de base de datos
     String table = "create table if not exists contact(id integer primary key autoincrement, " +
-            "first_name text, last_name text, nickname text, phone_number text)";
+            "first_name text, last_name text, nickname text, email text, phone_number text)";
 
     public daoContact(Context context) {
         this.context = context;
@@ -27,6 +27,7 @@ public class daoContact {
         contentValues.put("first_name", contactData.getFirst_name());
         contentValues.put("last_name", contactData.getLast_name());
         contentValues.put("nickname", contactData.getNickname());
+        contentValues.put("email", contactData.getEmail());
         contentValues.put("phone_number", contactData.getPhone_number());
         return (db.insert("contact",null,contentValues))>0;
     }
@@ -41,6 +42,7 @@ public class daoContact {
         contentValues.put("first_name", contactData.getFirst_name());
         contentValues.put("last_name", contactData.getLast_name());
         contentValues.put("nickname", contactData.getNickname());
+        contentValues.put("email", contactData.getEmail());
         contentValues.put("phone_number", contactData.getPhone_number());
         return (db.update("contact",contentValues,"id="+contactData.getId(),null))>0;
     }
@@ -54,7 +56,8 @@ public class daoContact {
             do {
                 list.add(new Model_Contact_data(cursor.getInt(0)
                         ,cursor.getString(0)
-                        ,cursor.getString(1)));
+                        ,cursor.getString(1)
+                        ,cursor.getString(2)));
             } while (cursor.moveToNext());
             cursor.close();
         }
@@ -72,7 +75,8 @@ public class daoContact {
                         ,cursor.getString(1)
                         ,cursor.getString(2)
                         ,cursor.getString(3)
-                        ,cursor.getString(4)));
+                        ,cursor.getString(4)
+                        ,cursor.getString(5)));
             }while (cursor.moveToNext());
         }
         return list;
@@ -85,7 +89,8 @@ public class daoContact {
                 ,cursor.getString(1)
                 ,cursor.getString(2)
                 ,cursor.getString(3)
-                ,cursor.getString(4));
+                ,cursor.getString(4)
+                ,cursor.getString(5));
 
         return contactData;
     }

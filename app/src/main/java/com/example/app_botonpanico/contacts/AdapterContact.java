@@ -77,12 +77,14 @@ public class AdapterContact extends BaseAdapter {
         TextView firstName=(TextView)view.findViewById(R.id.firstName_itemContact);
         TextView lastName=(TextView)view.findViewById(R.id.lastName_itemContact);
         TextView nickName=(TextView)view.findViewById(R.id.nickName_itemContact);
+        TextView email=(TextView)view.findViewById(R.id.email_itemContact);
         TextView phoneNumber=(TextView)view.findViewById(R.id.phoneNumber_itemContact);
         ImageButton editButtom=(ImageButton) view.findViewById(R.id.editButtom_itemContact);
         ImageButton deleteButtom=(ImageButton) view.findViewById(R.id.deleteButtom_itemContact);
         firstName.setText(contactData.getFirst_name());
         lastName.setText(contactData.getLast_name());
         nickName.setText(contactData.getNickname());
+        email.setText(contactData.getEmail());
         phoneNumber.setText(contactData.getPhone_number());
         editButtom.setTag(posicion);
         deleteButtom.setTag(posicion);
@@ -102,6 +104,7 @@ public class AdapterContact extends BaseAdapter {
                 final EditText firstName = dialog.findViewById(R.id.firstName_activityQaContact);
                 final EditText lastName = dialog.findViewById(R.id.lastName_activityQaContact);
                 final EditText nickName = dialog.findViewById(R.id.nickName_activityQaContact);
+                final EditText email = dialog.findViewById(R.id.email_activityQaContact);
                 final EditText phoneNumber = dialog.findViewById(R.id.phoneNumber_activityQaContact);
                 Button saveButtom = dialog.findViewById(R.id.Save_Buttom_activityQaContact);
                 Button cancelButtom = dialog.findViewById(R.id.Cancel_Buttom_activityQaContact);
@@ -110,6 +113,7 @@ public class AdapterContact extends BaseAdapter {
                 firstName.setText(contactData.getFirst_name());
                 lastName.setText(contactData.getLast_name());
                 nickName.setText(contactData.getNickname());
+                email.setText(contactData.getEmail());
                 phoneNumber.setText(contactData.getPhone_number());
                     saveButtom.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -119,6 +123,7 @@ public class AdapterContact extends BaseAdapter {
                                         ,firstName.getText().toString()
                                         ,lastName.getText().toString()
                                         ,nickName.getText().toString()
+                                        ,email.getText().toString()
                                         ,phoneNumber.getText().toString());
                                 daoContact.update(contactData);
                                 list=daoContact.getAll();

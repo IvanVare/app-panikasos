@@ -69,6 +69,13 @@
                 android:text="Name" />
 
             <EditText
+                android:id="@+id/email_activityQaContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+
+            <EditText
                 android:id="@+id/phoneNumber_activityQaContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

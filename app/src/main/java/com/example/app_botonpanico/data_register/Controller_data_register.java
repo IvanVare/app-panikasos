@@ -17,7 +17,7 @@ import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
 public class Controller_data_register extends AppCompatActivity {
 
-    EditText InputFirstName,InputLastName,InputPhoneNumber,InputAge, InputPassword, InputConfirmPassword;
+    EditText InputFirstName,InputLastName,InputEmail,InputPhoneNumber,InputAge, InputPassword, InputConfirmPassword;
     Button DataRegisterButtom;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -27,6 +27,7 @@ public class Controller_data_register extends AppCompatActivity {
         setContentView(R.layout.activity_data_register);
         InputFirstName=findViewById(R.id.InputFirstName_activityData_register);
         InputLastName=findViewById(R.id.InputLastName_activityData_register);
+        InputEmail = findViewById(R.id.InputEmail_activityData_register);
         InputPhoneNumber=findViewById(R.id.InputPhoneNumber_activityData_register);
         InputAge=findViewById(R.id.InputAge_activityData_register);
         InputPassword=findViewById(R.id.InputPassword_activityData_register);
@@ -42,6 +43,7 @@ public class Controller_data_register extends AppCompatActivity {
                 modelDataRegister.registerUser(
                         InputFirstName.getText().toString()
                         ,InputLastName.getText().toString()
+                        ,InputEmail.getText().toString()
                         ,InputPhoneNumber.getText().toString()
                         ,InputAge.getText().toString()
                         ,encryptPassword);

@@ -65,6 +65,7 @@ public class qa_contacts extends AppCompatActivity {
                 final EditText firstName = dialog.findViewById(R.id.firstName_activityQaContact);
                 final EditText lastName = dialog.findViewById(R.id.lastName_activityQaContact);
                 final EditText nickName = dialog.findViewById(R.id.nickName_activityQaContact);
+                final EditText email = dialog.findViewById(R.id.email_activityQaContact);
                 final EditText phoneNumber = dialog.findViewById(R.id.phoneNumber_activityQaContact);
                 Button saveButtom = dialog.findViewById(R.id.Save_Buttom_activityQaContact);
                 Button cancelButtom = dialog.findViewById(R.id.Cancel_Buttom_activityQaContact);
@@ -76,6 +77,7 @@ public class qa_contacts extends AppCompatActivity {
                             contactData = new Model_Contact_data(firstName.getText().toString()
                                     ,lastName.getText().toString()
                                     ,nickName.getText().toString()
+                                    ,email.getText().toString()
                                     ,phoneNumber.getText().toString());
                             daoContact.insert(contactData);
                             list=daoContact.getAll();

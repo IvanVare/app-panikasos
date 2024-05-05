@@ -24,23 +24,33 @@ public class Model_reset_password {
     private Context context;
     private PanicButtomConfig panicButtomConfig;
     private CheckDataRP checkDataRP;
-    String phone_number;
+    String email,codeVerification;
 
     public Model_reset_password(Context context) {
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
 
     }
-    public Model_reset_password(String phone_number,Context context,CheckDataRP checkDataRP) {
-        this.phone_number = phone_number;
+
+    public Model_reset_password(String email,Context context,CheckDataRP checkDataRP) {
+        this.email = email;
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
         this.checkDataRP = checkDataRP;
     }
 
-    public void validatePhoneNumber(){
-        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/validate_phone_number_user.php";
-        String phoneNumber = String.valueOf(getPhone_number());
+    public Model_reset_password(String email,String codeVerification,Context context,CheckDataRP checkDataRP) {
+        this.codeVerification = codeVerification;
+        this.email = email;
+        this.context = context;
+        this.panicButtomConfig = new PanicButtomConfig();
+        this.checkDataRP = checkDataRP;
+    }
+
+
+    public void validateEmail(){
+        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/validate_email.php";
+        String email = String.valueOf(getEmail());
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -55,10 +65,11 @@ public class Model_reset_password {
                             JSONObject object = jsonArray.getJSONObject(0);
                             String first_name = object.getString("first_name_user");
                             String last_name = object.getString("last_name_user");
+                            String email = object.getString("email_user");
                             String phone_number = object.getString("phone_number_user");
                             String age = object.getString("age_user");
-                            String[] res = {first_name, last_name, phone_number, age};
-                            checkDataRP.CheckPhoneNumber(phone_number);
+                            String[] res = {first_name, last_name,email ,phone_number, age};
+                            checkDataRP.checkMyEmail(email);
                         }
                     }
                 }catch (JSONException jsonException){
@@ -74,7 +85,7 @@ public class Model_reset_password {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("phone_number_user", phoneNumber);
+                params.put("email_user", email);
                 return params;
             }
         };
@@ -83,11 +94,60 @@ public class Model_reset_password {
         requestQueue.add(request);
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public void sendEmailCode(){
+        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/mail_reset_password_user.php";
+        String email = String.valueOf(getEmail());
+        String codeVerification = String.valueOf(getCodeVerification());
+        StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String exito = jsonObject.getString("exito");
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    if (jsonArray.length() == 0){
+                        System.out.println("model_generalUser -> sendCode -> datos vacío");}
+                    else{
+                        if (exito.equals("1")){
+                            System.out.println("Datos existentes");
+                        }
+                    }
+                }catch (JSONException jsonException){
+                    System.out.println(jsonException);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email_user", email);
+                params.put("codeverification",codeVerification);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public String getCodeVerification() {
+        return codeVerification;
+    }
+
+    public void setCodeVerification(String codeVerification) {
+        this.codeVerification = codeVerification;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

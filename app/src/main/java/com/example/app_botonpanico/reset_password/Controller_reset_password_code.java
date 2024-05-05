@@ -26,6 +26,7 @@ public class Controller_reset_password_code extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reset_password_code);
+        verifyCodeButton=findViewById(R.id.VerifyCode_button_activityResetpasswordCode);
 
         TextView textViewMobile= findViewById(R.id.TextView_activityResetpasswordCode);
         editTextNumber_01=findViewById(R.id.editTextNumber_01_activityResetpasswordCode);
@@ -35,8 +36,7 @@ public class Controller_reset_password_code extends AppCompatActivity {
         editTextNumber_05=findViewById(R.id.editTextNumber_05_activityResetpasswordCode);
         editTextNumber_06=findViewById(R.id.editTextNumber_06_activityResetpasswordCode);
 
-        textViewMobile.setText(String.format(
-                "+51-%s",getIntent().getStringExtra("mobile")
+        textViewMobile.setText(String.format("correo",getIntent().getStringExtra("email")
         ));
 
         setupOtpInputs();
@@ -44,22 +44,14 @@ public class Controller_reset_password_code extends AppCompatActivity {
         verifyCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextNumber_01.getText().toString().trim().isEmpty()
-                        ||editTextNumber_02.getText().toString().trim().isEmpty()
-                        ||editTextNumber_03.getText().toString().trim().isEmpty()
-                        ||editTextNumber_04.getText().toString().trim().isEmpty()
-                        ||editTextNumber_05.getText().toString().trim().isEmpty()
-                        ||editTextNumber_06.getText().toString().trim().isEmpty()){
+                if(isAnyFieldEmpty()){
                     Toast.makeText(Controller_reset_password_code.this,"Insertar codigo completo",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String code = editTextNumber_01.getText().toString().trim()
-                        +editTextNumber_02.getText().toString().trim()
-                        +editTextNumber_03.getText().toString().trim()
-                        +editTextNumber_04.getText().toString().trim()
-                        +editTextNumber_05.getText().toString().trim()
-                        +editTextNumber_06.getText().toString().trim();
 
+                }else {
+                    String code = getCodeFromFields();
+                    Toast.makeText(Controller_reset_password_code.this,code,Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -186,5 +178,23 @@ public class Controller_reset_password_code extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean isAnyFieldEmpty() {
+        return editTextNumber_01.getText().toString().trim().isEmpty()
+                || editTextNumber_02.getText().toString().trim().isEmpty()
+                || editTextNumber_03.getText().toString().trim().isEmpty()
+                || editTextNumber_04.getText().toString().trim().isEmpty()
+                || editTextNumber_05.getText().toString().trim().isEmpty()
+                || editTextNumber_06.getText().toString().trim().isEmpty();
+    }
+
+    private String getCodeFromFields() {
+        return editTextNumber_01.getText().toString().trim()
+                + editTextNumber_02.getText().toString().trim()
+                + editTextNumber_03.getText().toString().trim()
+                + editTextNumber_04.getText().toString().trim()
+                + editTextNumber_05.getText().toString().trim()
+                + editTextNumber_06.getText().toString().trim();
     }
 }

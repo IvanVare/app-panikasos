@@ -27,7 +27,7 @@ public class Model_data_register {
         this.panicButtomConfig = new PanicButtomConfig();
     }
 
-    public void registerUser(String firstName, String lastName, String phoneNumber, String age, String password){
+    public void registerUser(String firstName, String lastName,String email, String phoneNumber, String age, String password){
         String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/register_user.php";
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
@@ -53,6 +53,7 @@ public class Model_data_register {
                 Map<String, String> params = new HashMap<>();
                 params.put("first_name_user",firstName);
                 params.put("last_name_user",lastName);
+                params.put("email_user",email);
                 params.put("phone_number_user", phoneNumber);
                 params.put("age_user",age);
                 params.put("password_user", password);

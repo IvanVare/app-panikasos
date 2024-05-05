@@ -43,7 +43,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:paddingHorizontal="15dp"
-                        android:paddingVertical="10dp"
+
                         android:orientation="vertical">
 
                         <TextView
@@ -68,11 +68,18 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/email_itemContact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="12sp" />
+                        <TextView
                             android:id="@+id/phoneNumber_itemContact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="No. Telefonico"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout

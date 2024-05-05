@@ -118,6 +118,24 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/separation_of_ET_log_in"
+                        android:hint="Correo electrónico"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxBackgroundMode="outline">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/InputEmail_activityData_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_input"
+                            android:inputType="textEmailAddress"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
                         android:hint="Número teléfonico"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxCornerRadiusTopEnd="10dp"
@@ -130,6 +148,7 @@
                             android:textSize="@dimen/text_size_input"
                             android:inputType="phone"/>
                     </com.google.android.material.textfield.TextInputLayout>
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
