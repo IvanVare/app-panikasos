@@ -10,7 +10,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.app_botonpanico.sign_in.CheckData;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
 import org.json.JSONArray;
@@ -23,7 +22,7 @@ import java.util.Map;
 public class Model_reset_password {
     private Context context;
     private PanicButtomConfig panicButtomConfig;
-    private CheckDataRP checkDataRP;
+    private ResetPasswordCallback resetPasswordCallback;
     String email,codeVerification;
 
     public Model_reset_password(Context context) {
@@ -32,19 +31,19 @@ public class Model_reset_password {
 
     }
 
-    public Model_reset_password(String email,Context context,CheckDataRP checkDataRP) {
+    public Model_reset_password(String email, Context context, ResetPasswordCallback resetPasswordCallback) {
         this.email = email;
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
-        this.checkDataRP = checkDataRP;
+        this.resetPasswordCallback = resetPasswordCallback;
     }
 
-    public Model_reset_password(String email,String codeVerification,Context context,CheckDataRP checkDataRP) {
+    public Model_reset_password(String email, String codeVerification, Context context, ResetPasswordCallback resetPasswordCallback) {
         this.codeVerification = codeVerification;
         this.email = email;
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
-        this.checkDataRP = checkDataRP;
+        this.resetPasswordCallback = resetPasswordCallback;
     }
 
 
@@ -69,7 +68,7 @@ public class Model_reset_password {
                             String phone_number = object.getString("phone_number_user");
                             String age = object.getString("age_user");
                             String[] res = {first_name, last_name,email ,phone_number, age};
-                            checkDataRP.checkMyEmail(email);
+                            resetPasswordCallback.checkMyEmail(email);
                         }
                     }
                 }catch (JSONException jsonException){

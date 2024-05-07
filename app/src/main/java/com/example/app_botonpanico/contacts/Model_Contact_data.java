@@ -30,9 +30,17 @@ public class Model_Contact_data {
         this.phone_number = phone_number;
     }
 
-    public Model_Contact_data(int id, String first_name,String email,String phone_number) {
+    public Model_Contact_data(int id, String first_name,String phone_number) {
         this.id = id;
         this.first_name = first_name;
+        this.email = email;
+        this.phone_number = phone_number;
+    }
+
+    public Model_Contact_data(String first_name,String last_name, String email,String phone_number) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
         this.phone_number = phone_number;
     }

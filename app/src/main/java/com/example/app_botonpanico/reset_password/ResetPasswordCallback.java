@@ -1,6 +1,6 @@
 package com.example.app_botonpanico.reset_password;
 
-public interface CheckDataRP {
+public interface ResetPasswordCallback {
 
     void checkMyEmail(String email);
 

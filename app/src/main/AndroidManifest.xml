@@ -55,13 +55,13 @@
             android:name=".contacts.Controller_qa_contact"
             android:exported="false" />
         <activity
-            android:name=".qa_contacts"
+            android:name=".contacts.Controller_qa_contacts"
             android:exported="false" />
         <activity
-            android:name=".qa_map"
+            android:name=".gmaps.Controller_qa_map"
             android:exported="false" />
         <activity
-            android:name=".qa_panic_button"
+            android:name=".gmaps.Controller_qa_panic_button"
             android:exported="false" />
         <activity
             android:name=".insert_new_password.Controller_insert_new_password"

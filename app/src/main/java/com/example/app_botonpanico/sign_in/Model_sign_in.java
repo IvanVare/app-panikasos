@@ -22,7 +22,7 @@ import java.util.Map;
 public class Model_sign_in {
     private Context context;
     private PanicButtomConfig panicButtomConfig;
-    private CheckData checkData;
+    private SigninCallback signinCallback;
     String phone_number, password;
     String[] res = new String[5];
 
@@ -30,11 +30,11 @@ public class Model_sign_in {
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
     }
-    public Model_sign_in(String phone_number, String password,Context context, CheckData checkData) {
+    public Model_sign_in(String phone_number, String password,Context context, SigninCallback signinCallback) {
         this.phone_number = phone_number;
         this.password= password;
         this.context = context;
-        this.checkData = checkData;
+        this.signinCallback = signinCallback;
         this.panicButtomConfig = new PanicButtomConfig();
     }
     public void validateUser() {
@@ -57,8 +57,9 @@ public class Model_sign_in {
                             String phone_number = object.getString("phone_number_user");
                             String age = object.getString("age_user");
                             String password = object.getString("password_user");
-                            String[] res = {first_name, last_name, phone_number, age,password};
-                            checkData.OnSuccess(password);
+                            String email = object.getString("email_user");
+                            String[] res = {first_name, last_name, phone_number, age,password,email};
+                            signinCallback.OnSuccess(res);
                         }
                     }
                 }catch (JSONException jsonException){

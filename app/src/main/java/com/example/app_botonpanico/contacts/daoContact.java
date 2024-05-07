@@ -55,7 +55,6 @@ public class daoContact {
             cursor.moveToFirst();
             do {
                 list.add(new Model_Contact_data(cursor.getInt(0)
-                        ,cursor.getString(0)
                         ,cursor.getString(1)
                         ,cursor.getString(2)));
             } while (cursor.moveToNext());
@@ -63,6 +62,24 @@ public class daoContact {
         }
         return list;
     }
+
+    public ArrayList<Model_Contact_data> getAllByEmail() {
+        list.clear();
+        Cursor cursor = db.rawQuery("SELECT first_name,last_name, email, phone_number FROM contact", null);
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            do {
+                list.add(new Model_Contact_data(
+                        cursor.getString(0)
+                        ,cursor.getString(1)
+                        ,cursor.getString(2)
+                        ,cursor.getString(3)));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
+
 
     public ArrayList<Model_Contact_data> getAll(){
         list.clear();

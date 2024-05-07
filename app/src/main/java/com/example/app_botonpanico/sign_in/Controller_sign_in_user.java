@@ -21,7 +21,7 @@ import com.example.app_botonpanico.qa_main_menu;
 import com.example.app_botonpanico.reset_password.Controller_reset_password;
 import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
-public class Controller_sign_in_user extends AppCompatActivity implements CheckData {
+public class Controller_sign_in_user extends AppCompatActivity implements SigninCallback {
 
     EditText InputPhoneNumber, InputPassword;
     Button ForgotPasswordButton, SignInButtonToMenu, RegisterButtonToLogIn;
@@ -103,12 +103,17 @@ public class Controller_sign_in_user extends AppCompatActivity implements CheckD
         InputPassword.setText(sharedPreferences.getString("password_user",""));
     }
     @Override
-    public void OnSuccess(String data){
+    public void OnSuccess(String[] data){
         EncryptAndDesencrypt encryptAndDesencrypt = new EncryptAndDesencrypt();
         try {
-            if (passwordString.equals(encryptAndDesencrypt.decrypt(data))){
-                Intent IntentToMainMenu = new Intent(this, qa_main_menu.class);
-                startActivity(IntentToMainMenu);
+            if (passwordString.equals(encryptAndDesencrypt.decrypt(data[4]))){
+                Intent intentToMainMenu = new Intent(this, qa_main_menu.class);
+                intentToMainMenu.putExtra("first_name",data[0]);
+                intentToMainMenu.putExtra("last_name", data[1]);
+                intentToMainMenu.putExtra("phone_number", data[2]);
+                intentToMainMenu.putExtra("age", data[3]);
+                intentToMainMenu.putExtra("email", data[5]);
+                startActivity(intentToMainMenu);
             } else {
                 Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
             }

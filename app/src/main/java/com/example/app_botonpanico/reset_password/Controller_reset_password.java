@@ -23,13 +23,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.insert_new_password.Controller_insert_new_password;
-import com.example.app_botonpanico.qa_contacts;
 
-public class Controller_reset_password extends AppCompatActivity implements CheckDataRP{
-
-    //SmsBroadcast smsBroadcast;
-
-
+public class Controller_reset_password extends AppCompatActivity implements ResetPasswordCallback {
 
     EditText InputEmail;
     Button SendCodeButton;
@@ -247,20 +242,10 @@ public class Controller_reset_password extends AppCompatActivity implements Chec
         }
     }
 
-
-
     public String generateVerificationCode() {
         Random random = new Random();
         int code = 100000 + random.nextInt(900000);
         return String.valueOf(code);
     }
-
-
-    public void validateCode(){
-
-    }
-
-
-
 
 }

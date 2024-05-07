@@ -1,4 +1,4 @@
-package com.example.app_botonpanico;
+package com.example.app_botonpanico.gmaps;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_botonpanico.R;
+import com.example.app_botonpanico.qa_main_menu;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -26,17 +27,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.OnMapsSdkInitializedCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
+public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageButton mainMenuButtom;
     GoogleMap gOmap;
     FloatingActionsMenu floatingActionsMenu_group;
     FloatingActionButton fabButtonLayer, fabButtonFindMyLocation, fabButtonEmergencyButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
         mainMenuButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(qa_map.this,qa_main_menu.class);
+                Intent i = new Intent(Controller_qa_map.this, qa_main_menu.class);
                 finish();
             }
         });
@@ -67,22 +68,21 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
         fabButtonFindMyLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(qa_map.this);
-                if (ActivityCompat.checkSelfPermission(qa_map.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(qa_map.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(qa_map.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+                FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(Controller_qa_map.this);
+                if (ActivityCompat.checkSelfPermission(Controller_qa_map.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Controller_qa_map.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(Controller_qa_map.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
                 }
-                fusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(qa_map.this, new OnSuccessListener<Location>() {
+                fusedLocationClient.getLastLocation().addOnSuccessListener(Controller_qa_map.this, new OnSuccessListener<Location>() {
                             @Override
                             public void onSuccess(Location location) {
                                 if (location != null) {
                                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                                     gOmap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15)); // Zoom de 15 (puedes ajustar este valor según tus necesidades)
                                 } else {
-                                    Toast.makeText(qa_map.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Controller_qa_map.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
                                 }
                             }
-                        });
+                });
             }
         });
 
@@ -101,8 +101,7 @@ public class qa_map extends AppCompatActivity implements OnMapReadyCallback {
         }
         gOmap.setMyLocationEnabled(true);
         gOmap.getUiSettings().setMyLocationButtonEnabled(false);
-        gOmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(qa_map.this,R.raw.map_style));
+        gOmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Controller_qa_map.this,R.raw.map_style));
     }
-
 
 }

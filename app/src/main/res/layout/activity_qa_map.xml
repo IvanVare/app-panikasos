@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackGround_screen_menu"
-    tools:context=".qa_map">
+    tools:context=".gmaps.Controller_qa_map">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/linearLayout"

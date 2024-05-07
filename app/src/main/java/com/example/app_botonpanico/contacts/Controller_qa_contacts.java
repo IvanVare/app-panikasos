@@ -1,4 +1,4 @@
-package com.example.app_botonpanico;
+package com.example.app_botonpanico.contacts;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,14 +18,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.contacts.AdapterContact;
-import com.example.app_botonpanico.contacts.Model_Contact_data;
-import com.example.app_botonpanico.contacts.daoContact;
+import com.example.app_botonpanico.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class qa_contacts extends AppCompatActivity {
+public class Controller_qa_contacts extends AppCompatActivity {
     daoContact daoContact;
     AdapterContact adapterContact;
     Model_Contact_data contactData;
@@ -51,7 +48,7 @@ public class qa_contacts extends AppCompatActivity {
         floatingActionsMenu_buttom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog= new Dialog(qa_contacts.this);
+                Dialog dialog= new Dialog(Controller_qa_contacts.this);
                 dialog.setTitle("Nuevo registro");
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.activity_qa_contact);
