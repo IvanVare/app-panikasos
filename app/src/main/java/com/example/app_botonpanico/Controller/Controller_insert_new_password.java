@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.insert_new_password;
+package com.example.app_botonpanico.Controller;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
+import com.example.app_botonpanico.Model.Model_insert_new_password;
 import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
 public class Controller_insert_new_password extends AppCompatActivity {
@@ -35,10 +36,11 @@ public class Controller_insert_new_password extends AppCompatActivity {
         ResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (InputNewPassword.getText().toString().equals(ConfirmInsertNewPassword.getText().toString())){
+                if (validateDataPassword()){
                     String encryptPassword = "";
                     encryptPassword = encryptAndDesencrypt.encrypt(InputNewPassword.getText().toString());
                     modelInsertNewPassword.resetPassword(email,encryptPassword);
+                    finish();
                 }
             }
         });
@@ -49,5 +51,46 @@ public class Controller_insert_new_password extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+
+    private boolean validateDataPassword() {
+        boolean[] result = {validatePassword(),validatePasswordConfirm()};
+        for (boolean isValid : result) {
+            if (!isValid) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean validatePassword() {
+        String newPassword = InputNewPassword.getText().toString();
+        if (newPassword.isEmpty()) {
+            InputNewPassword.setError("Campo vacío");
+            return false;
+        } else if (newPassword.length() < 6 ) {
+            InputNewPassword.setError("Ingrese una contraseña más segura");
+            return false;
+        } else {
+            InputNewPassword.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePasswordConfirm() {
+        String newPassword = InputNewPassword.getText().toString();
+        String newPasswordConfirm = ConfirmInsertNewPassword.getText().toString();
+        if (newPasswordConfirm.isEmpty()) {
+            ConfirmInsertNewPassword.setError("Campo vacío");
+            return false;
+        } else if (!newPassword.equals(newPasswordConfirm)) {
+            ConfirmInsertNewPassword.setError("La contraseña no coincide");
+            return false;
+        } else {
+            ConfirmInsertNewPassword.setError(null);
+            return true;
+        }
     }
 }

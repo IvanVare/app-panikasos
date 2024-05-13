@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.sign_in;
+package com.example.app_botonpanico.Model;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_botonpanico.Interface.SigninCallback;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
 import org.json.JSONArray;
@@ -69,7 +70,7 @@ public class Model_sign_in {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
+                signinCallback.OnFailure("Conexión perdida");
             }
         }) {
             @Override

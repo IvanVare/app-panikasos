@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.sign_in;
+package com.example.app_botonpanico.Controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.data_register.Controller_data_register;
-import com.example.app_botonpanico.qa_main_menu;
-import com.example.app_botonpanico.reset_password.Controller_reset_password;
+import com.example.app_botonpanico.Model.Model_sign_in;
+import com.example.app_botonpanico.Interface.SigninCallback;
 import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
 public class Controller_sign_in_user extends AppCompatActivity implements SigninCallback {
@@ -37,38 +36,31 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         RegisterButtonToLogIn=findViewById(R.id.Register_button_activitySign_in);
         InputPhoneNumber=findViewById(R.id.InputPhoneNumber_activitySign_in);
         InputPassword=findViewById(R.id.InputPassword_activitySign_in);
-        Model_sign_in modelSignIn = new Model_sign_in(this);
         returnpreferences();
         ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_sign_in_user.this, Controller_reset_password.class);
-                startActivity(i);
+                Intent intentToResetPassword = new Intent(Controller_sign_in_user.this, Controller_reset_password.class);
+                startActivity(intentToResetPassword);
             }
         });
 
         RegisterButtonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_sign_in_user.this, Controller_data_register.class);
-                startActivity(i);
+                Intent intentToDataRegister = new Intent(Controller_sign_in_user.this, Controller_data_register.class);
+                startActivity(intentToDataRegister);
             }
         });
 
         SignInButtonToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phonenumberString=InputPhoneNumber.getText().toString();
-                passwordString=InputPassword.getText().toString();
-                if (!phonenumberString.isEmpty() && !passwordString.isEmpty()){
-                    //saveSesion();
-                    Login(v);
-                }else {
-                    Toast.makeText(Controller_sign_in_user.this,"Numero telefonico o contraseña incorrectos",Toast.LENGTH_SHORT).show();
+                if (validateDataSignin()){
+                    Signin(v);
                 }
             }
         });
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -76,19 +68,46 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         });
     }
 
-
-    public void Login(View view) {
+    public void Signin(View view) {
         phonenumberString=InputPhoneNumber.getText().toString();
         passwordString=InputPassword.getText().toString();
 
         if (!phonenumberString.isEmpty() && !passwordString.isEmpty()){
-            //saveSesion();
             Model_sign_in modelsignin = new Model_sign_in(phonenumberString, passwordString,this,this);
             modelsignin.validateUser();
+            saveSesion();
         }else {
             Toast.makeText(Controller_sign_in_user.this,"Numero telefonico o contraseña incorrectos",Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    public void OnSuccess(String[] data){
+        EncryptAndDesencrypt encryptAndDesencrypt = new EncryptAndDesencrypt();
+        try {
+            if (passwordString.equals(encryptAndDesencrypt.decrypt(data[4]))){
+                Intent intentToMainMenu = new Intent(this, Controller_qa_main_menu.class);
+                intentToMainMenu.putExtra("first_name",data[0]);
+                intentToMainMenu.putExtra("last_name", data[1]);
+                intentToMainMenu.putExtra("phone_number", data[2]);
+                intentToMainMenu.putExtra("age", data[3]);
+                intentToMainMenu.putExtra("email", data[5]);
+                startActivity(intentToMainMenu);
+            } else {
+                Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    @Override
+    public void OnFailure(String error) {
+        try {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     private void saveSesion(){
         SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasLogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -102,23 +121,36 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         InputPhoneNumber.setText(sharedPreferences.getString("phone_number_user",""));
         InputPassword.setText(sharedPreferences.getString("password_user",""));
     }
-    @Override
-    public void OnSuccess(String[] data){
-        EncryptAndDesencrypt encryptAndDesencrypt = new EncryptAndDesencrypt();
-        try {
-            if (passwordString.equals(encryptAndDesencrypt.decrypt(data[4]))){
-                Intent intentToMainMenu = new Intent(this, qa_main_menu.class);
-                intentToMainMenu.putExtra("first_name",data[0]);
-                intentToMainMenu.putExtra("last_name", data[1]);
-                intentToMainMenu.putExtra("phone_number", data[2]);
-                intentToMainMenu.putExtra("age", data[3]);
-                intentToMainMenu.putExtra("email", data[5]);
-                startActivity(intentToMainMenu);
-            } else {
-                Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+    private boolean validateDataSignin() {
+        boolean[] result = { validatePhoneNumber(), validatePassword()};
+        for (boolean isValid : result) {
+            if (!isValid) {
+                return false;
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        }
+        return true;
+    }
+    private boolean validatePhoneNumber() {
+        String phoneNumber = InputPhoneNumber.getText().toString();
+        if (phoneNumber.isEmpty()) {
+            InputPhoneNumber.setError("Campo vacío");
+            return false;
+        } else if (!phoneNumber.matches("[0-9]+")) {
+            InputPhoneNumber.setError("Ingresa un número teléfonico valido");
+            return false;
+        } else {
+            InputPhoneNumber.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePassword() {
+        String password = InputPassword.getText().toString();
+        if (password.isEmpty()) {
+            InputPassword.setError("Campo vacío");
+            return false;
+        } else {
+            InputPassword.setError(null);
+            return true;
         }
     }
 }

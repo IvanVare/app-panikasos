@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.gmaps;
+package com.example.app_botonpanico.Controller;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.qa_main_menu;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -55,7 +54,7 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
         mainMenuButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_qa_map.this, qa_main_menu.class);
+                Intent i = new Intent(Controller_qa_map.this, Controller_qa_main_menu.class);
                 finish();
             }
         });
@@ -101,7 +100,7 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
         }
         gOmap.setMyLocationEnabled(true);
         gOmap.getUiSettings().setMyLocationButtonEnabled(false);
-        gOmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Controller_qa_map.this,R.raw.map_style));
+        gOmap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Controller_qa_map.this,R.raw.map_style_dark));
     }
 
 }

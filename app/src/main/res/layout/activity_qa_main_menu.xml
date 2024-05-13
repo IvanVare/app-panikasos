@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackGround_screen_menu"
-    tools:context=".qa_main_menu">
+    tools:context=".Controller.Controller_qa_main_menu">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/linearLayout2"

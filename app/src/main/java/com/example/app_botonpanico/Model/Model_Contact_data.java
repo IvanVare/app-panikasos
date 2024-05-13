@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.contacts;
+package com.example.app_botonpanico.Model;
 
 public class Model_Contact_data {
     int id;

@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.reset_password;
+package com.example.app_botonpanico.Controller;
 
 import android.os.Bundle;
 import android.text.Editable;

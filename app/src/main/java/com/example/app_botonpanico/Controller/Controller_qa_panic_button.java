@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.gmaps;
+package com.example.app_botonpanico.Controller;
 
 import android.Manifest;
 import android.content.Context;
@@ -6,14 +6,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,11 +20,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.contacts.Model_Contact_data;
-import com.example.app_botonpanico.contacts.daoContact;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
+import com.example.app_botonpanico.Model.Model_Contact_data;
+import com.example.app_botonpanico.Dao.daoContact;
+import com.example.app_botonpanico.Model.Model_send_message_coordinates;
 
 import java.util.ArrayList;
 

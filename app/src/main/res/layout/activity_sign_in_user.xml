@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bkgroud"
-    tools:context=".sign_in.Controller_sign_in_user">
+    tools:context=".Controller.Controller_sign_in_user">
 
         <FrameLayout
             android:layout_width="match_parent"

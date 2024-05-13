@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.reset_password;
+package com.example.app_botonpanico.Model;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_botonpanico.Interface.ResetPasswordCallback;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
 import org.json.JSONArray;
@@ -58,7 +59,9 @@ public class Model_reset_password {
                     String exito = jsonObject.getString("exito");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     if (jsonArray.length() == 0){
-                        System.out.println("model_generalUser -> login -> datos vacío");}
+                        System.out.println("model_generalUser -> login -> datos vacío");
+                        Toast.makeText(context, "Correo no registrado", Toast.LENGTH_SHORT).show();
+                    }
                     else{
                         if (exito.equals("1")){
                             JSONObject object = jsonArray.getJSONObject(0);
@@ -68,7 +71,7 @@ public class Model_reset_password {
                             String phone_number = object.getString("phone_number_user");
                             String age = object.getString("age_user");
                             String[] res = {first_name, last_name,email ,phone_number, age};
-                            resetPasswordCallback.checkMyEmail(email);
+                            resetPasswordCallback.OnSuccess(email);
                         }
                     }
                 }catch (JSONException jsonException){
@@ -78,7 +81,7 @@ public class Model_reset_password {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
+                resetPasswordCallback.OnFailure("Conexión perdida");
             }
         }) {
             @Override

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bkgroud"
-    tools:context=".data_register.Controller_data_register">
+    tools:context=".Controller.Controller_data_register">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -60,13 +60,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingHorizontal="15dp"
+                    android:paddingTop="15dp"
                     android:layout_gravity="center">
 
                     <ImageView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="35dp"
+                        android:layout_gravity="center"
+
                         android:background="@drawable/icon_user3_dark" />
 
                     <TextView
@@ -120,6 +121,8 @@
                         android:layout_marginTop="@dimen/separation_of_ET_log_in"
                         android:hint="Correo electrónico"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:errorEnabled="true"
+                        app:errorIconDrawable="@null"
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusTopStart="10dp"
                         app:boxBackgroundMode="outline">
@@ -195,7 +198,8 @@
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusTopStart="10dp"
                         android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        app:boxBackgroundMode="outline"
+                        app:errorEnabled="true"
+                        app:errorIconDrawable="@null"
                         app:endIconMode="password_toggle">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/InputConfirmPassword_activityData_register"

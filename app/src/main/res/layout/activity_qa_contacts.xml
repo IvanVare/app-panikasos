@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackGround_screen_menu"
-    tools:context=".contacts.Controller_qa_contacts">
+    tools:context=".Controller.Controller_qa_contacts">
 
     <FrameLayout
         android:id="@+id/frameLayout2"

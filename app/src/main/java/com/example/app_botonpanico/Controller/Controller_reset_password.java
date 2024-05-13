@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.reset_password;
+package com.example.app_botonpanico.Controller;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -18,11 +18,13 @@ import java.util.Random;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.util.PatternsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.insert_new_password.Controller_insert_new_password;
+import com.example.app_botonpanico.Model.Model_reset_password;
+import com.example.app_botonpanico.Interface.ResetPasswordCallback;
 
 public class Controller_reset_password extends AppCompatActivity implements ResetPasswordCallback {
 
@@ -34,14 +36,12 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reset_password);
-        //InputPhoneNumber=findViewById(R.id.InputPhoneNumber_activityResetPassword);
         InputEmail=findViewById(R.id.InputEmail_activityReset_Password);
         SendCodeButton=findViewById(R.id.SendCode_button_activityResetpassword);
         SendCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkEmail();
-
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -53,15 +53,13 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
     public void checkEmail(){
         emailString=InputEmail.getText().toString().trim();
-        if (!emailString.isEmpty()){
+        if (validateEmail()){
             Model_reset_password modelResetPassword = new Model_reset_password(emailString,this,this);
             modelResetPassword.validateEmail();
-        }else {
-            Toast.makeText(this,"Ingrese su email",Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void checkMyEmail(String email){
+    public void OnSuccess(String email){
         try {
             if (email.equals(emailString)){
 
@@ -201,7 +199,6 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     }
                 });
-
                 verifyCodeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -225,6 +222,7 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                                 Intent IntentToInsertNewPassword = new Intent(Controller_reset_password.this, Controller_insert_new_password.class);
                                 IntentToInsertNewPassword.putExtra("email",email);
                                 startActivity(IntentToInsertNewPassword);
+                                finish();
                             }else {
                                 Toast.makeText(Controller_reset_password.this,"Codigo incorrecto",Toast.LENGTH_SHORT).show();
 
@@ -235,8 +233,16 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                 });
 
             } else {
-                Toast.makeText(this, "No está registrado ese email", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Correo no registrado", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    @Override
+    public void OnFailure(String error) {
+        try {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -246,6 +252,20 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
         Random random = new Random();
         int code = 100000 + random.nextInt(900000);
         return String.valueOf(code);
+    }
+
+    private boolean validateEmail() {
+        String email = InputEmail.getText().toString();
+        if (email.isEmpty()) {
+            InputEmail.setError("Campo vacío");
+            return false;
+        } else if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
+            InputEmail.setError("Ingrese una dirección de correo valida");
+            return false;
+        } else {
+            InputEmail.setError(null);
+            return true;
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.gmaps;
+package com.example.app_botonpanico.Model;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -44,12 +44,10 @@ public class Model_send_message_coordinates {
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Exito")) {
+                if (response.toString().trim().equalsIgnoreCase("Exito")) {
                     Toast.makeText(context, "Exito", Toast.LENGTH_SHORT).show();
-
                 } else {
                     Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();
-                    //Revisar pq da esto aunque si se cambie
                 }
             }
         }, new Response.ErrorListener() {

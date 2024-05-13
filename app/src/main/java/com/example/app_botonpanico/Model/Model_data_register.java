@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.insert_new_password;
+package com.example.app_botonpanico.Model;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,32 +11,33 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.app_botonpanico.sign_in.Controller_sign_in_user;
+import com.example.app_botonpanico.Controller.Controller_sign_in_user;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Model_insert_new_password {
+public class Model_data_register {
 
     private Context context;
     private PanicButtomConfig panicButtomConfig;
-    public Model_insert_new_password(Context context) {
+
+    public Model_data_register(Context context) {
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
     }
 
-    public void resetPassword(String email,String password){
-        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/insert_new_password_user.php";
+    public void registerUser(String firstName, String lastName,String email, String phoneNumber, String age, String password){
+        String Url = panicButtomConfig.getServerPanicButtom()+"/ServidorPhp/user/register_user.php";
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Modificación exitosa")) {
-                    Toast.makeText(context, "Modificación hecha", Toast.LENGTH_SHORT).show();
-
+                if (response.equalsIgnoreCase("Registro exitoso")) {
+                    Toast.makeText(context, "Registro hecho", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, Controller_sign_in_user.class);
+                    context.startActivity(intent);
                 } else {
                     Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();
-                    //Revisar pq da esto aunque si se cambie
                 }
             }
         }, new Response.ErrorListener() {
@@ -50,8 +51,13 @@ public class Model_insert_new_password {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("first_name_user",firstName);
+                params.put("last_name_user",lastName);
                 params.put("email_user",email);
+                params.put("phone_number_user", phoneNumber);
+                params.put("age_user",age);
                 params.put("password_user", password);
+                params.put("status_user", "1");
                 return params;
             }
         };
@@ -60,5 +66,5 @@ public class Model_insert_new_password {
         requestQueue.add(request);
     }
 
-
 }
+

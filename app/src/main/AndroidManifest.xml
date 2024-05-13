@@ -31,14 +31,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
-            android:name=".reset_password.Controller_reset_password_code"
+            android:name=".Controller.Controller_reset_password_code"
             android:exported="false"
             android:theme="@style/Theme.App_BotonPanico" />
         <activity
             android:name=".item_contact"
             android:exported="false" />
         <activity
-            android:name=".Main_screen"
+            android:name=".Controller.Controller_Main_screen"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,34 +52,34 @@
             android:value="AIzaSyA54K14ONuyX_gk4fHp6TEBKbXnOZFvA8I" />
 
         <activity
-            android:name=".contacts.Controller_qa_contact"
+            android:name=".Controller_qa_contact"
             android:exported="false" />
         <activity
-            android:name=".contacts.Controller_qa_contacts"
+            android:name=".Controller.Controller_qa_contacts"
             android:exported="false" />
         <activity
-            android:name=".gmaps.Controller_qa_map"
+            android:name=".Controller.Controller_qa_map"
             android:exported="false" />
         <activity
-            android:name=".gmaps.Controller_qa_panic_button"
+            android:name=".Controller.Controller_qa_panic_button"
             android:exported="false" />
         <activity
-            android:name=".insert_new_password.Controller_insert_new_password"
+            android:name=".Controller.Controller_insert_new_password"
             android:exported="false" />
         <activity
-            android:name=".reset_password.Controller_reset_password"
+            android:name=".Controller.Controller_reset_password"
             android:exported="false" />
         <activity
-            android:name=".qa_main_menu"
+            android:name=".Controller.Controller_qa_main_menu"
             android:exported="false" />
         <activity
-            android:name=".data_register.Controller_data_register"
+            android:name=".Controller.Controller_data_register"
             android:exported="false" />
         <activity
-            android:name=".sign_in.Controller_sign_in_user"
+            android:name=".Controller.Controller_sign_in_user"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Controller.Controller_MainActivity"
             android:exported="false" />
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.app_botonpanico;
+package com.example.app_botonpanico.Controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.contacts.Controller_qa_contacts;
-import com.example.app_botonpanico.gmaps.Controller_qa_map;
-import com.example.app_botonpanico.gmaps.Controller_qa_panic_button;
+import com.example.app_botonpanico.R;
 
-public class qa_main_menu extends AppCompatActivity {
+public class Controller_qa_main_menu extends AppCompatActivity {
 
     Button ToMapButton, ToContactsButtom, ToPanicButtom;
     ImageButton LogOutButtom;
@@ -53,7 +51,7 @@ public class qa_main_menu extends AppCompatActivity {
         ToMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(qa_main_menu.this, Controller_qa_map.class);
+                Intent i = new Intent(Controller_qa_main_menu.this, Controller_qa_map.class);
                 startActivity(i);
             }
         });
@@ -61,7 +59,7 @@ public class qa_main_menu extends AppCompatActivity {
         ToContactsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(qa_main_menu.this, Controller_qa_contacts.class);
+                Intent i = new Intent(Controller_qa_main_menu.this, Controller_qa_contacts.class);
                 startActivity(i);
             }
         });
@@ -71,7 +69,7 @@ public class qa_main_menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intentToPanicButtom = new Intent(qa_main_menu.this, Controller_qa_panic_button.class);
+                Intent intentToPanicButtom = new Intent(Controller_qa_main_menu.this, Controller_qa_panic_button.class);
                 intentToPanicButtom.putExtra("first_name",first_name_IntentUser);
                 intentToPanicButtom.putExtra("last_name", last_name_IntentUser);
                 intentToPanicButtom.putExtra("phone_number", phone_number_IntentUser);
@@ -86,7 +84,7 @@ public class qa_main_menu extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasLogin", Context.MODE_PRIVATE);
                 sharedPreferences.edit().clear().commit();
-                Intent intent =new Intent(qa_main_menu.this,MainActivity.class);
+                Intent intent =new Intent(Controller_qa_main_menu.this, Controller_MainActivity.class);
                 startActivity(intent);
                 finish();
             }

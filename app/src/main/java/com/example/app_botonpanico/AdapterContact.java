@@ -1,4 +1,4 @@
-package com.example.app_botonpanico.contacts;
+package com.example.app_botonpanico;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,16 +19,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.PatternsCompat;
 
-import com.example.app_botonpanico.R;
+import com.example.app_botonpanico.Model.Model_Contact_data;
+import com.example.app_botonpanico.Dao.daoContact;
 
 import java.util.ArrayList;
 
 public class AdapterContact extends BaseAdapter {
     ArrayList<Model_Contact_data> list;
-    daoContact daoContact;
+    com.example.app_botonpanico.Dao.daoContact daoContact;
     Model_Contact_data contactData;
     Activity activity;
+    String firstNameContact,lastNameContact,nickNameContact,emailContact,phoneNumberContact;
+
 
     public int getId() {
         return id;
@@ -101,6 +105,7 @@ public class AdapterContact extends BaseAdapter {
                 dialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+                final TextView actionText = dialog.findViewById(R.id.ActionText_TextView_activityQaContact);
                 final EditText firstName = dialog.findViewById(R.id.firstName_activityQaContact);
                 final EditText lastName = dialog.findViewById(R.id.lastName_activityQaContact);
                 final EditText nickName = dialog.findViewById(R.id.nickName_activityQaContact);
@@ -110,6 +115,7 @@ public class AdapterContact extends BaseAdapter {
                 Button cancelButtom = dialog.findViewById(R.id.Cancel_Buttom_activityQaContact);
                 contactData=list.get(position);
                 setId(contactData.getId());
+                actionText.setText("Editar registro");
                 firstName.setText(contactData.getFirst_name());
                 lastName.setText(contactData.getLast_name());
                 nickName.setText(contactData.getNickname());
@@ -119,16 +125,27 @@ public class AdapterContact extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             try {
-                                contactData = new Model_Contact_data(getId()
-                                        ,firstName.getText().toString()
-                                        ,lastName.getText().toString()
-                                        ,nickName.getText().toString()
-                                        ,email.getText().toString()
-                                        ,phoneNumber.getText().toString());
-                                daoContact.update(contactData);
-                                list=daoContact.getAll();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
+
+
+                                firstNameContact=firstName.getText().toString().trim();
+                                lastNameContact=lastName.getText().toString().trim();
+                                nickNameContact=nickName.getText().toString().trim();
+                                emailContact=email.getText().toString().trim();
+                                phoneNumberContact=phoneNumber.getText().toString().trim();
+
+                                if (validateFirstName(firstNameContact,firstName) && validateLastName( lastNameContact, lastName)
+                                        && validateEmail( emailContact, email) && validatePhoneNumber(phoneNumberContact, phoneNumber)){
+                                    contactData = new Model_Contact_data(getId()
+                                            ,firstNameContact
+                                            ,lastNameContact
+                                            ,nickNameContact
+                                            ,emailContact
+                                            ,phoneNumberContact);
+                                    daoContact.update(contactData);
+                                    list=daoContact.getAll();
+                                    notifyDataSetChanged();
+                                    dialog.dismiss();
+                                }
                             }catch (Exception e){
                                 Toast.makeText(activity,"Error",Toast.LENGTH_SHORT).show();
                             }
@@ -175,5 +192,57 @@ public class AdapterContact extends BaseAdapter {
             }
         });
         return deleteAlert;
+    }
+
+    private boolean validateFirstName(String firstNameContact, EditText firstName) {
+        if (firstNameContact.isEmpty()) {
+            firstName.setError("Campo vacío");
+            return false;
+        } else if (firstNameContact.length() < 3 || !firstNameContact.matches("[\\p{L} ]+")) {
+            firstName.setError("Ingrese un nombre(s) valido(s)");
+            return false;
+        } else {
+            firstName.setError(null);
+            return true;
+        }
+    }
+    private boolean validateLastName(String lastNameContact, EditText lastName) {
+        if (lastNameContact.isEmpty()) {
+            lastName.setError("Campo vacío");
+            return false;
+        } else if (lastNameContact.length() < 3 || !lastNameContact.matches("[\\p{L} ]+")) {
+            lastName.setError("Ingrese un apellido(s) valido(s)");
+            return false;
+        } else {
+            lastName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateEmail(String emailContact, EditText email) {
+        if (emailContact.isEmpty()) {
+            email.setError("Campo vacío");
+            return false;
+        } else if (!PatternsCompat.EMAIL_ADDRESS.matcher(emailContact).matches()) {
+            email.setError("Ingrese una dirección de correo valida");
+            return false;
+        } else {
+            email.setError(null);
+            return true;
+        }
+    }
+
+
+    private boolean validatePhoneNumber(String phoneNumberContact,EditText phoneNumber) {
+        if (phoneNumberContact.isEmpty()) {
+            phoneNumber.setError("Campo vacío");
+            return false;
+        } else if (phoneNumberContact.length() < 6 || !phoneNumberContact.matches("[0-9]+")) {
+            phoneNumber.setError("Ingrese un número teléfonico valido");
+            return false;
+        } else {
+            phoneNumber.setError(null);
+            return true;
+        }
     }
 }
