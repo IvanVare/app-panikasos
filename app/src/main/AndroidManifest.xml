@@ -81,6 +81,9 @@
         <activity
             android:name=".Controller.Controller_MainActivity"
             android:exported="false" />
+        <service
+            android:name=".Service.Send_Message_Service"
+            android:exported="false"/>
     </application>
 
 </manifest>
