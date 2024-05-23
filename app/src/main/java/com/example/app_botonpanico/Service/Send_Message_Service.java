@@ -36,7 +36,7 @@ public class Send_Message_Service extends Service {
     private Handler handler;
     private Runnable runnable;
     private long startTime;
-    private static final long INTERVAL = 3000; //300000;  5 minutes in milliseconds
+    private static final long INTERVAL = 60000; //300000;  5 minutes in milliseconds
     private static final long DURATION = 3600000; // 1 hour in milliseconds
     private boolean isSending = false; // Control variable
     private boolean isServiceRunning = false;
@@ -54,14 +54,14 @@ public class Send_Message_Service extends Service {
             daoContact = new daoContact(this);
             listContacts=daoContact.getAllByEmail();
 
-            String firstName = intent.getStringExtra("first_name");
-            String lastName = intent.getStringExtra("last_name");
-            String phoneNumber = intent.getStringExtra("phone_number");
-            String email = intent.getStringExtra("email");
+            first_name_IntentUser = intent.getStringExtra("first_name");
+            last_name_IntentUser = intent.getStringExtra("last_name");
+            phone_number_IntentUser = intent.getStringExtra("phone_number");
+            email_IntentUser = intent.getStringExtra("email");
 
-            System.out.println(first_name_IntentUser+ " " + firstName);
+
             startTime= System.currentTimeMillis();
-            startSendingMessages(first_name_IntentUser);
+            startSendingMessages(first_name_IntentUser,last_name_IntentUser,phone_number_IntentUser,email_IntentUser);
             isSending = true;
         }else {
             stopSendingMessages();
@@ -75,7 +75,7 @@ public class Send_Message_Service extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-    private void startSendingMessages(String first_name_User ) {
+    private void startSendingMessages(String first_name_User,String last_name_User, String phone_number_User, String email_User ) {
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -85,8 +85,8 @@ public class Send_Message_Service extends Service {
                         if (coordinates != null) {
                             String latitudeStr = coordinates[0];
                             String longitudeStr = coordinates[1];
-                            //SendMessage(contact.getFirst_name(), contact.getLast_name(), contact.getEmail(), first_name_IntentUser, last_name_IntentUser, email_IntentUser, phone_number_IntentUser, latitudeStr, longitudeStr);
-                            System.out.println(first_name_User+" "+contact.getFirst_name()+" " +contact.getEmail() + " "+ latitudeStr+" "+longitudeStr);
+                            dataMessage(contact.getFirst_name(), contact.getLast_name(), contact.getEmail(), first_name_User, last_name_User, email_User, phone_number_User, latitudeStr, longitudeStr);
+                            //System.out.println(first_name_User+" "+contact.getFirst_name()+" " +contact.getEmail() + " "+ latitudeStr+" "+longitudeStr);
                         } else {
                             Toast.makeText(Send_Message_Service.this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
                         }
@@ -98,7 +98,7 @@ public class Send_Message_Service extends Service {
                 }
             }
         };
-        // Inicia la primera ejecución
+
         handler.post(runnable);
     }
     private void dataMessage(String firs_name_contact,String last_name_contact, String email_contact

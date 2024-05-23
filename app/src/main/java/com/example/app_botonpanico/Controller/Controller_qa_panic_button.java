@@ -95,6 +95,11 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         if (requestCode == 100) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent serviceIntent = new Intent(this, Send_Message_Service.class);
+                serviceIntent.putExtra("first_name", first_name_IntentUser);
+                serviceIntent.putExtra("last_name", last_name_IntentUser);
+                serviceIntent.putExtra("phone_number", phone_number_IntentUser);
+                serviceIntent.putExtra("email", email_IntentUser);
+
                 startService(serviceIntent);
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();

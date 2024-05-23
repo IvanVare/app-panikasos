@@ -70,6 +70,8 @@ public class Controller_Main_screen extends AppCompatActivity implements SigninC
     public void OnFailure(String error) {
         try {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            Intent intentSignalLost = new Intent(this, Controller_sign_in_user.class);
+            startActivity(intentSignalLost);
         } catch (Exception e) {
             System.out.println(e);
         }
