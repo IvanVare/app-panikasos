@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bkgroud"
-    tools:context=".Controller.Controller_data_register">
+    tools:context=".Controller.Controller_data_register_personaldata">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,14 +21,14 @@
 
 
         <Button
-            android:id="@+id/Register_button_activityData_register"
+            android:id="@+id/next_button_activityData_register_personaldata"
             style="@style/button_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="280dp"
             android:textSize="@dimen/text_size_log_in"
-            android:text="@string/btn_log_in" />
+            android:text="Siguiente" />
 
     </FrameLayout>
 
@@ -79,24 +79,39 @@
                         android:text="Registrarse"
                         android:textSize="@dimen/text_title_size_sign_in" />
 
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        android:hint="Correo electrónico"
+                        android:hint="Nombre(s)"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:errorEnabled="true"
-                        app:errorIconDrawable="@null"
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusTopStart="10dp"
                         app:boxBackgroundMode="outline">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputEmail_activityData_register"
+                            android:id="@+id/InputFirstName_activityData_register_personaldata"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text_size_input"
-                            android:inputType="textEmailAddress"/>
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
+                        android:layout_gravity="center"
+                        android:hint="Apellido(s)"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxBackgroundMode="outline">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/InputLastName_activityData_register_personaldata"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_input"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -104,56 +119,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        android:hint="Número teléfonico"
+                        android:hint="Edad"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusTopStart="10dp"
                         app:boxBackgroundMode="outline">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputPhoneNumber_activityData_register"
+                            android:id="@+id/InputAge_activityData_register_personaldata"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text_size_input"
-                            android:inputType="phone"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        android:hint="Contraseña"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxBackgroundMode="outline">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputPassword_activityData_register"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_input"
-                            android:inputType="textPassword"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:hint="Confirmar contraseña"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        app:errorEnabled="true"
-                        app:errorIconDrawable="@null"
-                        app:endIconMode="password_toggle">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputConfirmPassword_activityData_register"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_input"
-                            android:inputType="textPassword"/>
+                            android:inputType="numberDecimal"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>

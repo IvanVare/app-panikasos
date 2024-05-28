@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,13 +29,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.app_botonpanico.R;
 
 public class Controller_qa_main_menu extends AppCompatActivity {
 
     Button ToMapButton, ToContactsButtom, ToPanicButtom;
+    RelativeLayout ButtonLayoutSOS;
     ImageButton LogOutButtom;
     TextView FullNameUser;
+    LottieAnimationView ButtonAnimationSOS;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
 
     @Override
@@ -52,8 +58,12 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         ToContactsButtom=findViewById(R.id.ToContacts_button_activityQaMainMenu);
         ToPanicButtom=findViewById(R.id.ToPanicButtom_button_activityQaMainMenu);
         LogOutButtom=findViewById(R.id.imageButton_LogOut_ActivityQaMainMenu);
-
         FullNameUser=findViewById(R.id.FullNameUser_TextView_activityQaMainMenu);
+        ButtonLayoutSOS=findViewById(R.id.buttomPanika_RelativeLayout_ActivityQaMainMenu);
+        ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaMainMenu);
+
+        IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
+        registerReceiver(serviceStatusReceiver, filter);
 
         FullNameUser.setText("Hola "+first_name_IntentUser+" "+last_name_IntentUser);
         ToMapButton.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +113,25 @@ public class Controller_qa_main_menu extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private BroadcastReceiver serviceStatusReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean isRunning = intent.getBooleanExtra("isRunning", false);
+            if (isRunning) {
+                ButtonAnimationSOS.setVisibility(View.VISIBLE);
+                ButtonAnimationSOS.playAnimation();
+            }
+        }
+    };
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Desregistrar el receptor
+        unregisterReceiver(serviceStatusReceiver);
     }
 
 }

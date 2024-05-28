@@ -51,7 +51,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         RegisterButtonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToDataRegister = new Intent(Controller_sign_in_user.this, Controller_data_register.class);
+                Intent intentToDataRegister = new Intent(Controller_sign_in_user.this, Controller_data_register_personaldata.class);
                 startActivity(intentToDataRegister);
             }
         });

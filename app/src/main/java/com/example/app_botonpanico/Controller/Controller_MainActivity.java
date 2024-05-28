@@ -34,7 +34,7 @@ public class Controller_MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_MainActivity.this, Controller_data_register.class);
+                Intent i = new Intent(Controller_MainActivity.this, Controller_data_register_personaldata.class);
                 startActivity(i);
             }
         });

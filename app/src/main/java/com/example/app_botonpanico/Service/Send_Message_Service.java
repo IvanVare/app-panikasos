@@ -71,6 +71,7 @@ public class Send_Message_Service extends Service {
             startTime= System.currentTimeMillis();
             startSendingMessages(first_name_IntentUser,last_name_IntentUser,phone_number_IntentUser,email_IntentUser);
             isSending = true;
+            sendServiceStatus(true);
             showNotification();
         }else {
             stopSendingMessages();
@@ -149,7 +150,6 @@ public class Send_Message_Service extends Service {
     private void stopSendingMessages() {
         isSending = false;
 
-        System.out.println("Paradoooooooooooooooooooooo");
         if (handler != null && runnable != null) {
             handler.removeCallbacks(runnable);
             stopForeground(true);
@@ -157,9 +157,17 @@ public class Send_Message_Service extends Service {
             Toast.makeText(this, "Envio de mensajes cancelado", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void sendServiceStatus(boolean isRunning) {
+        Intent intent = new Intent("com.example.SERVICE_STATUS");
+        intent.putExtra("isRunning", isRunning);
+        sendBroadcast(intent);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+        sendServiceStatus(false);
         isServiceRunning = false;
         stopForeground(true);
         handler.removeCallbacks(runnable);
