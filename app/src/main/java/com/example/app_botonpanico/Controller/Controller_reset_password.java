@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import androidx.core.util.PatternsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_botonpanico.Custom_dialog_loading;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_reset_password;
 import com.example.app_botonpanico.Interface.ResetPasswordCallback;
@@ -38,10 +40,21 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
         setContentView(R.layout.activity_reset_password);
         InputEmail=findViewById(R.id.InputEmail_activityReset_Password);
         SendCodeButton=findViewById(R.id.SendCode_button_activityResetpassword);
+        Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_reset_password.this);
         SendCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkEmail();
+
+                customDialogLoading.startLoadingDialog();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        checkEmail();
+                        customDialogLoading.dismissDialog();
+                    }
+                },4000);
+
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

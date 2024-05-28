@@ -61,6 +61,7 @@ public class Controller_Main_screen extends AppCompatActivity implements SigninC
             intentToMainMenu.putExtra("age", data[3]);
             intentToMainMenu.putExtra("email", data[5]);
             startActivity(intentToMainMenu);
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -70,8 +71,9 @@ public class Controller_Main_screen extends AppCompatActivity implements SigninC
     public void OnFailure(String error) {
         try {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-            Intent intentSignalLost = new Intent(this, Controller_sign_in_user.class);
-            startActivity(intentSignalLost);
+            Intent intentToMainActivity = new Intent(getApplicationContext(), Controller_MainActivity.class);
+            startActivity(intentToMainActivity);
+            finish();
         } catch (Exception e) {
             System.out.println(e);
         }

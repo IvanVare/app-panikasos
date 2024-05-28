@@ -1,27 +1,39 @@
 package com.example.app_botonpanico.Controller;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.app_botonpanico.Notification_Panicbtn_Active;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_Contact_data;
 import com.example.app_botonpanico.Dao.daoContact;
@@ -42,6 +54,8 @@ public class Controller_qa_panic_button extends AppCompatActivity {
     private Runnable runnable;
     private long startTime;
     private boolean isSending = false; // Control variable
+    private final int NOTIFICATION_ID = 1; // ID de la notificación
+    private final String CHANNEL_ID = "CHANNEL_ID_NOTIFICATION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +75,17 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         send_Menssage_Service = new Intent(this, Send_Message_Service.class);
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission( Controller_qa_panic_button.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions( Controller_qa_panic_button.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},101);
+                ActivityCompat.requestPermissions( Controller_qa_panic_button.this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},101);
+            }
+        }
 
-        System.out.println(first_name_IntentUser);
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,12 +94,12 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                         ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                                 != PackageManager.PERMISSION_GRANTED) {
                     Intent send_message_service = new Intent(Controller_qa_panic_button.this, Send_Message_Service.class);
-
                     send_message_service.putExtra("first_name", first_name_IntentUser);
                     send_message_service.putExtra("last_name", last_name_IntentUser);
                     send_message_service.putExtra("phone_number", phone_number_IntentUser);
                     send_message_service.putExtra("email", email_IntentUser);
                     startService(send_message_service);
+
                 } else {
                     ActivityCompat.requestPermissions(Controller_qa_panic_button.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
                 }
@@ -99,7 +122,6 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                 serviceIntent.putExtra("last_name", last_name_IntentUser);
                 serviceIntent.putExtra("phone_number", phone_number_IntentUser);
                 serviceIntent.putExtra("email", email_IntentUser);
-
                 startService(serviceIntent);
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
@@ -107,59 +129,22 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         }
     }
 
-
-
-
-    private String[] getCoordinates() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            }, 200);
-            return null;
-        } else {
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location != null) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                String latitudeStr = String.valueOf(latitude);
-                String longitudeStr = String.valueOf(longitude);
-                System.out.println(latitudeStr +""+longitudeStr);
-                return new String[]{latitudeStr, longitudeStr};
-            } else {
-                Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
-                return null;
-            }
-        }
-    }
-    private void SendMessage(String firs_name_contact,String last_name_contact, String email_contact
-            , String myfirst_name,String mylast_name, String myemail, String myphone_number, String latitude, String longitude){
-        Model_send_message_coordinates modelSendMessageCoordinates = new Model_send_message_coordinates(this);
-        try {
-            String url = "https://www.google.com/maps/?q=" + latitude + "," + longitude;
-            modelSendMessageCoordinates.sendCoordinate(firs_name_contact,last_name_contact,email_contact,myfirst_name,mylast_name,myemail,myphone_number,url);
-        }catch (Exception e){
-            System.out.println(e);
-            Toast.makeText(this,"No se envió el mensaje",Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void stopSendingMessages() {
         isSending = false;
         if (handler != null && runnable != null) {
             handler.removeCallbacks(runnable);
-            Toast.makeText(this, "Envio de mensajes cancelado", Toast.LENGTH_SHORT).show();
+            Intent serviceIntent = new Intent(this, Send_Message_Service.class);
+            stopService(serviceIntent);
+            Toast.makeText(this, "Envio de mensajes aaaa", Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Detén el handler cuando la actividad se destruya
         stopSendingMessages();
     }
+
 
 
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_botonpanico.Custom_dialog_loading;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_sign_in;
 import com.example.app_botonpanico.Interface.SigninCallback;
@@ -36,6 +38,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         RegisterButtonToLogIn=findViewById(R.id.Register_button_activitySign_in);
         InputPhoneNumber=findViewById(R.id.InputPhoneNumber_activitySign_in);
         InputPassword=findViewById(R.id.InputPassword_activitySign_in);
+        Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_sign_in_user.this);
         returnpreferences();
         ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +59,17 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         SignInButtonToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateDataSignin()){
-                    Signin(v);
-                }
+                customDialogLoading.startLoadingDialog();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (validateDataSignin()){
+                            Signin(v);
+                        }
+                        customDialogLoading.dismissDialog();
+                    }
+                },3000);
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -71,7 +82,6 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
     public void Signin(View view) {
         phonenumberString=InputPhoneNumber.getText().toString();
         passwordString=InputPassword.getText().toString();
-
         if (!phonenumberString.isEmpty() && !passwordString.isEmpty()){
             Model_sign_in modelsignin = new Model_sign_in(phonenumberString, passwordString,this,this);
             modelsignin.validateUser();
@@ -103,6 +113,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
     public void OnFailure(String error) {
         try {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            System.out.println(error);
         } catch (Exception e) {
             System.out.println(e);
         }

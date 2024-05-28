@@ -45,7 +45,6 @@ public class Model_send_message_coordinates {
             @Override
             public void onResponse(String response) {
                 if (response.toString().trim().equalsIgnoreCase("Exito")) {
-                    System.out.println("Se envio el correo");
                     Toast.makeText(context, "Exito", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();

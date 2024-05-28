@@ -4,12 +4,17 @@ import static android.content.Intent.getIntent;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -17,12 +22,15 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.app_botonpanico.Controller.Controller_qa_panic_button;
 import com.example.app_botonpanico.Dao.daoContact;
 import com.example.app_botonpanico.Model.Model_Contact_data;
 import com.example.app_botonpanico.Model.Model_send_message_coordinates;
+import com.example.app_botonpanico.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,35 +48,36 @@ public class Send_Message_Service extends Service {
     private static final long DURATION = 3600000; // 1 hour in milliseconds
     private boolean isSending = false; // Control variable
     private boolean isServiceRunning = false;
+    private static final String CHANNEL_ID = "CHANNEL_ID_NOTIFICATION";
+    private static final int NOTIFICATION_ID = 1;
 
     @Override
     public void onCreate() {
         super.onCreate();
         handler = new Handler();
+        createNotificationChannel();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!isSending) {
 
+        if (!isSending) {
             daoContact = new daoContact(this);
             listContacts=daoContact.getAllByEmail();
-
             first_name_IntentUser = intent.getStringExtra("first_name");
             last_name_IntentUser = intent.getStringExtra("last_name");
             phone_number_IntentUser = intent.getStringExtra("phone_number");
             email_IntentUser = intent.getStringExtra("email");
-
-
             startTime= System.currentTimeMillis();
             startSendingMessages(first_name_IntentUser,last_name_IntentUser,phone_number_IntentUser,email_IntentUser);
             isSending = true;
+            showNotification();
         }else {
             stopSendingMessages();
             isSending = false;
         }
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -86,19 +95,19 @@ public class Send_Message_Service extends Service {
                             String latitudeStr = coordinates[0];
                             String longitudeStr = coordinates[1];
                             dataMessage(contact.getFirst_name(), contact.getLast_name(), contact.getEmail(), first_name_User, last_name_User, email_User, phone_number_User, latitudeStr, longitudeStr);
-                            //System.out.println(first_name_User+" "+contact.getFirst_name()+" " +contact.getEmail() + " "+ latitudeStr+" "+longitudeStr);
                         } else {
                             Toast.makeText(Send_Message_Service.this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    // Vuelve a ejecutar el runnable después de 5 minutos si sigue activo el envío
                     if (isSending) {
                         handler.postDelayed(this, INTERVAL);
                     }
+                }else {
+                    stopSelf();
                 }
             }
         };
-
+        // Inicia la primera ejecución
         handler.post(runnable);
     }
     private void dataMessage(String firs_name_contact,String last_name_contact, String email_contact
@@ -115,7 +124,6 @@ public class Send_Message_Service extends Service {
     private String[] getCoordinates() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // No se pueden solicitar permisos desde un servicio, por lo tanto, si no se tienen permisos, no se obtienen coordenadas
             Log.e("MessageService", "No location permissions granted");
             return null;
         } else {
@@ -140,8 +148,12 @@ public class Send_Message_Service extends Service {
     }
     private void stopSendingMessages() {
         isSending = false;
+
+        System.out.println("Paradoooooooooooooooooooooo");
         if (handler != null && runnable != null) {
             handler.removeCallbacks(runnable);
+            stopForeground(true);
+            stopSelf();
             Toast.makeText(this, "Envio de mensajes cancelado", Toast.LENGTH_SHORT).show();
         }
     }
@@ -149,8 +161,64 @@ public class Send_Message_Service extends Service {
     public void onDestroy() {
         super.onDestroy();
         isServiceRunning = false;
+        stopForeground(true);
         handler.removeCallbacks(runnable);
     }
+
+
+
+
+    private void createNotificationChannel() {
+        // Crear el NotificationChannel, pero solo en API 26+ porque
+        // el NotificationChannel es una nueva clase que no está en las bibliotecas de soporte
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification Channel";
+            String description = "Channel for basic notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+
+            // Registrar el canal con el sistema; no se puede cambiar la importancia o
+            // otras características después de esto
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    private void showNotification() {
+        // Crear un intent para abrir la actividad cuando se toque la notificación
+        Intent intent = new Intent(this, Controller_qa_panic_button.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+
+        // Crear la notificación
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.icon_buttone) // Asegúrate de tener un icono en drawable
+                .setContentTitle("Activado...")
+                .setContentText("PanokaSOS está envíando tu ubicación a tus contactos de emergencia")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .setAutoCancel(false);
+
+        // Mostrar la notificación
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        System.out.println("Notification---");
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
 
 
 }

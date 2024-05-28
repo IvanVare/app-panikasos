@@ -14,28 +14,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-
-import com.example.app_botonpanico.Notification_panicbtn_active;
 import com.example.app_botonpanico.R;
 
 public class Controller_qa_main_menu extends AppCompatActivity {
 
     Button ToMapButton, ToContactsButtom, ToPanicButtom;
     ImageButton LogOutButtom;
-    private static final String CHANNEL_ID = "Channel Id";
-
     TextView FullNameUser;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
 
@@ -59,21 +55,12 @@ public class Controller_qa_main_menu extends AppCompatActivity {
 
         FullNameUser=findViewById(R.id.FullNameUser_TextView_activityQaMainMenu);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission( Controller_qa_main_menu.this,
-                    android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions( Controller_qa_main_menu.this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS},101);
-            }
-        }
-
         FullNameUser.setText("Hola "+first_name_IntentUser+" "+last_name_IntentUser);
         ToMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buildNotificationCustomStyle();
-                //Intent i = new Intent(Controller_qa_main_menu.this, Controller_qa_map.class);
-                //startActivity(i);
+                Intent i = new Intent(Controller_qa_main_menu.this, Controller_qa_map.class);
+                startActivity(i);
             }
         });
 
@@ -117,40 +104,5 @@ public class Controller_qa_main_menu extends AppCompatActivity {
             return insets;
         });
     }
-
-
-
-    public void buildNotificationCustomStyle() {
-        String channelId = "CHANNEL_ID_NOTIFICATION";
-        RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_panicbtn_active);
-
-        NotificationCompat.Builder notificationCustomStyle = new NotificationCompat.Builder(getApplicationContext(), channelId)
-                .setSmallIcon(R.drawable.icn_btnpanic_light)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomContentView(notificationLayout)
-                .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        Intent intentNotification = new Intent(getApplicationContext(), Notification_panicbtn_active.class);
-        intentNotification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intentNotification.putExtra("data", "rellenar");
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intentNotification, PendingIntent.FLAG_MUTABLE);
-        notificationCustomStyle.setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelId);
-
-        if (notificationChannel == null) {
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            notificationChannel = new NotificationChannel(channelId, "Notification Channel", importance);
-            notificationChannel.enableVibration(true);
-            notificationChannel.setLightColor(Color.GREEN);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-        notificationManager.notify(0, notificationCustomStyle.build());
-    }
-
 
 }

@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Notification_panicbtn_active extends AppCompatActivity {
+public class Notification_Panicbtn_Active extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

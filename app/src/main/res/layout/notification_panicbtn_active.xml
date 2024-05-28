@@ -4,38 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="horizontal"
-    style="@style/BackGround_toolbar"
-    android:padding="10dp"
-    tools:context=".Notification_panicbtn_active">
-
+    tools:context=".Notification_Panicbtn_Active">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:paddingHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
 
         <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Envio de ubicación: Activado"
-            style="@style/MaterialAlertDialog.Material3.Title.Text"/>
+            android:layout_weight="1"
+            android:text="TextView" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Boton de panico activo..." />
     </LinearLayout>
 
+
+
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-        android:layout_weight="2"
-        android:src="@drawable/icn_btnpanic_light" />
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:srcCompat="@tools:sample/avatars" />
 </LinearLayout>

@@ -69,8 +69,7 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
             public void onClick(View v) {
                 FusedLocationProviderClient fusedLocationClient =
                         LocationServices.getFusedLocationProviderClient(Controller_qa_map.this);
-                if (ActivityCompat.checkSelfPermission(Controller_qa_map.this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                if (ActivityCompat.checkSelfPermission(Controller_qa_map.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(Controller_qa_map.this,
                                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(Controller_qa_map.this,

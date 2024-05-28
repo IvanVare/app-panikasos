@@ -2,6 +2,7 @@ package com.example.app_botonpanico.Controller;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import androidx.core.util.PatternsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_botonpanico.Custom_dialog_loading;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_data_register;
 import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
@@ -40,6 +42,8 @@ public class Controller_data_register extends AppCompatActivity {
         DataRegisterButtom=findViewById(R.id.Register_button_activityData_register);
         Model_data_register modelDataRegister = new Model_data_register(this);
         EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();
+        Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_data_register.this);
+
         DataRegisterButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,20 +53,30 @@ public class Controller_data_register extends AppCompatActivity {
                         && !InputAge.getText().toString().isEmpty() && !InputPassword.getText().toString().isEmpty()
                         && !InputConfirmPassword.getText().toString().isEmpty()){
 
-                    if (validateData()){
-                        String encryptPassword = "";
-                        encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
-                        modelDataRegister.registerUser(
-                                InputFirstName.getText().toString().trim()
-                                ,InputLastName.getText().toString().trim()
-                                ,InputEmail.getText().toString().trim()
-                                ,InputPhoneNumber.getText().toString().trim()
-                                ,InputAge.getText().toString().trim().trim()
-                                ,encryptPassword);
-                    }else {
-                        Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
+                    customDialogLoading.startLoadingDialog();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 
-                    }
+                            if (validateData()){
+                                String encryptPassword = "";
+                                encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
+                                modelDataRegister.registerUser(
+                                        InputFirstName.getText().toString().trim()
+                                        ,InputLastName.getText().toString().trim()
+                                        ,InputEmail.getText().toString().trim()
+                                        ,InputPhoneNumber.getText().toString().trim()
+                                        ,InputAge.getText().toString().trim().trim()
+                                        ,encryptPassword);
+                            }else {
+                                Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
+
+                            }
+                            customDialogLoading.dismissDialog();
+                        }
+                    },3000);
+
 
                 }else {
                     Toast.makeText(Controller_data_register.this,"Campos vacíos",Toast.LENGTH_SHORT).show();
