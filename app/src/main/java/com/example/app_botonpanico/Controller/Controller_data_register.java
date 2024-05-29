@@ -52,13 +52,11 @@ public class Controller_data_register extends AppCompatActivity implements DataR
         DataRegisterButtom=findViewById(R.id.Register_button_activityData_register);
         Model_data_register modelDataRegister = new Model_data_register(this);
         EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();
-        Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_data_register.this);
 
         Intent intentToDataRegister = getIntent();
         FirstName = intentToDataRegister.getStringExtra("first_name");
         LastName = intentToDataRegister.getStringExtra("last_name");
         Age = intentToDataRegister.getStringExtra("age");
-
 
         DataRegisterButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +64,16 @@ public class Controller_data_register extends AppCompatActivity implements DataR
 
                 if (!InputEmail.getText().toString().isEmpty() &&  !InputPhoneNumber.getText().toString().isEmpty()
                         && !InputPassword.getText().toString().isEmpty() && !InputConfirmPassword.getText().toString().isEmpty()){
-                    checkEmailAndPhoneNumberExist();
+                    customDialogLoading.startLoadingDialog();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            checkEmailAndPhoneNumberExist();
+                        }
+                    },3000);
+
+
                 }else {
                     Toast.makeText(Controller_data_register.this,"Campos vacíos",Toast.LENGTH_SHORT).show();
                 }
@@ -164,29 +171,49 @@ public class Controller_data_register extends AppCompatActivity implements DataR
 
 
     @Override
-    public void OnSuccess() {
-        customDialogLoading.startLoadingDialog();
-        if (validateData()){
-            String encryptPassword = "";
-            encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
-            modelDataRegister.registerUser(
-                    FirstName
-                    ,LastName
-                    ,InputEmail.getText().toString().trim()
-                    ,InputPhoneNumber.getText().toString().trim()
-                    ,Age
-                    ,encryptPassword);
-            customDialogLoading.dismissDialog();
-        }else {
-            Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
-            customDialogLoading.dismissDialog();
+    public void OnSuccess(String res) {
 
+        if (res.equalsIgnoreCase("1")){
+            if (validateData()){
+                String encryptPassword = "";
+                encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
+                modelDataRegister.registerUser(
+                        FirstName
+                        ,LastName
+                        ,InputEmail.getText().toString().trim()
+                        ,InputPhoneNumber.getText().toString().trim()
+                        ,Age
+                        ,encryptPassword);
+                ToSignIn();
+            }else {
+                customDialogLoading.dismissDialog();
+                Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            customDialogLoading.dismissDialog();
+            Toast.makeText(Controller_data_register.this,"Correo o numero telefonico ya registrado",Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
     @Override
     public void OnFailure(String error) {
-
+        try {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            System.out.println(error);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
+
+
+    public void ToSignIn(){
+        Intent intentToSignIn = new Intent(Controller_data_register.this, Controller_sign_in_user.class);
+        startActivity(intentToSignIn);
+        customDialogLoading.dismissDialog();
+    }
+
+
+
 }

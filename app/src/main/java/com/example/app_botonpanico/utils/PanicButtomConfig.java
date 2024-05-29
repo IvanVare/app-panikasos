@@ -1,7 +1,7 @@
 package com.example.app_botonpanico.utils;
 
 public class PanicButtomConfig {
-    private String serverPanicButtom = "https://apppbuttom-services.azurewebsites.net";
+    private String serverPanicButtom = "https://panikaservice.azurewebsites.net";
     public String getServerPanicButtom() {
         return serverPanicButtom;
     }

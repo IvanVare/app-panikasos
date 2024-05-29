@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="backgroundBtn">#B1AE00</color>
+    <color name="textColor">#000000</color>
+    <color name="pressBtn">#5EFFFFFF</color>
+</resources>

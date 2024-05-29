@@ -49,7 +49,11 @@ public class Model_sign_in {
                     String exito = jsonObject.getString("exito");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     if (jsonArray.length() == 0){
-                        System.out.println("model_general_usuario -> login -> datos vacío");}
+                        String responseServer = "Datos vacios";
+                        String[] res = {responseServer};
+                        System.out.println("Model_sign_in -> signin -> datos vacío");
+                        signinCallback.OnSuccess(res);
+                    }
                     else{
                         if (exito.equals("1")){
                             JSONObject object = jsonArray.getJSONObject(0);

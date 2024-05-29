@@ -51,8 +51,6 @@ public class Model_data_register {
             public void onResponse(String response) {
                 if (response.equalsIgnoreCase("Registro exitoso")) {
                     Toast.makeText(context, "Registro hecho", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, Controller_sign_in_user.class);
-                    context.startActivity(intent);
                 } else {
                     Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();
                 }
@@ -97,9 +95,11 @@ public class Model_data_register {
 
                     System.out.println(exito);
                     if (exito.equals("1")){
-                        dataRegisterCallback.OnSuccess();
+                        String res = "1";
+                        dataRegisterCallback.OnSuccess(res);
                     }else {
-                        Toast.makeText(context, "Correo o número telefonico ya registrado", Toast.LENGTH_SHORT).show();
+                        String res = "0";
+                        dataRegisterCallback.OnSuccess(res);
                     }
 
                 }catch (JSONException jsonException){

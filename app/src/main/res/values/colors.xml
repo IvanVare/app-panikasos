@@ -16,6 +16,9 @@
     <color name="DownfontBackgroundDark">#2F2F2F</color>
     <color name="FloatingButton">#0066FF</color>
     <color name="PressFloatingButton">#2A79EF</color>
-    <color name="Danger">#F41100</color>
+    <color name="Danger">#838282</color>
+    <color name="backgroundBtn">#E8E400</color>
+    <color name="textColor">#000000</color>
+    <color name="pressBtn">#000000</color>
 
 </resources>

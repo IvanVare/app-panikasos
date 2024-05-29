@@ -27,6 +27,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
     EditText InputPhoneNumber, InputPassword;
     Button ForgotPasswordButton, SignInButtonToMenu, RegisterButtonToLogIn;
     String phonenumberString, passwordString;
+    Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_sign_in_user.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,6 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         RegisterButtonToLogIn=findViewById(R.id.Register_button_activitySign_in);
         InputPhoneNumber=findViewById(R.id.InputPhoneNumber_activitySign_in);
         InputPassword=findViewById(R.id.InputPassword_activitySign_in);
-        Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_sign_in_user.this);
         returnpreferences();
         ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,15 +61,16 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
             public void onClick(View v) {
                 customDialogLoading.startLoadingDialog();
                 Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (validateDataSignin()){
+
+                if (validateDataSignin()){
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
                             Signin(v);
                         }
-                        customDialogLoading.dismissDialog();
-                    }
-                },3000);
+                    },3000);
+
+                }
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -94,17 +95,25 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
     public void OnSuccess(String[] data){
         EncryptAndDesencrypt encryptAndDesencrypt = new EncryptAndDesencrypt();
         try {
-            if (passwordString.equals(encryptAndDesencrypt.decrypt(data[4]))){
-                Intent intentToMainMenu = new Intent(this, Controller_qa_main_menu.class);
-                intentToMainMenu.putExtra("first_name",data[0]);
-                intentToMainMenu.putExtra("last_name", data[1]);
-                intentToMainMenu.putExtra("phone_number", data[2]);
-                intentToMainMenu.putExtra("age", data[3]);
-                intentToMainMenu.putExtra("email", data[5]);
-                startActivity(intentToMainMenu);
-            } else {
-                Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+            if (data[0].equalsIgnoreCase("Datos vacios")){
+                customDialogLoading.dismissDialog();
+                Toast.makeText(this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
+            }else {
+                if (passwordString.equals(encryptAndDesencrypt.decrypt(data[4]))){
+                    Intent intentToMainMenu = new Intent(this, Controller_qa_main_menu.class);
+                    intentToMainMenu.putExtra("first_name",data[0]);
+                    intentToMainMenu.putExtra("last_name", data[1]);
+                    intentToMainMenu.putExtra("phone_number", data[2]);
+                    intentToMainMenu.putExtra("age", data[3]);
+                    intentToMainMenu.putExtra("email", data[5]);
+                    startActivity(intentToMainMenu);
+                    customDialogLoading.dismissDialog();
+                } else {
+                    customDialogLoading.dismissDialog();
+                    Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+                }
             }
+
         } catch (Exception e) {
             System.out.println(e);
         }

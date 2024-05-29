@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_botonpanico.R;
 
-public class Controller_MainActivity extends AppCompatActivity {
+public class Controller_mainActivity extends AppCompatActivity {
     Button singInButton,logInButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class Controller_MainActivity extends AppCompatActivity {
         singInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_MainActivity.this, Controller_sign_in_user.class);
+                Intent i = new Intent(Controller_mainActivity.this, Controller_sign_in_user.class);
                 startActivity(i);
             }
         });
@@ -34,7 +34,7 @@ public class Controller_MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_MainActivity.this, Controller_data_register_personaldata.class);
+                Intent i = new Intent(Controller_mainActivity.this, Controller_data_register_personaldata.class);
                 startActivity(i);
             }
         });

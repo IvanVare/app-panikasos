@@ -46,7 +46,7 @@
             android:name=".item_contact"
             android:exported="false" />
         <activity
-            android:name=".Controller.Controller_Main_screen"
+            android:name=".Controller.Controller_main_screen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,7 +87,7 @@
             android:name=".Controller.Controller_sign_in_user"
             android:exported="false" />
         <activity
-            android:name=".Controller.Controller_MainActivity"
+            android:name=".Controller.Controller_mainActivity"
             android:exported="false" />
 
         <service

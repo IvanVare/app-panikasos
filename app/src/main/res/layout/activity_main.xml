@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_bkgroud"
     style="@style/BackGround_screen"
-    tools:context=".Controller.Controller_MainActivity">
+    tools:context=".Controller.Controller_mainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

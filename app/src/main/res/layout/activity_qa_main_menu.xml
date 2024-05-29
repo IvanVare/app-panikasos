@@ -69,50 +69,49 @@
                 android:id="@+id/switch1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Switch" />
+                android:text="Ubicación" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/ToPanicButtom_button_activityQaMainMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAllCaps="false"
-                    android:background="@drawable/panicbuttomv2"
-                    android:text="@string/option_panicbuttom" />
+                <RelativeLayout
+                    android:id="@+id/buttomPanika_RelativeLayout_ActivityQaMainMenu"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    app:cardElevation="200dp"
+                    android:clickable="true"
+                    android:background="@drawable/background_buttonsos_ripple"
+                    android:layout_margin="5dp">
+
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaMainMenu"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        app:lottie_autoPlay="false"
+                        app:lottie_loop="true"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        app:lottie_rawRes="@raw/press_buttonsos"/>
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textSize="30dp"
+                        android:text="PanikaSOS"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
             </LinearLayout>
             
-            
-            <RelativeLayout
-                android:id="@+id/buttomPanika_RelativeLayout_ActivityQaMainMenu"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:background="@drawable/background_buttonsos_ripple"
-                android:layout_margin="5dp">
 
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-                
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaMainMenu"
-                    android:layout_width="53dp"
-                    android:layout_height="53dp"
-                    app:lottie_autoPlay="false"
-                    app:lottie_loop="true"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true"
-                    app:lottie_rawRes="@raw/press_buttonsos"/>
-            </RelativeLayout>
-            
-            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

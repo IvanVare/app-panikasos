@@ -1,17 +1,12 @@
 package com.example.app_botonpanico.Controller;
 
 import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +17,6 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,7 +26,7 @@ import com.example.app_botonpanico.R;
 
 public class Controller_qa_main_menu extends AppCompatActivity {
 
-    Button ToMapButton, ToContactsButtom, ToPanicButtom;
+    Button ToMapButton, ToContactsButtom;
     RelativeLayout ButtonLayoutSOS;
     ImageButton LogOutButtom;
     TextView FullNameUser;
@@ -56,7 +48,6 @@ public class Controller_qa_main_menu extends AppCompatActivity {
 
         ToMapButton=findViewById(R.id.ToMap_button_activityqa_MainMenu);
         ToContactsButtom=findViewById(R.id.ToContacts_button_activityQaMainMenu);
-        ToPanicButtom=findViewById(R.id.ToPanicButtom_button_activityQaMainMenu);
         LogOutButtom=findViewById(R.id.imageButton_LogOut_ActivityQaMainMenu);
         FullNameUser=findViewById(R.id.FullNameUser_TextView_activityQaMainMenu);
         ButtonLayoutSOS=findViewById(R.id.buttomPanika_RelativeLayout_ActivityQaMainMenu);
@@ -66,6 +57,32 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         registerReceiver(serviceStatusReceiver, filter);
 
         FullNameUser.setText("Hola "+first_name_IntentUser+" "+last_name_IntentUser);
+
+
+        if (ActivityCompat.checkSelfPermission(Controller_qa_main_menu.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Controller_qa_main_menu.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Controller_qa_main_menu.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+            ActivityCompat.requestPermissions( Controller_qa_main_menu.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},101);
+            ActivityCompat.requestPermissions( Controller_qa_main_menu.this,
+                    new String[]{Manifest.permission.POST_NOTIFICATIONS},102);
+        }
+
+
+
+        ButtonLayoutSOS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentToPanicButtom = new Intent(Controller_qa_main_menu.this, Controller_qa_panic_button.class);
+                intentToPanicButtom.putExtra("first_name",first_name_IntentUser);
+                intentToPanicButtom.putExtra("last_name", last_name_IntentUser);
+                intentToPanicButtom.putExtra("phone_number", phone_number_IntentUser);
+                intentToPanicButtom.putExtra("age", age_IntentUser);
+                intentToPanicButtom.putExtra("email", email_IntentUser);
+                startActivity(intentToPanicButtom);
+            }
+        });
+
         ToMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,26 +100,13 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         });
 
 
-        ToPanicButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intentToPanicButtom = new Intent(Controller_qa_main_menu.this, Controller_qa_panic_button.class);
-                intentToPanicButtom.putExtra("first_name",first_name_IntentUser);
-                intentToPanicButtom.putExtra("last_name", last_name_IntentUser);
-                intentToPanicButtom.putExtra("phone_number", phone_number_IntentUser);
-                intentToPanicButtom.putExtra("age", age_IntentUser);
-                intentToPanicButtom.putExtra("email", email_IntentUser);
-                startActivity(intentToPanicButtom);
-            }
-        });
 
         LogOutButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasLogin", Context.MODE_PRIVATE);
                 sharedPreferences.edit().clear().commit();
-                Intent intent =new Intent(Controller_qa_main_menu.this, Controller_MainActivity.class);
+                Intent intent =new Intent(Controller_qa_main_menu.this, Controller_mainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -122,6 +126,9 @@ public class Controller_qa_main_menu extends AppCompatActivity {
             if (isRunning) {
                 ButtonAnimationSOS.setVisibility(View.VISIBLE);
                 ButtonAnimationSOS.playAnimation();
+            }else {
+                ButtonAnimationSOS.cancelAnimation();
+                ButtonAnimationSOS.setVisibility(View.GONE);
             }
         }
     };

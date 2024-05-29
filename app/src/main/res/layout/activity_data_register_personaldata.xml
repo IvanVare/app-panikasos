@@ -20,15 +20,26 @@
         app:layout_constraintVertical_bias="0.8">
 
 
-        <Button
+
+        <RelativeLayout
             android:id="@+id/next_button_activityData_register_personaldata"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_marginTop="280dp"
-            android:textSize="@dimen/text_size_log_in"
-            android:text="Siguiente" />
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:background="@drawable/background_buttongeneral_ripple">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/textColor"
+                android:text="Siguiente" />
+        </RelativeLayout>
 
     </FrameLayout>
 
@@ -38,7 +49,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="200dp"
         android:layout_gravity="center_horizontal"
         app:cardCornerRadius="21dp"
         app:cardElevation="20dp"

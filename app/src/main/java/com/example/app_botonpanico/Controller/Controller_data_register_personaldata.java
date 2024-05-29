@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import com.example.app_botonpanico.R;
 
 public class Controller_data_register_personaldata extends AppCompatActivity {
 
-    Button NextDataRegisterPD;
+    RelativeLayout NextDataRegisterPD;
     EditText InputFirstName,InputLastName,InputEmail,InputPhoneNumber,InputAge, InputPassword, InputConfirmPassword;
 
     @SuppressLint("MissingInflatedId")
@@ -30,7 +31,6 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
         InputLastName=findViewById(R.id.InputLastName_activityData_register_personaldata);
         InputAge=findViewById(R.id.InputAge_activityData_register_personaldata);
         NextDataRegisterPD=findViewById(R.id.next_button_activityData_register_personaldata);
-
 
         NextDataRegisterPD.setOnClickListener(new View.OnClickListener() {
             @Override

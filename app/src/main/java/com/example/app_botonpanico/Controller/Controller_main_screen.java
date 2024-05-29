@@ -16,9 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.app_botonpanico.Interface.SigninCallback;
 import com.example.app_botonpanico.Model.Model_sign_in;
 import com.example.app_botonpanico.R;
+import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
-public class Controller_Main_screen extends AppCompatActivity implements SigninCallback {
+public class Controller_main_screen extends AppCompatActivity implements SigninCallback {
 
+    String phone_number_user, password_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +31,14 @@ public class Controller_Main_screen extends AppCompatActivity implements SigninC
             @Override
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasLogin", Context.MODE_PRIVATE);
-                String phone_number_user=sharedPreferences.getString("phone_number_user","");
-                String password_user=sharedPreferences.getString("password_user","");
+                phone_number_user=sharedPreferences.getString("phone_number_user","");
+                password_user=sharedPreferences.getString("password_user","");
                 boolean sesion=sharedPreferences.getBoolean("sesion", false);
                 if(sesion && !phone_number_user.isEmpty() && !password_user.isEmpty()){
-                    Model_sign_in modelsignin = new Model_sign_in(phone_number_user, password_user, getApplicationContext(), Controller_Main_screen.this);
+                    Model_sign_in modelsignin = new Model_sign_in(phone_number_user, password_user, getApplicationContext(), Controller_main_screen.this);
                     modelsignin.validateUser();
                 }else {
-                    Intent intentToMainActivity = new Intent(getApplicationContext(), Controller_MainActivity.class);
+                    Intent intentToMainActivity = new Intent(getApplicationContext(), Controller_mainActivity.class);
                     startActivity(intentToMainActivity);
                     finish();
                 }
@@ -53,14 +55,30 @@ public class Controller_Main_screen extends AppCompatActivity implements SigninC
 
     @Override
     public void OnSuccess(String[] data){
+        EncryptAndDesencrypt encryptAndDesencrypt = new EncryptAndDesencrypt();
+
         try {
-            Intent intentToMainMenu = new Intent(this, Controller_qa_main_menu.class);
-            intentToMainMenu.putExtra("first_name",data[0]);
-            intentToMainMenu.putExtra("last_name", data[1]);
-            intentToMainMenu.putExtra("phone_number", data[2]);
-            intentToMainMenu.putExtra("age", data[3]);
-            intentToMainMenu.putExtra("email", data[5]);
-            startActivity(intentToMainMenu);
+            if (data[0].equalsIgnoreCase("Datos vacios")){
+                Intent intentToSignIn = new Intent(this, Controller_sign_in_user.class);
+                startActivity(intentToSignIn);
+                finish();
+                Toast.makeText(this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
+            }else {
+                if (password_user.equals(encryptAndDesencrypt.decrypt(data[4]))){
+                    Intent intentToMainMenu = new Intent(this, Controller_qa_main_menu.class);
+                    intentToMainMenu.putExtra("first_name",data[0]);
+                    intentToMainMenu.putExtra("last_name", data[1]);
+                    intentToMainMenu.putExtra("phone_number", data[2]);
+                    intentToMainMenu.putExtra("age", data[3]);
+                    intentToMainMenu.putExtra("email", data[5]);
+                    startActivity(intentToMainMenu);
+                } else {
+                    Intent intentToSignIn = new Intent(this, Controller_sign_in_user.class);
+                    startActivity(intentToSignIn);
+                    finish();
+                    Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+                }
+            }
 
         } catch (Exception e) {
             System.out.println(e);
@@ -71,7 +89,7 @@ public class Controller_Main_screen extends AppCompatActivity implements SigninC
     public void OnFailure(String error) {
         try {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-            Intent intentToMainActivity = new Intent(getApplicationContext(), Controller_MainActivity.class);
+            Intent intentToMainActivity = new Intent(getApplicationContext(), Controller_mainActivity.class);
             startActivity(intentToMainActivity);
             finish();
         } catch (Exception e) {

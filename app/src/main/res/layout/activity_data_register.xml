@@ -38,7 +38,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="200dp"
         android:layout_gravity="center_horizontal"
         app:cardCornerRadius="21dp"
         app:cardElevation="20dp"
@@ -86,8 +86,7 @@
                         android:layout_marginTop="@dimen/separation_of_ET_log_in"
                         android:hint="Correo electrónico"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:errorEnabled="true"
-                        app:errorIconDrawable="@null"
+
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusTopStart="10dp"
                         app:boxBackgroundMode="outline">
