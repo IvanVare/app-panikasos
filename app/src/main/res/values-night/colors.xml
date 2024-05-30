@@ -9,4 +9,6 @@
     <color name="backgroundBtn_conatct_under">#957000</color>
     <color name="backgroundBtn_map">#8AB100</color>
     <color name="backgroundBtn_map_under">#607C00</color>
+    <color name="backgroundBtn_panic">#C50000</color>
+    <color name="backgroundBtn_panic_under">#9F0000</color>
 </resources>

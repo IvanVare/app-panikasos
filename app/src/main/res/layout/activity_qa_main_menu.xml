@@ -52,7 +52,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/icon_logout" />
+                    android:src="@drawable/icon_logout"
+                    app:tint="@color/textColor_WithoutBg"/>
             </RelativeLayout>
 
 
@@ -79,15 +80,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor_WithoutBg"
                 android:textSize="25dp"
-                android:layout_marginVertical="10dp"
+                android:layout_marginVertical="20dp"
                 android:textStyle="bold"
                 android:text="Hola," />
-
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ubicación" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,7 +95,6 @@
                     android:layout_width="250dp"
                     android:layout_height="250dp"
                     android:layout_gravity="center"
-                    app:cardElevation="200dp"
                     android:clickable="true"
                     android:background="@drawable/background_buttonsos_ripple"
                     android:layout_margin="5dp">

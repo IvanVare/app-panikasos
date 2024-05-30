@@ -39,7 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/menu" />
+                    android:src="@drawable/menu"
+                    app:tint="@color/textColor_WithoutBg"/>
             </RelativeLayout>
 
             <TextView
@@ -78,9 +79,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:fab_addButtonColorNormal="@color/FloatingButton"
+        app:fab_addButtonColorNormal="@color/backgroundBtn_map"
         app:fab_addButtonPlusIconColor="@color/black"
-        app:fab_addButtonColorPressed="@color/PressFloatingButton"
+        app:fab_addButtonColorPressed="@color/backgroundBtn_map_under"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -88,8 +89,8 @@
             android:id="@+id/Layer_FloatingButton_activityQaMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/FloatingButton"
-            app:fab_colorPressed="@color/PressFloatingButton"
+            app:fab_colorNormal="@color/backgroundBtn_map"
+            app:fab_colorPressed="@color/backgroundBtn_map_under"
             app:fab_icon="@drawable/icon_layers"
             app:fab_size="mini" />
 
@@ -97,8 +98,8 @@
             android:id="@+id/FindMyLocation_FloatingButton_activityQaMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/FloatingButton"
-            app:fab_colorPressed="@color/PressFloatingButton"
+            app:fab_colorNormal="@color/backgroundBtn_map"
+            app:fab_colorPressed="@color/backgroundBtn_map_under"
             app:fab_icon="@drawable/icon_ubication"
             app:fab_size="mini" />
 
@@ -106,8 +107,8 @@
             android:id="@+id/ButtonEmergency_FloatingButton_activityQaMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/FloatingButton"
-            app:fab_colorPressed="@color/PressFloatingButton"
+            app:fab_colorNormal="@color/backgroundBtn_panic"
+            app:fab_colorPressed="@color/backgroundBtn_panic_under"
             app:fab_icon="@drawable/icon_buttone"
             app:fab_size="mini" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

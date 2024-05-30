@@ -10,9 +10,9 @@
     <color name="gray_bkgroud_appdata">#D4D4D4</color>
     <color name="buttonBackgroundLight">#FFFFFF</color> <!-- Color de fondo para el tema claro -->
     <color name="buttonBackgroundDark">#000000</color> <!-- Color de fondo para el tema oscuro -->
-    <color name="UpfontBackgroundLight">#FFFFFF</color>
-    <color name="DownfontBackgroundLight">#F0F0F0</color>
-    <color name="UpfontBackgroundDark">#4B4B4B</color>
+    <color name="UpfontBackgroundLight">#F3F3F3</color>
+    <color name="DownfontBackgroundLight">#EFEFEF</color>
+    <color name="UpfontBackgroundDark">#3C3C3C</color>
     <color name="DownfontBackgroundDark">#2F2F2F</color>
     <color name="FloatingButton">#0066FF</color>
     <color name="PressFloatingButton">#2A79EF</color>
@@ -27,5 +27,7 @@
     <color name="backgroundBtn_conatct_under">#D5A000</color>
     <color name="backgroundBtn_map">#C1F800</color>
     <color name="backgroundBtn_map_under">#9ECC00</color>
+    <color name="backgroundBtn_panic">#F80000</color>
+    <color name="backgroundBtn_panic_under">#CC0000</color>
 
 </resources>
