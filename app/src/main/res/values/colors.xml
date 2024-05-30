@@ -17,8 +17,15 @@
     <color name="FloatingButton">#0066FF</color>
     <color name="PressFloatingButton">#2A79EF</color>
     <color name="Danger">#838282</color>
-    <color name="backgroundBtn">#E8E400</color>
-    <color name="textColor">#000000</color>
-    <color name="pressBtn">#000000</color>
+    <color name="backgroundBtn">#000000</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="textColor_WithoutBg">#090909</color>
+    <color name="pressBtn_WithoutBg">#A4393939</color>
+    <color name="pressBtn">#8DFFFFFF</color>
+    <!-- Color qa main menu -->
+    <color name="backgroundBtn_conatct">#FDBE00</color>
+    <color name="backgroundBtn_conatct_under">#D5A000</color>
+    <color name="backgroundBtn_map">#C1F800</color>
+    <color name="backgroundBtn_map_under">#9ECC00</color>
 
 </resources>

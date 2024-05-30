@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
 
     daoContact daoContact;
     ArrayList<Model_Contact_data> listContacts;
-    ImageButton imageButton2;
+    RelativeLayout imageButton2;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
     private Intent send_Menssage_Service;
     private boolean isServiceRunning = false;

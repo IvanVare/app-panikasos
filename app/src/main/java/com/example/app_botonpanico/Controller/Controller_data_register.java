@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -33,8 +34,7 @@ import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 public class Controller_data_register extends AppCompatActivity implements DataRegisterCallback {
 
     EditText InputFirstName,InputLastName,InputEmail,InputPhoneNumber,InputAge, InputPassword, InputConfirmPassword;
-    Button DataRegisterButtom;
-
+    RelativeLayout DataRegisterButtom;
     String FirstName,LastName,Email,PhoneNumber,Age,Password;
     Model_data_register modelDataRegister = new Model_data_register(this);
     EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();

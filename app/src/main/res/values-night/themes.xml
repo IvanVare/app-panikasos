@@ -7,6 +7,10 @@
     </style>
 
 
+    <style name="Icon_panikaSOS">
+        <item name="android:src">@drawable/icon_panikasos_night</item>
+    </style>
+
     <style name="button_style_without_background">
         <item name="android:background">@drawable/style_btn_olvidaste_tu_contasena_dark</item>
     </style>

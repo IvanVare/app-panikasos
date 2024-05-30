@@ -8,27 +8,46 @@
     android:background="@color/gray_bkgroud"
     tools:context=".Controller.Controller_data_register">
 
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="600dp"
         android:layout_gravity="center"
         style="@style/BackGround_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8">
+        app:layout_constraintTop_toTopOf="parent">
 
 
-        <Button
-            android:id="@+id/Register_button_activityData_register"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="280dp"
-            android:textSize="@dimen/text_size_log_in"
-            android:text="@string/btn_log_in" />
+            android:layout_marginTop="250dp"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/Register_button_activityData_register"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="@drawable/background_buttongeneral_ripple">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/textColor"
+                    android:text="@string/register_btn" />
+            </RelativeLayout>
+        </LinearLayout>
+
 
     </FrameLayout>
 
@@ -49,36 +68,33 @@
             android:layout_height="match_parent"
             android:background="@drawable/style_appdata">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:scrollbarSize="10dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/icon_register" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Registro"
+                    android:textColor="@color/textColor_WithoutBg"
+                    android:textSize="@dimen/text_title_size_sign_in"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="15dp"
-                    android:paddingTop="15dp"
-                    android:layout_gravity="center">
-
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-
-                        android:background="@drawable/icon_user3_dark" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Registrarse"
-                        android:textSize="@dimen/text_title_size_sign_in" />
-
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -154,9 +170,12 @@
                             android:textSize="@dimen/text_size_input"
                             android:inputType="textPassword"/>
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
-            </ScrollView>
+
+
+            </LinearLayout>
+
+
         </FrameLayout>
 
     </androidx.cardview.widget.CardView>

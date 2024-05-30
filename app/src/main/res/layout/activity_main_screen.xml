@@ -14,13 +14,32 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            app:lottie_imageAssetsFolder="assets"
-            app:lottie_fileName="load_buttom4.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                app:lottie_imageAssetsFolder="assets"
+                app:lottie_fileName="feel.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"/>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="50dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/textColor_WithoutBg"
+                android:text="PaniKa SOS"/>
+
+        </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

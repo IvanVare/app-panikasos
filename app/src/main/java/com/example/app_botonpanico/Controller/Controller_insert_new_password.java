@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,7 +22,7 @@ import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 public class Controller_insert_new_password extends AppCompatActivity {
 
 
-    Button ResetPassword;
+    RelativeLayout ResetPassword;
     EditText InputNewPassword, ConfirmInsertNewPassword;
     String email;
     @Override

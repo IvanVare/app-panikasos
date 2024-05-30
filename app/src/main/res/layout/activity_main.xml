@@ -32,31 +32,32 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    style="@style/Icon_panikaSOS"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/icn_btnpanic_light" />
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:fontFamily="sans-serif-medium"
-                    android:textSize="@dimen/text_title_size_sign_in"
-                    android:text="@string/app_nick_name" />
-
-                <androidx.appcompat.widget.AppCompatButton
+                <RelativeLayout
                     android:id="@+id/sing_in_button_activitymain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/button_style"
+                    android:gravity="center"
                     android:layout_margin="15dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textSize="@dimen/text_size_sign_in"
-                    android:textAllCaps="false"
-                    android:text="@string/btn_sign_in" />
+                    android:clickable="true"
+                    android:background="@drawable/background_buttongeneral_ripple">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_sign_in"
+                        android:textColor="@color/textColor"
+                        android:text="Iniciar sesión" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,25 +66,40 @@
                     android:orientation="horizontal"
                     android:gravity="center">
 
+
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="0"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center"
+                        android:textColor="@color/textColor_WithoutBg"
                         android:text="@string/message_log_in_quest"
                         android:textSize="@dimen/text_size_log_in" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+
+                    <RelativeLayout
                         android:id="@+id/log_in_button_activitymain"
-                        style="@style/button_style_without_background"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_marginStart="10dp"
-                        android:text="Registrate"
-                        android:textAllCaps="false"
-                        android:textSize="@dimen/text_size_log_in" />
+                        android:clickable="true"
+                        android:background="@drawable/background_button_withoutbackground_ripple">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            android:textColor="@color/textColor_WithoutBg"
+                            android:text="Registrase" />
+                    </RelativeLayout>
+
+
+
                 </LinearLayout>
 
             </LinearLayout>

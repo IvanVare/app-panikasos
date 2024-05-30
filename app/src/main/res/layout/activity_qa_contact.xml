@@ -41,6 +41,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColor_WithoutBg"
+                    android:textSize="20dp"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -134,22 +138,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Button
-                android:id="@+id/Save_Buttom_activityQaContact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Guardar" />
-
-            <Button
-                android:id="@+id/Cancel_Buttom_activityQaContact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cancelar" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/Cancel_Buttom_activityQaContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancelar" />
+
+                <Button
+                    android:id="@+id/Save_Buttom_activityQaContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Guardar" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

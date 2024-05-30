@@ -31,20 +31,36 @@
                 android:background="@drawable/style_toolbar"
                 android:orientation="horizontal">
 
-                <ImageButton
+
+                <RelativeLayout
                     android:id="@+id/Menu_activityQaMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
                     android:layout_weight="0"
-                    android:src="@drawable/menu" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/menu" />
+                </RelativeLayout>
+
 
                 <TextView
-                    android:id="@+id/textView5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="60dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColor_WithoutBg"
+                    android:textSize="20dp"
                     android:text="@string/option_contacts" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
@@ -80,9 +96,11 @@
         android:id="@+id/GroupButton_FloatingButton_activityQaContacts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:fab_colorNormal="@color/FloatingButton"
         app:fab_colorPressed="@color/PressFloatingButton"
         app:fab_icon="@drawable/icon_add_user"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

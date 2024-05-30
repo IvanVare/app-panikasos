@@ -9,6 +9,10 @@
 
     <!-- My styles -->
 
+    <style name="Icon_panikaSOS">
+        <item name="android:src">@drawable/icon_panikasos_light</item>
+    </style>
+
     <style name="button_style_without_background">
         <item name="android:background">@drawable/style_btn_olvidaste_tu_contasena</item>
     </style>
@@ -43,5 +47,6 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_buttom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_buttom</item>
     </style>
+
 
 </resources>

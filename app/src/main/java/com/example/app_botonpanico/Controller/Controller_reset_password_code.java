@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import com.example.app_botonpanico.R;
 public class Controller_reset_password_code extends AppCompatActivity {
 
     EditText editTextNumber_01, editTextNumber_02, editTextNumber_03, editTextNumber_04, editTextNumber_05, editTextNumber_06;
-    Button verifyCodeButton;
+    RelativeLayout verifyCodeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class Controller_reset_password_code extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password_code);
         verifyCodeButton=findViewById(R.id.VerifyCode_button_activityResetpasswordCode);
 
-        TextView textViewMobile= findViewById(R.id.TextView_activityResetpasswordCode);
+        //TextView textViewMobile= findViewById(R.id.TextView_activityResetpasswordCode);
         editTextNumber_01=findViewById(R.id.editTextNumber_01_activityResetpasswordCode);
         editTextNumber_02=findViewById(R.id.editTextNumber_02_activityResetpasswordCode);
         editTextNumber_03=findViewById(R.id.editTextNumber_03_activityResetpasswordCode);
@@ -36,8 +37,8 @@ public class Controller_reset_password_code extends AppCompatActivity {
         editTextNumber_05=findViewById(R.id.editTextNumber_05_activityResetpasswordCode);
         editTextNumber_06=findViewById(R.id.editTextNumber_06_activityResetpasswordCode);
 
-        textViewMobile.setText(String.format("correo",getIntent().getStringExtra("email")
-        ));
+        /*textViewMobile.setText(String.format("correo",getIntent().getStringExtra("email")
+        ));*/
 
         setupOtpInputs();
 

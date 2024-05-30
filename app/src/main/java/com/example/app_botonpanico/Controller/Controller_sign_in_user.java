@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,7 +26,8 @@ import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 public class Controller_sign_in_user extends AppCompatActivity implements SigninCallback {
 
     EditText InputPhoneNumber, InputPassword;
-    Button ForgotPasswordButton, SignInButtonToMenu, RegisterButtonToLogIn;
+
+    RelativeLayout ForgotPasswordButton,SignInButtonToMenu,RegisterButtonToLogIn;
     String phonenumberString, passwordString;
     Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_sign_in_user.this);
 

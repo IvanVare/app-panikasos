@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -32,7 +33,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCallback {
 
-    ImageButton mainMenuButtom;
+    RelativeLayout mainMenuButtom;
     GoogleMap gOmap;
     FloatingActionsMenu floatingActionsMenu_group;
     FloatingActionButton fabButtonLayer, fabButtonFindMyLocation, fabButtonEmergencyButton;

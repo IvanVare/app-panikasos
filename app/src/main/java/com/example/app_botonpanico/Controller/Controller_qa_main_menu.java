@@ -26,9 +26,7 @@ import com.example.app_botonpanico.R;
 
 public class Controller_qa_main_menu extends AppCompatActivity {
 
-    Button ToMapButton, ToContactsButtom;
-    RelativeLayout ButtonLayoutSOS;
-    ImageButton LogOutButtom;
+    RelativeLayout ButtonLayoutSOS, ToMapButton, ToContactsButtom, LogOutButtom;
     TextView FullNameUser;
     LottieAnimationView ButtonAnimationSOS;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
@@ -56,7 +54,7 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
         registerReceiver(serviceStatusReceiver, filter);
 
-        FullNameUser.setText("Hola "+first_name_IntentUser+" "+last_name_IntentUser);
+        FullNameUser.setText("Hola, "+first_name_IntentUser+" "+last_name_IntentUser);
 
 
         if (ActivityCompat.checkSelfPermission(Controller_qa_main_menu.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Controller_qa_main_menu.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

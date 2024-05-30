@@ -68,12 +68,40 @@
                 android:text="S  O  S"
                 android:textSize="50dp" />
 
-            <ImageButton
+
+            <RelativeLayout
                 android:id="@+id/imageButton2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/panicbuttomv2" />
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                app:cardElevation="200dp"
+                android:clickable="true"
+                android:background="@drawable/background_buttonsos_ripple"
+                android:layout_margin="5dp">
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaMainMenu"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="true"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    app:lottie_rawRes="@raw/press_buttonsos"/>
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textSize="30dp"
+                    android:text="PanikaSOS"
+                    android:textColor="@color/textColor_WithoutBg"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/textView3"

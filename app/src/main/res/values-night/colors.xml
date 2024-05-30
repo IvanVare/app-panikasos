@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="backgroundBtn">#B1AE00</color>
+    <color name="backgroundBtn">#FFFFFF</color>
     <color name="textColor">#000000</color>
-    <color name="pressBtn">#5EFFFFFF</color>
+    <color name="textColor_WithoutBg">#EFEFEF</color>
+    <color name="pressBtn_WithoutBg">#8A8F8F8F</color>
+    <color name="pressBtn">#A3222222</color>
+    <color name="backgroundBtn_conatct">#A87E00</color>
+    <color name="backgroundBtn_conatct_under">#957000</color>
+    <color name="backgroundBtn_map">#8AB100</color>
+    <color name="backgroundBtn_map_under">#607C00</color>
 </resources>

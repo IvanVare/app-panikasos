@@ -10,36 +10,43 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="600dp"
         android:layout_gravity="center"
         style="@style/BackGround_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8">
+        app:layout_constraintTop_toTopOf="parent">
 
 
-
-        <RelativeLayout
-            android:id="@+id/next_button_activityData_register_personaldata"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="280dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:clickable="true"
-            android:background="@drawable/background_buttongeneral_ripple">
+            android:layout_marginTop="250dp"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:textColor="@color/textColor"
-                android:text="Siguiente" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/next_button_activityData_register_personaldata"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="@drawable/background_buttongeneral_ripple">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/textColor"
+                    android:text="Siguiente" />
+            </RelativeLayout>
+        </LinearLayout>
+
 
     </FrameLayout>
 
@@ -49,7 +56,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="230dp"
         android:layout_gravity="center_horizontal"
         app:cardCornerRadius="21dp"
         app:cardElevation="20dp"
@@ -60,26 +67,17 @@
             android:layout_height="match_parent"
             android:background="@drawable/style_appdata">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:scrollbarSize="10dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingHorizontal="15dp"
-                    android:paddingTop="15dp"
-                    android:layout_gravity="center">
+                    android:paddingTop="5dp">
 
                     <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:layout_gravity="center"
-
-                        android:background="@drawable/icon_user3_dark" />
+                        android:background="@drawable/icon_register" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,64 +85,75 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Registrarse"
-                        android:textSize="@dimen/text_title_size_sign_in" />
+                        android:text="Registro"
+                        android:textColor="@color/textColor_WithoutBg"
+                        android:textSize="@dimen/text_title_size_sign_in"/>
 
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        android:hint="Nombre(s)"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxBackgroundMode="outline">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputFirstName_activityData_register_personaldata"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_input"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        android:layout_gravity="center"
-                        android:hint="Apellido(s)"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxBackgroundMode="outline">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputLastName_activityData_register_personaldata"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/separation_of_ET_log_in"
+                            android:hint="Nombre(s)"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:hintTextColor="@color/textColor_WithoutBg">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/InputFirstName_activityData_register_personaldata"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_input"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_input"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginTop="@dimen/separation_of_ET_log_in"
+                            android:layout_gravity="center"
+                            android:hint="Apellido(s)"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxBackgroundMode="outline"
+                            app:hintTextColor="@color/textColor_WithoutBg">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/InputLastName_activityData_register_personaldata"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_input"/>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/separation_of_ET_log_in"
-                        android:hint="Edad"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxBackgroundMode="outline">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InputAge_activityData_register_personaldata"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_input"
-                            android:inputType="numberDecimal"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/separation_of_ET_log_in"
+                            android:hint="Edad"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxBackgroundMode="outline"
+                            app:hintTextColor="@color/textColor_WithoutBg">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/InputAge_activityData_register_personaldata"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_input"
+                                android:inputType="numberDecimal"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
 
                 </LinearLayout>
-            </ScrollView>
+
+
         </FrameLayout>
 
     </androidx.cardview.widget.CardView>

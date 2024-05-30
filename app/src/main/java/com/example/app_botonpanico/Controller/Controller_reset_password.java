@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import java.util.Random;
 
@@ -31,7 +32,7 @@ import com.example.app_botonpanico.Interface.ResetPasswordCallback;
 public class Controller_reset_password extends AppCompatActivity implements ResetPasswordCallback {
 
     EditText InputEmail;
-    Button SendCodeButton;
+    RelativeLayout SendCodeButton;
     String emailString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                 final EditText editTextNumber_04=dialog.findViewById(R.id.editTextNumber_04_activityResetpasswordCode);
                 final EditText editTextNumber_05=dialog.findViewById(R.id.editTextNumber_05_activityResetpasswordCode);
                 final EditText editTextNumber_06=dialog.findViewById(R.id.editTextNumber_06_activityResetpasswordCode);
-                Button verifyCodeButton=dialog.findViewById(R.id.VerifyCode_button_activityResetpasswordCode);
+                RelativeLayout verifyCodeButton=dialog.findViewById(R.id.VerifyCode_button_activityResetpasswordCode);
 
                 editTextNumber_01.addTextChangedListener(new TextWatcher() {
                     @Override

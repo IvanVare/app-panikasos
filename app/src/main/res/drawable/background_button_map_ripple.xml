@@ -4,8 +4,8 @@
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <solid android:color="@color/pressBtn"></solid>
-            <corners android:radius="30dp"></corners>
+            <corners android:radius="10dp"></corners>
         </shape>
     </item>
-    <item android:drawable="@drawable/background_buttongeneral"></item>
+    <item android:drawable="@drawable/background_button_map"></item>
 </ripple>
