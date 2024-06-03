@@ -70,7 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_vertical">
 
             <View
                 android:layout_width="250dp"
@@ -89,38 +90,44 @@
                 android:textSize="50dp" />
 
 
-            <RelativeLayout
-                android:id="@+id/imageButton2"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center"
-                app:cardElevation="200dp"
-                android:clickable="true"
-                android:background="@drawable/background_buttonsos_ripple"
-                android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/imageButton2"
+                    android:layout_width="320dp"
+                    android:layout_height="320dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_buttonsos_ripple"
+                    android:clickable="true"
+                    app:cardElevation="200dp">
 
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaMainMenu"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    app:lottie_autoPlay="false"
-                    app:lottie_loop="true"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true"
-                    app:lottie_rawRes="@raw/press_buttonsos"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaMainMenu"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
+                        app:lottie_autoPlay="false"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/press_buttonsos" />
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textSize="30dp"
-                    android:text="PanikaSOS"
-                    android:textColor="@color/textColor_WithoutBg"
-                    android:textStyle="bold"/>
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Panika SOS"
+                        android:textColor="@color/textColor_WithoutBg"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
 
 
             <TextView
@@ -144,6 +151,17 @@
                 android:textColor="@color/textColor_WithoutBg"
                 android:text="Usar únicamente en caso de emergencia"
                 android:textSize="20dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center_vertical"
+                android:textColor="@color/pressBtn_WithoutBg"
+                android:text="@string/function_btnpanika"
+                android:layout_margin="15dp"
+                android:textSize="15dp" />
         </LinearLayout>
     </FrameLayout>
 

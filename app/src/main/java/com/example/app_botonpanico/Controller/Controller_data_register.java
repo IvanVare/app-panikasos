@@ -33,9 +33,9 @@ import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 
 public class Controller_data_register extends AppCompatActivity implements DataRegisterCallback {
 
-    EditText InputFirstName,InputLastName,InputEmail,InputPhoneNumber,InputAge, InputPassword, InputConfirmPassword;
+    EditText InputEmail,InputPhoneNumber, InputPassword, InputConfirmPassword;
     RelativeLayout DataRegisterButtom;
-    String FirstName,LastName,Email,PhoneNumber,Age,Password;
+    String FirstName,LastName,Age;
     Model_data_register modelDataRegister = new Model_data_register(this);
     EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();
     Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_data_register.this);

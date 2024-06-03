@@ -17,7 +17,7 @@
             style="@style/BackGround_screen_appdata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="10dp"
             app:cardCornerRadius="25dp">
 
             <FrameLayout
@@ -36,15 +36,24 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0"
-                        android:background="@drawable/user_contact" />
+                        android:src="@drawable/user_contact"
+                        app:tint="@color/textColor_WithoutBg"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingHorizontal="15dp"
-
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nickName_itemContact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Apodo"
+                            android:fontFamily="sans-serif-black"
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/firstName_itemContact"
@@ -52,20 +61,15 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-black"
                             android:text="Nombre"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/lastName_itemContact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Apellido" />
+                            android:text="Apellido"
+                            android:textSize="12sp" />
 
-                        <TextView
-                            android:id="@+id/nickName_itemContact"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Apodo"
-                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/email_itemContact"
@@ -89,17 +93,38 @@
                         android:layout_weight="0"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <RelativeLayout
                             android:id="@+id/editButtom_itemContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/icon_edit_user" />
+                            android:layout_margin="10dp"
+                            android:clickable="true"
+                            android:background="?attr/selectableItemBackgroundBorderless">
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/icon_edit_user"
+                                app:tint="@color/textColor_WithoutBg"/>
+                        </RelativeLayout>
 
-                        <ImageButton
+
+                        <RelativeLayout
                             android:id="@+id/deleteButtom_itemContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/icon_delete" />
+                            android:layout_margin="10dp"
+                            android:clickable="true"
+                            android:background="?attr/selectableItemBackgroundBorderless">
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/icon_delete"
+                                app:tint="@color/textColor_WithoutBg"/>
+                        </RelativeLayout>
+
+
                     </LinearLayout>
                 </LinearLayout>
             </FrameLayout>

@@ -7,16 +7,23 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,8 +33,10 @@ import com.example.app_botonpanico.R;
 
 public class Controller_qa_main_menu extends AppCompatActivity {
 
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
     RelativeLayout ButtonLayoutSOS, ToMapButton, ToContactsButtom, LogOutButtom;
     TextView FullNameUser;
+    SwitchCompat SwitchCompatUbication;
     LottieAnimationView ButtonAnimationSOS;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
 
@@ -50,8 +59,13 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         FullNameUser=findViewById(R.id.FullNameUser_TextView_activityQaMainMenu);
         ButtonLayoutSOS=findViewById(R.id.buttomPanika_RelativeLayout_ActivityQaMainMenu);
         ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaMainMenu);
-
+        SwitchCompatUbication=findViewById(R.id.switch_ActivityQaMainMenu);
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean isGpsEnabled = locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        SwitchCompatUbication.setChecked(isGpsEnabled);
+
         registerReceiver(serviceStatusReceiver, filter);
 
         FullNameUser.setText("Hola, "+first_name_IntentUser+" "+last_name_IntentUser);
@@ -67,6 +81,16 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         }
 
 
+        SwitchCompatUbication.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkLocationPermission();
+                } else {
+                    disableLocation();
+                }
+            }
+        });
 
         ButtonLayoutSOS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +154,49 @@ public class Controller_qa_main_menu extends AppCompatActivity {
             }
         }
     };
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+        } else {
+            enableLocation();
+        }
+    }
+    private void enableLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "GPS is already enabled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void disableLocation() {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+        Toast.makeText(this, "Please turn off GPS manually", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                enableLocation();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    
+
+
 
 
     @Override

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App_BotonPanicoV1</string>
+    <string name="app_name">PaniKa SOS</string>
     <string name="app_nick_name">Botón de pánico</string>
     <string name="btn_sign_in">Siguiente</string>
     <string name="btn_log_in">Registrarse</string>
@@ -15,10 +15,7 @@
     <string name="option_contacts">Contactos</string>
     <string name="option_panicbuttom">Botón de pánico</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="function_btnpanika">El botón tiene la función de enviar su ubicación en tiempo real durante una hora, donde cada cinco minutos se envía a través de correo electrónico a los contactos de confianza registrados.</string>
 
-    <string name="verificar">Verificar coidgo</string>
+    <string name="verificar">Verificar código</string>
 </resources>

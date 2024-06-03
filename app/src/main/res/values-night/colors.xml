@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="gray_bkgroud">#3A3A3A</color>
     <color name="backgroundBtn">#FFFFFF</color>
+    <color name="Danger">#2AFF2626</color>
+    <color name="switch_btn">#DADADA</color>
     <color name="textColor">#000000</color>
     <color name="textColor_WithoutBg">#EFEFEF</color>
     <color name="pressBtn_WithoutBg">#8A8F8F8F</color>

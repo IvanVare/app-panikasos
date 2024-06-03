@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,8 +84,8 @@ public class AdapterContact extends BaseAdapter {
         TextView nickName=(TextView)view.findViewById(R.id.nickName_itemContact);
         TextView email=(TextView)view.findViewById(R.id.email_itemContact);
         TextView phoneNumber=(TextView)view.findViewById(R.id.phoneNumber_itemContact);
-        ImageButton editButtom=(ImageButton) view.findViewById(R.id.editButtom_itemContact);
-        ImageButton deleteButtom=(ImageButton) view.findViewById(R.id.deleteButtom_itemContact);
+        RelativeLayout editButtom=(RelativeLayout) view.findViewById(R.id.editButtom_itemContact);
+        RelativeLayout deleteButtom=(RelativeLayout) view.findViewById(R.id.deleteButtom_itemContact);
         firstName.setText(contactData.getFirst_name());
         lastName.setText(contactData.getLast_name());
         nickName.setText(contactData.getNickname());

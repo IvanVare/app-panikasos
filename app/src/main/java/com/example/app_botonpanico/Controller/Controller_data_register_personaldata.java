@@ -21,7 +21,6 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
     RelativeLayout NextDataRegisterPD;
     EditText InputFirstName,InputLastName,InputEmail,InputPhoneNumber,InputAge, InputPassword, InputConfirmPassword;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
