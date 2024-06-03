@@ -34,6 +34,7 @@ import com.example.app_botonpanico.R;
 public class Controller_qa_main_menu extends AppCompatActivity {
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private static final int REQUEST_NOTIFICATION_PERMISSION = 2;
     RelativeLayout ButtonLayoutSOS, ToMapButton, ToContactsButtom, LogOutButtom;
     TextView FullNameUser;
     SwitchCompat SwitchCompatUbication;
@@ -61,24 +62,25 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaMainMenu);
         SwitchCompatUbication=findViewById(R.id.switch_ActivityQaMainMenu);
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
-
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean isGpsEnabled = locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         SwitchCompatUbication.setChecked(isGpsEnabled);
-
         registerReceiver(serviceStatusReceiver, filter);
 
         FullNameUser.setText("Hola, "+first_name_IntentUser+" "+last_name_IntentUser);
 
 
-        if (ActivityCompat.checkSelfPermission(Controller_qa_main_menu.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Controller_qa_main_menu.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Controller_qa_main_menu.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-            ActivityCompat.requestPermissions( Controller_qa_main_menu.this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},101);
-            ActivityCompat.requestPermissions( Controller_qa_main_menu.this,
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS},102);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.POST_NOTIFICATIONS
+                    }, REQUEST_LOCATION_PERMISSION);
         }
+
 
 
         SwitchCompatUbication.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -170,8 +172,6 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
-        } else {
-            Toast.makeText(this, "GPS is already enabled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -186,17 +186,19 @@ public class Controller_qa_main_menu extends AppCompatActivity {
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                enableLocation();
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
+                            permissions[i].equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        enableLocation();
+                    } else if (permissions[i].equals(Manifest.permission.POST_NOTIFICATIONS)) {
+                    }
+                } else {
+                    Toast.makeText(this, "Permisos necesarios: " + permissions[i], Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
-
-    
-
-
 
 
     @Override

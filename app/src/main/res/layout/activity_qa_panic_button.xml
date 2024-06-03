@@ -107,7 +107,7 @@
 
 
                     <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaMainMenu"
+                        android:id="@+id/buttonAnimation_LottieAnimation_ActivityQaPanicButton"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
                         android:layout_centerInParent="true"

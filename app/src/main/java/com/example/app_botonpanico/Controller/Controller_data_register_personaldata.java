@@ -43,6 +43,7 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
                         intentToDataRegister.putExtra("last_name", InputLastName.getText().toString());
                         intentToDataRegister.putExtra("age", InputAge.getText().toString());
                         startActivity(intentToDataRegister);
+                        finish();
                     }
 
                 }

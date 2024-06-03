@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,7 +22,7 @@ import androidx.core.util.PatternsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.Custom_dialog_loading;
+import com.example.app_botonpanico.utils.Custom_dialog_loading;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_reset_password;
 import com.example.app_botonpanico.Interface.ResetPasswordCallback;
@@ -34,6 +32,8 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
     EditText InputEmail;
     RelativeLayout SendCodeButton;
     String emailString;
+    Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_reset_password.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,20 +41,13 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
         setContentView(R.layout.activity_reset_password);
         InputEmail=findViewById(R.id.InputEmail_activityReset_Password);
         SendCodeButton=findViewById(R.id.SendCode_button_activityResetpassword);
-        Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_reset_password.this);
         SendCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                customDialogLoading.startLoadingDialog();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        checkEmail();
-                        customDialogLoading.dismissDialog();
-                    }
-                },4000);
+                if (validateEmail()){
+                    customDialogLoading.startLoadingDialog();
+                    checkEmail();
+                }
 
             }
         });
@@ -67,20 +60,18 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
     public void checkEmail(){
         emailString=InputEmail.getText().toString().trim();
-        if (validateEmail()){
-            Model_reset_password modelResetPassword = new Model_reset_password(emailString,this,this);
-            modelResetPassword.validateEmail();
-        }
+        Model_reset_password modelResetPassword = new Model_reset_password(emailString,this,this);
+        modelResetPassword.validateEmail();
+
     }
 
     public void OnSuccess(String email){
         try {
             if (email.equals(emailString)){
-
                 String codeVerification = generateVerificationCode();
                 Model_reset_password modelResetPassword = new Model_reset_password(email,codeVerification,this,this);
                 modelResetPassword.sendEmailCode();
-
+                customDialogLoading.dismissDialog();
                 //Actividty para Confirmar codigo recibido
                 Dialog dialog= new Dialog(Controller_reset_password.this);
                 dialog.setTitle("Nuevo registro");
@@ -103,6 +94,7 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                 editTextNumber_01.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
                     }
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -113,12 +105,15 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        if (!s.toString().trim().isEmpty()){
+                            editTextNumber_02.requestFocus();
+                        }
                     }
                 });
                 editTextNumber_02.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
                     }
 
                     @Override
@@ -132,7 +127,11 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        if (!s.toString().trim().isEmpty()){
+                            editTextNumber_03.requestFocus();
+                        }else {
+                            editTextNumber_01.requestFocus();
+                        }
                     }
                 });
                 editTextNumber_03.addTextChangedListener(new TextWatcher() {
@@ -152,7 +151,11 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        if (!s.toString().trim().isEmpty()){
+                            editTextNumber_04.requestFocus();
+                        }else {
+                            editTextNumber_02.requestFocus();
+                        }
                     }
                 });
                 editTextNumber_04.addTextChangedListener(new TextWatcher() {
@@ -172,7 +175,11 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        if (!s.toString().trim().isEmpty()){
+                            editTextNumber_05.requestFocus();
+                        }else {
+                            editTextNumber_03.requestFocus();
+                        }
                     }
                 });
                 editTextNumber_05.addTextChangedListener(new TextWatcher() {
@@ -192,7 +199,11 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        if (!s.toString().trim().isEmpty()){
+                            editTextNumber_06.requestFocus();
+                        }else {
+                            editTextNumber_04.requestFocus();
+                        }
                     }
                 });
                 editTextNumber_06.addTextChangedListener(new TextWatcher() {
@@ -210,7 +221,9 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        if (s.toString().trim().isEmpty()){
+                            editTextNumber_05.requestFocus();
+                        }
                     }
                 });
                 verifyCodeButton.setOnClickListener(new View.OnClickListener() {
@@ -256,6 +269,7 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
     @Override
     public void OnFailure(String error) {
         try {
+            customDialogLoading.dismissDialog();
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             System.out.println(e);

@@ -72,6 +72,7 @@ public class Controller_main_screen extends AppCompatActivity implements SigninC
                     intentToMainMenu.putExtra("age", data[3]);
                     intentToMainMenu.putExtra("email", data[5]);
                     startActivity(intentToMainMenu);
+                    finish();
                 } else {
                     Intent intentToSignIn = new Intent(this, Controller_sign_in_user.class);
                     startActivity(intentToSignIn);

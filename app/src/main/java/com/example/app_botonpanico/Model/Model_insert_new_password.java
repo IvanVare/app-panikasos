@@ -10,6 +10,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.app_botonpanico.Interface.InsertNewPasswordCallback;
+import com.example.app_botonpanico.Interface.ResetPasswordCallback;
 import com.example.app_botonpanico.utils.PanicButtomConfig;
 
 import java.util.HashMap;
@@ -19,9 +21,11 @@ public class Model_insert_new_password {
 
     private Context context;
     private PanicButtomConfig panicButtomConfig;
-    public Model_insert_new_password(Context context) {
+    private InsertNewPasswordCallback insertNewPasswordCallback;
+    public Model_insert_new_password(Context context, InsertNewPasswordCallback insertNewPasswordCallback) {
         this.context = context;
         this.panicButtomConfig = new PanicButtomConfig();
+        this.insertNewPasswordCallback= insertNewPasswordCallback;
     }
 
     public void resetPassword(String email,String password){
@@ -31,10 +35,9 @@ public class Model_insert_new_password {
             public void onResponse(String response) {
                 System.out.println(response.toString());
                 if (response.toString().trim().equalsIgnoreCase("modificacion exitosa")) {
-                    Toast.makeText(context, "Modificación hecha", Toast.LENGTH_SHORT).show();
+                    insertNewPasswordCallback.OnSuccess(email);
                 } else {
                     Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();
-                    //Revisar pq da esto aunque si se cambie
                 }
             }
         }, new Response.ErrorListener() {

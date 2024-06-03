@@ -1,18 +1,10 @@
 package com.example.app_botonpanico.Controller;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Gravity;
+import android.os.Looper;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,9 +16,8 @@ import androidx.core.util.PatternsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.Custom_dialog_loading;
+import com.example.app_botonpanico.utils.Custom_dialog_loading;
 import com.example.app_botonpanico.Interface.DataRegisterCallback;
-import com.example.app_botonpanico.Model.Model_reset_password;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_data_register;
 import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
@@ -39,7 +30,8 @@ public class Controller_data_register extends AppCompatActivity implements DataR
     Model_data_register modelDataRegister = new Model_data_register(this);
     EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();
     Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_data_register.this);
-    @SuppressLint("MissingInflatedId")
+    Handler handler = new Handler(Looper.getMainLooper());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +42,6 @@ public class Controller_data_register extends AppCompatActivity implements DataR
         InputPassword=findViewById(R.id.InputPassword_activityData_register);
         InputConfirmPassword=findViewById(R.id.InputConfirmPassword_activityData_register);
         DataRegisterButtom=findViewById(R.id.Register_button_activityData_register);
-        Model_data_register modelDataRegister = new Model_data_register(this);
-        EncryptAndDesencrypt encryptAndDesencrypt= new EncryptAndDesencrypt();
 
         Intent intentToDataRegister = getIntent();
         FirstName = intentToDataRegister.getStringExtra("first_name");
@@ -64,16 +54,12 @@ public class Controller_data_register extends AppCompatActivity implements DataR
 
                 if (!InputEmail.getText().toString().isEmpty() &&  !InputPhoneNumber.getText().toString().isEmpty()
                         && !InputPassword.getText().toString().isEmpty() && !InputConfirmPassword.getText().toString().isEmpty()){
-                    customDialogLoading.startLoadingDialog();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            checkEmailAndPhoneNumberExist();
-                        }
-                    },3000);
-
-
+                    if (validateData()){
+                        customDialogLoading.startLoadingDialog();
+                        checkEmailAndPhoneNumberExist();
+                    }else {
+                        Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
+                    }
                 }else {
                     Toast.makeText(Controller_data_register.this,"Campos vacíos",Toast.LENGTH_SHORT).show();
                 }
@@ -85,8 +71,6 @@ public class Controller_data_register extends AppCompatActivity implements DataR
             return insets;
         });
     }
-
-
     private boolean validateData() {
         boolean[] result = {validateEmail(), validatePhoneNumber(),validatePassword(),validatePasswordConfirm()};
         for (boolean isValid : result) {
@@ -96,9 +80,6 @@ public class Controller_data_register extends AppCompatActivity implements DataR
         }
         return true;
     }
-
-
-
     private boolean validateEmail() {
         String email = InputEmail.getText().toString();
         if (email.isEmpty()) {
@@ -112,8 +93,6 @@ public class Controller_data_register extends AppCompatActivity implements DataR
             return true;
         }
     }
-
-
     private boolean validatePhoneNumber() {
         String phoneNumber = InputPhoneNumber.getText().toString();
         if (phoneNumber.isEmpty()) {
@@ -127,8 +106,6 @@ public class Controller_data_register extends AppCompatActivity implements DataR
             return true;
         }
     }
-
-
     private boolean validatePassword() {
         String password = InputPassword.getText().toString();
         if (password.isEmpty()) {
@@ -142,7 +119,6 @@ public class Controller_data_register extends AppCompatActivity implements DataR
             return true;
         }
     }
-
     private boolean validatePasswordConfirm() {
         String password = InputPassword.getText().toString();
         String passwordConfirm = InputConfirmPassword.getText().toString();
@@ -157,38 +133,26 @@ public class Controller_data_register extends AppCompatActivity implements DataR
             return true;
         }
     }
-
-
-
     public void checkEmailAndPhoneNumberExist(){
         String emailString=InputEmail.getText().toString().trim();
         String phoneNumberString= InputPhoneNumber.getText().toString().trim();
-        if (validateEmail()){
-            Model_data_register modelDataRegister = new Model_data_register(emailString,phoneNumberString,this,this);
-            modelDataRegister.validateEmail();
-        }
+        Model_data_register modelDataRegister = new Model_data_register(emailString,phoneNumberString,this,this);
+        modelDataRegister.validateEmail();
     }
-
-
     @Override
     public void OnSuccess(String res) {
-
         if (res.equalsIgnoreCase("1")){
-            if (validateData()){
-                String encryptPassword = "";
-                encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
-                modelDataRegister.registerUser(
-                        FirstName
-                        ,LastName
-                        ,InputEmail.getText().toString().trim()
-                        ,InputPhoneNumber.getText().toString().trim()
-                        ,Age
-                        ,encryptPassword);
-                ToSignIn();
-            }else {
-                customDialogLoading.dismissDialog();
-                Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
-            }
+            String encryptPassword = "";
+            encryptPassword = encryptAndDesencrypt.encrypt(InputPassword.getText().toString());
+            modelDataRegister.registerUser(
+                    FirstName
+                    ,LastName
+                    ,InputEmail.getText().toString().trim()
+                    ,InputPhoneNumber.getText().toString().trim()
+                    ,Age
+                    ,encryptPassword);
+            ToSignIn();
+
         }else {
             customDialogLoading.dismissDialog();
             Toast.makeText(Controller_data_register.this,"Correo o numero telefonico ya registrado",Toast.LENGTH_SHORT).show();
@@ -196,21 +160,18 @@ public class Controller_data_register extends AppCompatActivity implements DataR
 
 
     }
-
     @Override
     public void OnFailure(String error) {
         try {
+            customDialogLoading.dismissDialog();
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             System.out.println(error);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
-
     public void ToSignIn(){
-        Intent intentToSignIn = new Intent(Controller_data_register.this, Controller_sign_in_user.class);
-        startActivity(intentToSignIn);
+        finish();
         customDialogLoading.dismissDialog();
     }
 

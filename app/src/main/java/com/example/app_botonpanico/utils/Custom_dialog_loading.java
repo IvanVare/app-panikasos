@@ -1,8 +1,10 @@
-package com.example.app_botonpanico;
+package com.example.app_botonpanico.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+
+import com.example.app_botonpanico.R;
 
 public class Custom_dialog_loading {
     private Activity activity;

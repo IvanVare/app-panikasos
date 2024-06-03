@@ -6,8 +6,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -49,6 +51,8 @@ public class Controller_qa_panic_button extends AppCompatActivity {
     ArrayList<Model_Contact_data> listContacts;
     RelativeLayout imageButton2;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
+
+    LottieAnimationView ButtonAnimationSOS;
     private Intent send_Menssage_Service;
     private boolean isServiceRunning = false;
     private Handler handler;
@@ -56,7 +60,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
     private long startTime;
     private boolean isSending = false; // Control variable
     private final int NOTIFICATION_ID = 1; // ID de la notificación
-    private final String CHANNEL_ID = "CHANNEL_ID_NOTIFICATION";
+    private BroadcastReceiver serviceStatusReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +73,11 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         last_name_IntentUser = intentToPanicButtom.getStringExtra("last_name");
         phone_number_IntentUser = intentToPanicButtom.getStringExtra("phone_number");
         email_IntentUser = intentToPanicButtom.getStringExtra("email");
+
+
         imageButton2=findViewById(R.id.imageButton2);
+        ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaPanicButton);
+
         daoContact = new daoContact(this);
         listContacts=daoContact.getAllByEmail();
         handler = new Handler(Looper.getMainLooper());
@@ -84,8 +92,11 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},101);
                 ActivityCompat.requestPermissions( Controller_qa_panic_button.this,
                         new String[]{Manifest.permission.POST_NOTIFICATIONS},101);
+            }else {
+                Toast.makeText(this, "No hay permisos", Toast.LENGTH_SHORT).show();
             }
         }
+
 
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +141,8 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         }
     }
 
+
+
     private void stopSendingMessages() {
         isSending = false;
         if (handler != null && runnable != null) {
@@ -144,6 +157,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         super.onDestroy();
         // Detén el handler cuando la actividad se destruya
         stopSendingMessages();
+
     }
 
 

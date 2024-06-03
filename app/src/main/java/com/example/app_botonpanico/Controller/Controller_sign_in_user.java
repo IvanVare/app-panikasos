@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -17,7 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.Custom_dialog_loading;
+import com.example.app_botonpanico.utils.Custom_dialog_loading;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.Model.Model_sign_in;
 import com.example.app_botonpanico.Interface.SigninCallback;
@@ -61,17 +59,9 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         SignInButtonToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customDialogLoading.startLoadingDialog();
-                Handler handler = new Handler();
-
                 if (validateDataSignin()){
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Signin(v);
-                        }
-                    },3000);
-
+                    customDialogLoading.startLoadingDialog();
+                    Signin(v);
                 }
             }
         });
@@ -123,6 +113,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
     @Override
     public void OnFailure(String error) {
         try {
+            customDialogLoading.dismissDialog();
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             System.out.println(error);
         } catch (Exception e) {
