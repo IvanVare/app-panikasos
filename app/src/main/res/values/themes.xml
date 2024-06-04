@@ -48,5 +48,9 @@
         <item name="android:windowExitAnimation">@anim/slide_out_buttom</item>
     </style>
 
+    <style name="Map_style">
+        <item name="android:drawable">@raw/map_style_light</item>
+    </style>
+
 
 </resources>

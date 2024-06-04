@@ -61,6 +61,7 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         ButtonLayoutSOS=findViewById(R.id.buttomPanika_RelativeLayout_ActivityQaMainMenu);
         ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaMainMenu);
         SwitchCompatUbication=findViewById(R.id.switch_ActivityQaMainMenu);
+
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean isGpsEnabled = locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -110,8 +111,13 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         ToMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Controller_qa_main_menu.this, Controller_qa_map.class);
-                startActivity(i);
+                Intent intentToMap = new Intent(Controller_qa_main_menu.this, Controller_qa_map.class);
+                intentToMap.putExtra("first_name",first_name_IntentUser);
+                intentToMap.putExtra("last_name", last_name_IntentUser);
+                intentToMap.putExtra("phone_number", phone_number_IntentUser);
+                intentToMap.putExtra("age", age_IntentUser);
+                intentToMap.putExtra("email", email_IntentUser);
+                startActivity(intentToMap);
             }
         });
 
@@ -122,9 +128,6 @@ public class Controller_qa_main_menu extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
-
         LogOutButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

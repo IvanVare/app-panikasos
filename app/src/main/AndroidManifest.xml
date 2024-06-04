@@ -34,19 +34,24 @@
         tools:targetApi="31">
         <activity
             android:name=".Controller.Controller_data_register_personaldata"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Notification_Panicbtn_Active"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_reset_password_code"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.App_BotonPanico" />
         <activity
             android:name=".item_contact"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_main_screen"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,33 +66,42 @@
 
         <activity
             android:name=".Controller_qa_contact"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_qa_contacts"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_qa_map"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_qa_panic_button"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_insert_new_password"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_reset_password"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_qa_main_menu"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_data_register"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_sign_in_user"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_mainActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <service

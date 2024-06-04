@@ -42,6 +42,11 @@ import com.example.app_botonpanico.Model.Model_Contact_data;
 import com.example.app_botonpanico.Dao.daoContact;
 import com.example.app_botonpanico.Model.Model_send_message_coordinates;
 import com.example.app_botonpanico.Service.Send_Message_Service;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
@@ -49,18 +54,12 @@ public class Controller_qa_panic_button extends AppCompatActivity {
 
     daoContact daoContact;
     ArrayList<Model_Contact_data> listContacts;
-    RelativeLayout imageButton2;
-    String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
-
+    RelativeLayout imageButton2, mainMenuButtom;;
+    String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,email_IntentUser;
     LottieAnimationView ButtonAnimationSOS;
-    private Intent send_Menssage_Service;
-    private boolean isServiceRunning = false;
     private Handler handler;
     private Runnable runnable;
-    private long startTime;
     private boolean isSending = false; // Control variable
-    private final int NOTIFICATION_ID = 1; // ID de la notificación
-    private BroadcastReceiver serviceStatusReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,34 +73,44 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         phone_number_IntentUser = intentToPanicButtom.getStringExtra("phone_number");
         email_IntentUser = intentToPanicButtom.getStringExtra("email");
 
-
+        mainMenuButtom=findViewById(R.id.Menu_activityQaPanicButton);
         imageButton2=findViewById(R.id.imageButton2);
         ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaPanicButton);
-
         daoContact = new daoContact(this);
         listContacts=daoContact.getAllByEmail();
         handler = new Handler(Looper.getMainLooper());
-        send_Menssage_Service = new Intent(this, Send_Message_Service.class);
+
+        IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
+        registerReceiver(serviceStatusReceiver2, filter);
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission( Controller_qa_panic_button.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions( Controller_qa_panic_button.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},101);
-                ActivityCompat.requestPermissions( Controller_qa_panic_button.this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS},101);
-            }else {
-                Toast.makeText(this, "No hay permisos", Toast.LENGTH_SHORT).show();
-            }
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         }
+        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                } else {
+                    Toast.makeText(Controller_qa_panic_button.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-
+        mainMenuButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                                 != PackageManager.PERMISSION_GRANTED) {
@@ -117,12 +126,27 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                 }
             }
         });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
+
+    private BroadcastReceiver serviceStatusReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean isRunning = intent.getBooleanExtra("isRunning", false);
+            if (isRunning) {
+                ButtonAnimationSOS.setVisibility(View.VISIBLE);
+                ButtonAnimationSOS.playAnimation();
+            }else {
+                ButtonAnimationSOS.cancelAnimation();
+                ButtonAnimationSOS.setVisibility(View.GONE);
+            }
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -136,7 +160,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                 serviceIntent.putExtra("email", email_IntentUser);
                 startService(serviceIntent);
             } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permisos denegados", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -149,15 +173,13 @@ public class Controller_qa_panic_button extends AppCompatActivity {
             handler.removeCallbacks(runnable);
             Intent serviceIntent = new Intent(this, Send_Message_Service.class);
             stopService(serviceIntent);
-            Toast.makeText(this, "Envio de mensajes aaaa", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Envio de mensajes", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Detén el handler cuando la actividad se destruya
-        stopSendingMessages();
-
+        unregisterReceiver(serviceStatusReceiver2);
     }
 
 

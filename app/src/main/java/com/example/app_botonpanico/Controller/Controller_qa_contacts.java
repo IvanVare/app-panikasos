@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class Controller_qa_contacts extends AppCompatActivity {
+
+    RelativeLayout mainMenuButtom;
     com.example.app_botonpanico.Dao.daoContact daoContact;
     AdapterContact adapterContact;
     Model_Contact_data contactData;
@@ -49,8 +52,16 @@ public class Controller_qa_contacts extends AppCompatActivity {
         ListView listViewContacts= findViewById(R.id.ListView_activityQaContacts);
         listViewContacts.setAdapter(adapterContact);
 
-        //botón para agregar contacto
+        //botones
+        mainMenuButtom=findViewById(R.id.Menu_activityQaContacts);
         floatingActionsMenu_buttom= findViewById(R.id.GroupButton_FloatingButton_activityQaContacts);
+
+        mainMenuButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         floatingActionsMenu_buttom.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import static android.content.Intent.getIntent;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -40,7 +41,6 @@ public class Send_Message_Service extends Service {
     daoContact daoContact;
     private List<Model_Contact_data> listContacts;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,email_IntentUser;
-
     private Handler handler;
     private Runnable runnable;
     private long startTime;
@@ -72,6 +72,7 @@ public class Send_Message_Service extends Service {
             startSendingMessages(first_name_IntentUser,last_name_IntentUser,phone_number_IntentUser,email_IntentUser);
             isSending = true;
             sendServiceStatus(true);
+
             showNotification();
         }else {
             stopSendingMessages();
@@ -108,7 +109,6 @@ public class Send_Message_Service extends Service {
                 }
             }
         };
-        // Inicia la primera ejecución
         handler.post(runnable);
     }
     private void dataMessage(String firs_name_contact,String last_name_contact, String email_contact
@@ -119,7 +119,7 @@ public class Send_Message_Service extends Service {
             modelSendMessageCoordinates.sendCoordinate(firs_name_contact,last_name_contact,email_contact,myfirst_name,mylast_name,myemail,myphone_number,url);
         }catch (Exception e){
             System.out.println(e);
-            Toast.makeText(this,"No se envió el mensaje",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No pudo enviar el correo",Toast.LENGTH_SHORT).show();
         }
     }
     private String[] getCoordinates() {
@@ -154,7 +154,7 @@ public class Send_Message_Service extends Service {
             handler.removeCallbacks(runnable);
             stopForeground(true);
             stopSelf();
-            Toast.makeText(this, "Envio de mensajes cancelado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Panika SOS Desactivado", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -169,8 +169,14 @@ public class Send_Message_Service extends Service {
         super.onDestroy();
         sendServiceStatus(false);
         isServiceRunning = false;
+        if (handler != null && runnable != null) {
+            handler.removeCallbacks(runnable);
+        }
         stopForeground(true);
-        handler.removeCallbacks(runnable);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.cancel(NOTIFICATION_ID);
+        stopSelf();
+        System.out.println("Notification-destroy");
     }
 
 
@@ -205,7 +211,7 @@ public class Send_Message_Service extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.icon_buttone) // Asegúrate de tener un icono en drawable
                 .setContentTitle("Activado...")
-                .setContentText("PanokaSOS está envíando tu ubicación a tus contactos de emergencia")
+                .setContentText("Panoka SOS está envíando su ubicación a tus contactos de emergencia")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
@@ -223,10 +229,7 @@ public class Send_Message_Service extends Service {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        System.out.println("Notification---");
+        System.out.println("Notification-activada");
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
-
-
-
 }

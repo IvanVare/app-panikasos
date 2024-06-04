@@ -33,7 +33,7 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/Menu_activityQaMap"
+                    android:id="@+id/Menu_activityQaContacts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

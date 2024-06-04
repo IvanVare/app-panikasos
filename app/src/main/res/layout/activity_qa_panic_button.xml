@@ -27,7 +27,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/Menu_activityQaMap"
+                android:id="@+id/Menu_activityQaPanicButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -115,6 +115,16 @@
                         app:lottie_autoPlay="false"
                         app:lottie_loop="true"
                         app:lottie_rawRes="@raw/press_buttonsos" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/loadAnimation_LottieAnimation_ActivityQaPanicButton"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
+                        app:lottie_autoPlay="false"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/load_pbutton" />
 
                     <TextView
                         android:id="@+id/textView8"
