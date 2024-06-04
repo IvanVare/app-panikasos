@@ -75,6 +75,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textEmailAddress"
+                                android:maxLength="60"
                                 android:textSize="@dimen/text_size_input" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,6 +95,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="phone"
+                                android:maxLength="10"
                                 android:textSize="@dimen/text_size_input" />
                         </com.google.android.material.textfield.TextInputLayout>
 

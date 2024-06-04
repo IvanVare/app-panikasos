@@ -45,16 +45,16 @@ public class Model_send_message_coordinates {
             @Override
             public void onResponse(String response) {
                 if (response.toString().trim().equalsIgnoreCase("Exito")) {
-                    Toast.makeText(context, "Panika SOS Activado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Correo enviado con la ubicación en tiempo real", Toast.LENGTH_SHORT).show();
+                    System.out.println("Correo enviado con la ubicación en tiempo real");
                 } else {
-                    Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Favor de conectarse a internet e intentarlo nuevamente", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, "Error: "+volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Favor de conectarse a internet e intentarlo nuevamente", Toast.LENGTH_SHORT).show();
                 System.out.println("Error: "+volleyError.getMessage());
             }
         }) {

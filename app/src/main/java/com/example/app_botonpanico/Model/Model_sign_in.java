@@ -74,7 +74,7 @@ public class Model_sign_in {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                signinCallback.OnFailure("Conexión perdida");
+                signinCallback.OnFailure("Favor de conectarse a internet e intentarlo nuevamente");
             }
         }) {
             @Override

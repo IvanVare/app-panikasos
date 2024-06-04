@@ -43,8 +43,7 @@ public class Model_insert_new_password {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, "Error: "+volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Favor de conectarse a internet e intentarlo nuevamente", Toast.LENGTH_SHORT).show();
                 System.out.println("Error: "+volleyError.getMessage());
             }
         }) {

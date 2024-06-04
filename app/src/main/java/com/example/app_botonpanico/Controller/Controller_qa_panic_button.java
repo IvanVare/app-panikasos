@@ -80,7 +80,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                 if (location != null) {
                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 } else {
-                    Toast.makeText(Controller_qa_panic_button.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Controller_qa_panic_button.this, "Favor de activar el GPS para poder compartir la ubicacion en tiempo real", Toast.LENGTH_SHORT).show();
                 }
             }
         });

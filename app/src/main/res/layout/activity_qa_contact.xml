@@ -61,12 +61,13 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxBackgroundMode="outline">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/firstName_activityQaContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_input_contact"
-                    />
+                    android:maxLength="20"
+                    android:textSize="@dimen/text_size_input_contact" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -81,12 +82,13 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxBackgroundMode="outline">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/lastName_activityQaContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_input_contact"
-                    />
+                    android:maxLength="20"
+                    android:textSize="@dimen/text_size_input_contact" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -101,12 +103,13 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxBackgroundMode="outline">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nickName_activityQaContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_input_contact"
-                    />
+                    android:maxLength="20"
+                    android:textSize="@dimen/text_size_input_contact" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -120,13 +123,14 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxBackgroundMode="outline">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_activityQaContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textSize="@dimen/text_size_input_contact"
-                    />
+                    android:maxLength="60"
+                    android:textSize="@dimen/text_size_input_contact" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -140,13 +144,14 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxBackgroundMode="outline">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phoneNumber_activityQaContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:textSize="@dimen/text_size_input_contact"
-                    />
+                    android:maxLength="10"
+                    android:textSize="@dimen/text_size_input_contact" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

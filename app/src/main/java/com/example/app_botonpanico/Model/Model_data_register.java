@@ -108,7 +108,7 @@ public class Model_data_register {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                dataRegisterCallback.OnFailure("Conexión perdida");
+                dataRegisterCallback.OnFailure("Favor de conectarse a internet e intentarlo nuevamente");
             }
         }) {
             @Override

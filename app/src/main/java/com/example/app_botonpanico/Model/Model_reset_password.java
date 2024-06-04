@@ -81,7 +81,7 @@ public class Model_reset_password {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                resetPasswordCallback.OnFailure("Conexión perdida");
+                resetPasswordCallback.OnFailure("Favor de conectarse a internet e intentarlo nuevamente");
             }
         }) {
             @Override
