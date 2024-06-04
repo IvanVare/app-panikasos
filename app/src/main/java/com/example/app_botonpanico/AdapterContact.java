@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,15 +21,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.util.PatternsCompat;
 
-import com.example.app_botonpanico.Model.Model_Contact_data;
+import com.example.app_botonpanico.Model.Model_contact_data;
 import com.example.app_botonpanico.Dao.daoContact;
 
 import java.util.ArrayList;
 
 public class AdapterContact extends BaseAdapter {
-    ArrayList<Model_Contact_data> list;
+    ArrayList<Model_contact_data> list;
     com.example.app_botonpanico.Dao.daoContact daoContact;
-    Model_Contact_data contactData;
+    Model_contact_data contactData;
     Activity activity;
     String firstNameContact,lastNameContact,nickNameContact,emailContact,phoneNumberContact;
 
@@ -45,7 +44,7 @@ public class AdapterContact extends BaseAdapter {
 
     int id=0;
 
-    public AdapterContact(Activity activity, ArrayList<Model_Contact_data> list, daoContact daoContact) {
+    public AdapterContact(Activity activity, ArrayList<Model_contact_data> list, daoContact daoContact) {
         this.list = list;
         this.activity = activity;
         this.daoContact = daoContact;
@@ -136,7 +135,7 @@ public class AdapterContact extends BaseAdapter {
 
                                 if (validateFirstName(firstNameContact,firstName) && validateLastName( lastNameContact, lastName)
                                         && validateEmail( emailContact, email) && validatePhoneNumber(phoneNumberContact, phoneNumber)){
-                                    contactData = new Model_Contact_data(getId()
+                                    contactData = new Model_contact_data(getId()
                                             ,firstNameContact
                                             ,lastNameContact
                                             ,nickNameContact

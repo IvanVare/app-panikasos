@@ -59,7 +59,7 @@ public class Model_reset_password {
                     String exito = jsonObject.getString("exito");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     if (jsonArray.length() == 0){
-                        System.out.println("model_generalUser -> login -> datos vacío");
+                        System.out.println("Model_reset_password -> reset_password -> datos vacío");
                         Toast.makeText(context, "Correo no registrado", Toast.LENGTH_SHORT).show();
                     }
                     else{

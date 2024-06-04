@@ -80,10 +80,6 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
                 }
             }
         });
-
-
-
-
         mainMenuButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,10 +135,6 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
                 }
             }
         });
-
-
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

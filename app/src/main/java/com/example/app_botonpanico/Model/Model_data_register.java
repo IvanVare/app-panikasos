@@ -52,14 +52,13 @@ public class Model_data_register {
                 if (response.equalsIgnoreCase("Registro exitoso")) {
                     Toast.makeText(context, "Registro hecho", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "No hay respuesta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sin respuesta", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(context, volleyError.toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, "Error: "+volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error en la conexión", Toast.LENGTH_SHORT).show();
                 System.out.println("Error: "+volleyError.getMessage());
             }
         }) {

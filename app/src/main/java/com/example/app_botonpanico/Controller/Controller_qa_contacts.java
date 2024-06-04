@@ -21,7 +21,7 @@ import androidx.core.util.PatternsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.app_botonpanico.Model.Model_Contact_data;
+import com.example.app_botonpanico.Model.Model_contact_data;
 import com.example.app_botonpanico.R;
 import com.example.app_botonpanico.AdapterContact;
 import com.example.app_botonpanico.Dao.daoContact;
@@ -34,8 +34,8 @@ public class Controller_qa_contacts extends AppCompatActivity {
     RelativeLayout mainMenuButtom;
     com.example.app_botonpanico.Dao.daoContact daoContact;
     AdapterContact adapterContact;
-    Model_Contact_data contactData;
-    ArrayList<Model_Contact_data> list;
+    Model_contact_data contactData;
+    ArrayList<Model_contact_data> list;
     FloatingActionButton floatingActionsMenu_buttom;
 
     String firstNameContact,lastNameContact,nickNameContact,emailContact,phoneNumberContact;
@@ -103,7 +103,7 @@ public class Controller_qa_contacts extends AppCompatActivity {
                             if (validateFirstName(firstNameContact,firstName) && validateLastName( lastNameContact, lastName)
                                     && validateEmail( emailContact, email) && validatePhoneNumber(phoneNumberContact, phoneNumber)){
 
-                                contactData = new Model_Contact_data(firstNameContact
+                                contactData = new Model_contact_data(firstNameContact
                                         ,lastNameContact,nickNameContact,emailContact,phoneNumberContact);
                                 daoContact.insert(contactData);
                                 list=daoContact.getAll();

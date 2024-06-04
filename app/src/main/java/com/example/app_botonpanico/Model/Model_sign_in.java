@@ -46,7 +46,7 @@ public class Model_sign_in {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String exito = jsonObject.getString("exito");
+                    String exito = jsonObject.getString("exito");//Modificar la variable exito(se mal entiende)
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     if (jsonArray.length() == 0){
                         String responseServer = "Datos vacios";

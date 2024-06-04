@@ -1,50 +1,34 @@
 package com.example.app_botonpanico.Controller;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.app_botonpanico.Notification_Panicbtn_Active;
 import com.example.app_botonpanico.R;
-import com.example.app_botonpanico.Model.Model_Contact_data;
+import com.example.app_botonpanico.Model.Model_contact_data;
 import com.example.app_botonpanico.Dao.daoContact;
-import com.example.app_botonpanico.Model.Model_send_message_coordinates;
 import com.example.app_botonpanico.Service.Send_Message_Service;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -53,8 +37,8 @@ import java.util.ArrayList;
 public class Controller_qa_panic_button extends AppCompatActivity {
 
     daoContact daoContact;
-    ArrayList<Model_Contact_data> listContacts;
-    RelativeLayout imageButton2, mainMenuButtom;;
+    ArrayList<Model_contact_data> listContacts;
+    RelativeLayout panicButton, mainMenuButtom;;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,email_IntentUser;
     LottieAnimationView ButtonAnimationSOS;
     private Handler handler;
@@ -74,7 +58,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         email_IntentUser = intentToPanicButtom.getStringExtra("email");
 
         mainMenuButtom=findViewById(R.id.Menu_activityQaPanicButton);
-        imageButton2=findViewById(R.id.imageButton2);
+        panicButton =findViewById(R.id.imageButton2);
         ButtonAnimationSOS=findViewById(R.id.buttonAnimation_LottieAnimation_ActivityQaPanicButton);
         daoContact = new daoContact(this);
         listContacts=daoContact.getAllByEmail();
@@ -82,7 +66,6 @@ public class Controller_qa_panic_button extends AppCompatActivity {
 
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
         registerReceiver(serviceStatusReceiver2, filter);
-
 
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -108,12 +91,13 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                 finish();
             }
         });
-        imageButton2.setOnClickListener(new View.OnClickListener() {
+        panicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                                != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
+                                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     Intent send_message_service = new Intent(Controller_qa_panic_button.this, Send_Message_Service.class);
                     send_message_service.putExtra("first_name", first_name_IntentUser);
                     send_message_service.putExtra("last_name", last_name_IntentUser);

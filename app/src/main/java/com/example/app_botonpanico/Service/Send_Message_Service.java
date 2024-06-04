@@ -1,10 +1,6 @@
 package com.example.app_botonpanico.Service;
 
-import static android.content.Intent.getIntent;
-
 import android.Manifest;
-import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -21,7 +17,6 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -29,17 +24,16 @@ import androidx.core.content.ContextCompat;
 
 import com.example.app_botonpanico.Controller.Controller_qa_panic_button;
 import com.example.app_botonpanico.Dao.daoContact;
-import com.example.app_botonpanico.Model.Model_Contact_data;
+import com.example.app_botonpanico.Model.Model_contact_data;
 import com.example.app_botonpanico.Model.Model_send_message_coordinates;
 import com.example.app_botonpanico.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Send_Message_Service extends Service {
 
     daoContact daoContact;
-    private List<Model_Contact_data> listContacts;
+    private List<Model_contact_data> listContacts;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,email_IntentUser;
     private Handler handler;
     private Runnable runnable;
@@ -91,7 +85,7 @@ public class Send_Message_Service extends Service {
             @Override
             public void run() {
                 if (System.currentTimeMillis() - startTime < DURATION) {
-                    for (Model_Contact_data contact : listContacts) {
+                    for (Model_contact_data contact : listContacts) {
                         String[] coordinates = getCoordinates();
                         if (coordinates != null) {
                             String latitudeStr = coordinates[0];
