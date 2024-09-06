@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -21,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.app_botonpanico.Controller.Controller_qa_panic_button;
 import com.example.app_botonpanico.Dao.daoContact;
@@ -31,6 +33,7 @@ import com.example.app_botonpanico.R;
 import java.util.List;
 
 public class Send_Message_Service extends Service {
+
 
     daoContact daoContact;
     private List<Model_contact_data> listContacts;
@@ -44,12 +47,16 @@ public class Send_Message_Service extends Service {
     private boolean isServiceRunning = false;
     private static final String CHANNEL_ID = "CHANNEL_ID_NOTIFICATION";
     private static final int NOTIFICATION_ID = 1;
+    private boolean serviceIsRunning = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
         handler = new Handler();
         createNotificationChannel();
+        serviceIsRunning = false;
+        System.out.println("Servicio is running "+serviceIsRunning);
+
     }
 
     @Override
@@ -65,8 +72,8 @@ public class Send_Message_Service extends Service {
             startTime= System.currentTimeMillis();
             startSendingMessages(first_name_IntentUser,last_name_IntentUser,phone_number_IntentUser,email_IntentUser);
             isSending = true;
-            sendServiceStatus(true);
-
+            serviceIsRunning = true;
+            saveServiceState(serviceIsRunning);
             showNotification();
         }else {
             stopSendingMessages();
@@ -81,6 +88,8 @@ public class Send_Message_Service extends Service {
         return null;
     }
     private void startSendingMessages(String first_name_User,String last_name_User, String phone_number_User, String email_User ) {
+        sendServiceStatus(true);
+
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -143,12 +152,13 @@ public class Send_Message_Service extends Service {
     }
     private void stopSendingMessages() {
         isSending = false;
-
         if (handler != null && runnable != null) {
             handler.removeCallbacks(runnable);
             stopForeground(true);
             stopSelf();
             Toast.makeText(this, "Panika SOS Desactivado", Toast.LENGTH_SHORT).show();
+            serviceIsRunning = false;
+            saveServiceState(serviceIsRunning);
         }
     }
 
@@ -171,9 +181,8 @@ public class Send_Message_Service extends Service {
         notificationManager.cancel(NOTIFICATION_ID);
         stopSelf();
         System.out.println("Notification-destroy");
+
     }
-
-
 
 
     private void createNotificationChannel() {
@@ -204,8 +213,8 @@ public class Send_Message_Service extends Service {
         // Crear la notificación
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.icon_buttone) // Asegúrate de tener un icono en drawable
-                .setContentTitle("Activado...")
-                .setContentText("Panoka SOS está envíando su ubicación a tus contactos de emergencia")
+                .setContentTitle("Activado")
+                .setContentText("Panika SOS está envíando su ubicación a tus contactos de emergencia")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
@@ -225,5 +234,13 @@ public class Send_Message_Service extends Service {
         }
         System.out.println("Notification-activada");
         notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+
+    private void saveServiceState(boolean serviceIsRunning) {
+        SharedPreferences prefs = getSharedPreferences("ServicePrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("serviceIsRunning", serviceIsRunning);
+        editor.apply();
     }
 }

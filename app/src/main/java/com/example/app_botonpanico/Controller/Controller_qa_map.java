@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -53,13 +54,15 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
         phone_number_IntentUser = intentToPanicButtom.getStringExtra("phone_number");
         email_IntentUser = intentToPanicButtom.getStringExtra("email");
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.Map_activityQaMap);
-        mapFragment.getMapAsync(this);
+
         mainMenuButtom=findViewById(R.id.Menu_activityQaMap);
         floatingActionsMenu_group = findViewById(R.id.GroupButton_FloatingButton_activityQaMap);
         fabButtonLayer = findViewById(R.id.Layer_FloatingButton_activityQaMap);
         fabButtonFindMyLocation = findViewById(R.id.FindMyLocation_FloatingButton_activityQaMap);
         fabButtonEmergencyButton = findViewById(R.id.ButtonEmergency_FloatingButton_activityQaMap);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.Map_activityQaMap);
+        mapFragment.getMapAsync(this);
 
 
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(Controller_qa_map.this);
@@ -73,8 +76,13 @@ public class Controller_qa_map extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    gOmap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12)); // Zoom de 15 (puedes ajustar este valor según tus necesidades)
+
+                    if (gOmap != null) {
+                        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        gOmap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+                    } else {
+                        Log.e("Controller_qa_map", "GoogleMap no está inicializado. No se puede mover la cámara.");
+                    }
                 } else {
                     Toast.makeText(Controller_qa_map.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
                 }

@@ -20,6 +20,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -33,26 +34,29 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.Controller_data_register_personaldata"
-            android:screenOrientation="portrait"
+            android:name=".Controller_widget"
             android:exported="false" />
+        <activity
+            android:name=".Controller.Controller_data_register_personaldata"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Notification_Panicbtn_Active"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_reset_password_code"
-            android:screenOrientation="portrait"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.App_BotonPanico" />
         <activity
             android:name=".item_contact"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_main_screen"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,47 +70,66 @@
 
         <activity
             android:name=".Controller_qa_contact"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_qa_contacts"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_qa_map"
             android:exported="false" />
         <activity
             android:name=".Controller.Controller_qa_panic_button"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_insert_new_password"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_reset_password"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_qa_main_menu"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_data_register"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_sign_in_user"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Controller.Controller_mainActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".Service.Send_Message_Service"
             android:exported="false" />
+
+        <receiver
+            android:name=".Classes.ServiceStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.SERVICE_STATUS" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver android:name=".utils.PanicButtonWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_properties" />
+        </receiver>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
@@ -40,6 +42,9 @@ public class Controller_qa_main_menu extends AppCompatActivity {
     SwitchCompat SwitchCompatUbication;
     LottieAnimationView ButtonAnimationSOS;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,7 +212,6 @@ public class Controller_qa_main_menu extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Desregistrar el receptor
         unregisterReceiver(serviceStatusReceiver);
     }
 
