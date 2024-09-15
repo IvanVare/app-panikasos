@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Handler;
@@ -48,6 +49,8 @@ public class Send_Message_Service extends Service {
     private static final String CHANNEL_ID = "CHANNEL_ID_NOTIFICATION";
     private static final int NOTIFICATION_ID = 1;
     private boolean serviceIsRunning = false;
+
+    private String[] currentLocation;
 
     @Override
     public void onCreate() {
@@ -101,7 +104,8 @@ public class Send_Message_Service extends Service {
                             String longitudeStr = coordinates[1];
                             dataMessage(contact.getFirst_name(), contact.getLast_name(), contact.getEmail(), first_name_User, last_name_User, email_User, phone_number_User, latitudeStr, longitudeStr);
                         } else {
-                            Toast.makeText(Send_Message_Service.this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Send_Message_Service.this, "No se pudo obtener la ubicación v3", Toast.LENGTH_SHORT).show();
+                            stopSelf();
                         }
                     }
                     if (isSending) {
@@ -141,8 +145,28 @@ public class Send_Message_Service extends Service {
                     String longitudeStr = String.valueOf(longitude);
                     return new String[]{latitudeStr, longitudeStr};
                 } else {
-                    Log.e("MessageService", "No se pudo obtener la ubicación");
-                    return null;
+                    Log.e("MessageService", "No se pudo obtener la ubicación conocida, solicitando actualización de ubicación...");
+
+                    // Solicitar una actualización de ubicación
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            {
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                String latitudeStr = String.valueOf(latitude);
+                                String longitudeStr = String.valueOf(longitude);
+                                currentLocation = new String[]{latitudeStr,longitudeStr};
+                                // Detener actualizaciones después de recibir la primera ubicación
+                                locationManager.removeUpdates(this);
+
+                                // Retornar la ubicación obtenida
+
+                            }
+                        }
+
+                    });
+                    return currentLocation;
                 }
             } else {
                 Log.e("MessageService", "LocationManager is null");

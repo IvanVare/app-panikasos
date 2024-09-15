@@ -10,7 +10,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationRequest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,6 +52,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser, email_IntentUser;
     LottieAnimationView ButtonAnimationSOS;
+    private Location currentLocation;
     private Handler handler;
     private Runnable runnable;
 
@@ -64,7 +67,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_qa_panic_button);
-        //Recibir datos
+        //datos
         Intent intentToPanicButtom = getIntent();
         first_name_IntentUser = intentToPanicButtom.getStringExtra("first_name");
         last_name_IntentUser = intentToPanicButtom.getStringExtra("last_name");
@@ -77,25 +80,36 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         daoContact = new daoContact(this);
         listContacts = daoContact.getAllByEmail();
         handler = new Handler(Looper.getMainLooper());
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         //BroadCastReceiver
         Intent send_message_service = new Intent(Controller_qa_panic_button.this, Send_Message_Service.class);
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
         registerReceiver(serviceStatusReceiver2, filter);
 
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
                         android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Controller_qa_panic_button.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         }
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+
+        String provider = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                ? LocationManager.GPS_PROVIDER
+                : LocationManager.NETWORK_PROVIDER;
+
+
+        locationManager.requestLocationUpdates(provider, 0, 0, new LocationListener() {
             @Override
-            public void onSuccess(Location location) {
+            public void onLocationChanged(Location location) {
                 if (location != null) {
-                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    currentLocation = location;
+
+                    // Si ya no necesitas más actualizaciones, las puedes detener:
+                    locationManager.removeUpdates(this);
                 } else {
                     Toast.makeText(Controller_qa_panic_button.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -114,46 +128,47 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(Controller_qa_panic_button.this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-                }
-                fusedLocationClient.getLastLocation().addOnSuccessListener(Controller_qa_panic_button.this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
-                                    android.Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED &&
-                                    ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
-                                            android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                send_message_service.putExtra("first_name", first_name_IntentUser);
-                                send_message_service.putExtra("last_name", last_name_IntentUser);
-                                send_message_service.putExtra("phone_number", phone_number_IntentUser);
-                                send_message_service.putExtra("email", email_IntentUser);
-                                startService(send_message_service);
-
-                            } else {
-                                ActivityCompat.requestPermissions(Controller_qa_panic_button.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+                }else{
+                    fusedLocationClient.getLastLocation().addOnSuccessListener(Controller_qa_panic_button.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location  != null) {
+                                if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
+                                        android.Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED &&
+                                        ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
+                                                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                    send_message_service.putExtra("first_name", first_name_IntentUser);
+                                    send_message_service.putExtra("last_name", last_name_IntentUser);
+                                    send_message_service.putExtra("phone_number", phone_number_IntentUser);
+                                    send_message_service.putExtra("email", email_IntentUser);
+                                    startService(send_message_service);
+                                } else {
+                                    ActivityCompat.requestPermissions(Controller_qa_panic_button.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+                                }
+                            } else{
+                                if (currentLocation  != null) {
+                                    if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
+                                                android.Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED &&
+                                                ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
+                                                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                            send_message_service.putExtra("first_name", first_name_IntentUser);
+                                            send_message_service.putExtra("last_name", last_name_IntentUser);
+                                            send_message_service.putExtra("phone_number", phone_number_IntentUser);
+                                            send_message_service.putExtra("email", email_IntentUser);
+                                            startService(send_message_service);
+                                        } else {
+                                            ActivityCompat.requestPermissions(Controller_qa_panic_button.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+                                        }
+                                } else {
+                                    Toast.makeText(Controller_qa_panic_button.this, "Espere 2 segundos, y presione otra vez el botón", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        } else {
-                            Toast.makeText(Controller_qa_panic_button.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
 
-
-
+                    });
+                }
             }
         });
-        boolean serviceRunning = false;
-        if (serviceRunning = isServiceRunning()) {
-            // El servicio está en ejecución
-            ButtonAnimationSOS.setVisibility(View.VISIBLE);
-            ButtonAnimationSOS.playAnimation();
-            System.out.println("El servicio está en ejecución");
-        } else {
-            // El servicio no está en ejecución
-            ButtonAnimationSOS.cancelAnimation();
-            ButtonAnimationSOS.setVisibility(View.GONE);
-            System.out.println("El servicio No está en ejecución");
-        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -169,11 +184,9 @@ public class Controller_qa_panic_button extends AppCompatActivity {
             if (isRunning==false) {
                 ButtonAnimationSOS.cancelAnimation();
                 ButtonAnimationSOS.setVisibility(View.GONE);
-                System.out.println("No se esta ejecutando la animacion");
             }else {
                 ButtonAnimationSOS.setVisibility(View.VISIBLE);
                 ButtonAnimationSOS.playAnimation();
-                System.out.println("Se esta ejecutando la animacion");
             }
         }
     };
@@ -220,7 +233,9 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         }
     }
 
-    //
+
+
+        //
     @Override
     protected void onDestroy() {
         super.onDestroy();
