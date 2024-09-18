@@ -86,19 +86,16 @@ public class Controller_qa_contacts extends AppCompatActivity {
                 Button saveButtom = dialog.findViewById(R.id.Save_Buttom_activityQaContact);
                 Button cancelButtom = dialog.findViewById(R.id.Cancel_Buttom_activityQaContact);
 
-
                 actionText.setText("Nuevo registro");
                 saveButtom.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-
                             firstNameContact=firstName.getText().toString().trim();
                             lastNameContact=lastName.getText().toString().trim();
                             nickNameContact=nickName.getText().toString().trim();
                             emailContact=email.getText().toString().trim();
                             phoneNumberContact=phoneNumber.getText().toString().trim();
-
 
                             if (validateFirstName(firstNameContact,firstName) && validateLastName( lastNameContact, lastName)
                                     && validateEmail( emailContact, email) && validatePhoneNumber(phoneNumberContact, phoneNumber)){
@@ -145,6 +142,7 @@ public class Controller_qa_contacts extends AppCompatActivity {
             return true;
         }
     }
+
     private boolean validateLastName(String lastNameContact, EditText lastName) {
         if (lastNameContact.isEmpty()) {
             lastName.setError("Campo vacío");
@@ -171,7 +169,6 @@ public class Controller_qa_contacts extends AppCompatActivity {
         }
     }
 
-
     private boolean validatePhoneNumber(String phoneNumberContact,EditText phoneNumber) {
         if (phoneNumberContact.isEmpty()) {
             phoneNumber.setError("Campo vacío");
@@ -184,13 +181,5 @@ public class Controller_qa_contacts extends AppCompatActivity {
             return true;
         }
     }
-
-
-
-
-
-
-
-
 
 }

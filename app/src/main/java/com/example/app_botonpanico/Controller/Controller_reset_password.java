@@ -33,7 +33,6 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
     RelativeLayout SendCodeButton;
     String emailString;
     Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_reset_password.this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +47,6 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                     customDialogLoading.startLoadingDialog();
                     checkEmail();
                 }
-
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -94,7 +92,6 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                 editTextNumber_01.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                     }
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -252,15 +249,12 @@ public class Controller_reset_password extends AppCompatActivity implements Rese
                                 finish();
                             }else {
                                 Toast.makeText(Controller_reset_password.this,"Codigo incorrecto",Toast.LENGTH_SHORT).show();
-
                             }
-
                         }
                     }
                 });
-
             } else {
-                Toast.makeText(this, "Correo no registrado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "El correo electrónico es incorrecto", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             System.out.println(e);

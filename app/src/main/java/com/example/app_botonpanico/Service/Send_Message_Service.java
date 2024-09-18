@@ -49,7 +49,6 @@ public class Send_Message_Service extends Service {
     private static final String CHANNEL_ID = "CHANNEL_ID_NOTIFICATION";
     private static final int NOTIFICATION_ID = 1;
     private boolean serviceIsRunning = false;
-
     private String[] currentLocation;
 
     @Override
@@ -59,12 +58,10 @@ public class Send_Message_Service extends Service {
         createNotificationChannel();
         serviceIsRunning = false;
         System.out.println("Servicio is running "+serviceIsRunning);
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         if (!isSending) {
             daoContact = new daoContact(this);
             listContacts=daoContact.getAllByEmail();
@@ -82,7 +79,6 @@ public class Send_Message_Service extends Service {
             stopSendingMessages();
             isSending = false;
         }
-
         return START_NOT_STICKY;
     }
 
@@ -92,7 +88,6 @@ public class Send_Message_Service extends Service {
     }
     private void startSendingMessages(String first_name_User,String last_name_User, String phone_number_User, String email_User ) {
         sendServiceStatus(true);
-
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -104,9 +99,13 @@ public class Send_Message_Service extends Service {
                             String longitudeStr = coordinates[1];
                             dataMessage(contact.getFirst_name(), contact.getLast_name(), contact.getEmail(), first_name_User, last_name_User, email_User, phone_number_User, latitudeStr, longitudeStr);
                         } else {
-                            Toast.makeText(Send_Message_Service.this, "No se pudo obtener la ubicación v3", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Send_Message_Service.this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
                             stopSelf();
                         }
+                    }
+                    if (listContacts.size()<1){
+                        Toast.makeText(Send_Message_Service.this, "No tiene contactos registrados", Toast.LENGTH_SHORT).show();
+                        stopSelf();
                     }
                     if (isSending) {
                         handler.postDelayed(this, INTERVAL);
@@ -146,8 +145,6 @@ public class Send_Message_Service extends Service {
                     return new String[]{latitudeStr, longitudeStr};
                 } else {
                     Log.e("MessageService", "No se pudo obtener la ubicación conocida, solicitando actualización de ubicación...");
-
-                    // Solicitar una actualización de ubicación
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
                         @Override
                         public void onLocationChanged(Location location) {
@@ -159,12 +156,8 @@ public class Send_Message_Service extends Service {
                                 currentLocation = new String[]{latitudeStr,longitudeStr};
                                 // Detener actualizaciones después de recibir la primera ubicación
                                 locationManager.removeUpdates(this);
-
-                                // Retornar la ubicación obtenida
-
                             }
                         }
-
                     });
                     return currentLocation;
                 }
@@ -180,7 +173,7 @@ public class Send_Message_Service extends Service {
             handler.removeCallbacks(runnable);
             stopForeground(true);
             stopSelf();
-            Toast.makeText(this, "Panika SOS Desactivado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Panika SOS desactivado", Toast.LENGTH_SHORT).show();
             serviceIsRunning = false;
             saveServiceState(serviceIsRunning);
         }
@@ -208,10 +201,7 @@ public class Send_Message_Service extends Service {
 
     }
 
-
     private void createNotificationChannel() {
-        // Crear el NotificationChannel, pero solo en API 26+ porque
-        // el NotificationChannel es una nueva clase que no está en las bibliotecas de soporte
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notification Channel";
             String description = "Channel for basic notifications";
@@ -221,24 +211,18 @@ public class Send_Message_Service extends Service {
             channel.enableLights(true);
             channel.setLightColor(Color.RED);
             channel.enableVibration(true);
-
-            // Registrar el canal con el sistema; no se puede cambiar la importancia o
-            // otras características después de esto
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
     private void showNotification() {
-        // Crear un intent para abrir la actividad cuando se toque la notificación
         Intent intent = new Intent(this, Controller_qa_panic_button.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
-
-        // Crear la notificación
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.icon_buttone) // Asegúrate de tener un icono en drawable
+                .setSmallIcon(R.drawable.icon_buttone)
                 .setContentTitle("Activado")
-                .setContentText("Panika SOS está envíando su ubicación a tus contactos de emergencia")
+                .setContentText("Panika SOS está envíando su ubicación a sus contactos de emergencia")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)

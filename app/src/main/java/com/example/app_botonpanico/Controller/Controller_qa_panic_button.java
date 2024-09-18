@@ -93,23 +93,17 @@ public class Controller_qa_panic_button extends AppCompatActivity {
             ActivityCompat.requestPermissions(Controller_qa_panic_button.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         }
-
         String provider = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 ? LocationManager.GPS_PROVIDER
                 : LocationManager.NETWORK_PROVIDER;
-
-
         locationManager.requestLocationUpdates(provider, 0, 0, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 if (location != null) {
                     currentLocation = location;
-
-                    // Si ya no necesitas más actualizaciones, las puedes detener:
                     locationManager.removeUpdates(this);
                 } else {
                     Toast.makeText(Controller_qa_panic_button.this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -169,6 +163,17 @@ public class Controller_qa_panic_button extends AppCompatActivity {
                 }
             }
         });
+
+        //Activar animación
+        boolean serviceRunning = false;
+        if (serviceRunning = isServiceRunning()) {
+            ButtonAnimationSOS.setVisibility(View.VISIBLE);
+            ButtonAnimationSOS.playAnimation();
+        } else {
+            ButtonAnimationSOS.cancelAnimation();
+            ButtonAnimationSOS.setVisibility(View.GONE);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -179,7 +184,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
     private BroadcastReceiver serviceStatusReceiver2 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            boolean isRunning = intent.getBooleanExtra("isRunning", false);
+            boolean isRunning = intent.getBooleanExtra("isRunning", true);
             System.out.println(isRunning);
             if (isRunning==false) {
                 ButtonAnimationSOS.cancelAnimation();

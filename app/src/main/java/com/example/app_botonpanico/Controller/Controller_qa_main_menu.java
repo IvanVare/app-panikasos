@@ -75,7 +75,6 @@ public class Controller_qa_main_menu extends AppCompatActivity {
 
         FullNameUser.setText("Hola, "+first_name_IntentUser+" "+last_name_IntentUser);
 
-
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -171,8 +170,10 @@ public class Controller_qa_main_menu extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_LOCATION_PERMISSION);
+
         } else {
             enableLocation();
+
         }
     }
     private void enableLocation() {
@@ -186,7 +187,7 @@ public class Controller_qa_main_menu extends AppCompatActivity {
     private void disableLocation() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(intent);
-        Toast.makeText(this, "Please turn off GPS manually", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Encender ubicación para usar la aplicación", Toast.LENGTH_SHORT).show();
     }
 
     @Override

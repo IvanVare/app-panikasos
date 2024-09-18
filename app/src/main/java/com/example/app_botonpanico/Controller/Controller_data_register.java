@@ -58,10 +58,10 @@ public class Controller_data_register extends AppCompatActivity implements DataR
                         customDialogLoading.startLoadingDialog();
                         checkEmailAndPhoneNumberExist();
                     }else {
-                        Toast.makeText(Controller_data_register.this,"Cumplir parámetros",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Controller_data_register.this,"Los datos ingresados son incorrectos",Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(Controller_data_register.this,"Campos vacíos",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Controller_data_register.this,"Faltan campos por llenar",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -155,7 +155,7 @@ public class Controller_data_register extends AppCompatActivity implements DataR
 
         }else {
             customDialogLoading.dismissDialog();
-            Toast.makeText(Controller_data_register.this,"Correo o numero telefonico ya registrado",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Controller_data_register.this,"Correo y/o número telefónico ya registrado",Toast.LENGTH_SHORT).show();
         }
 
 

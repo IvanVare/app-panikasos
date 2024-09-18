@@ -119,7 +119,6 @@ public class Model_data_register {
                 return params;
             }
         };
-
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
     }

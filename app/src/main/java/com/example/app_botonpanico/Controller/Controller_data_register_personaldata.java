@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,6 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
         InputLastName=findViewById(R.id.InputLastName_activityData_register_personaldata);
         InputAge=findViewById(R.id.InputAge_activityData_register_personaldata);
         NextDataRegisterPD=findViewById(R.id.next_button_activityData_register_personaldata);
-
         NextDataRegisterPD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,24 +44,20 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
                         intentToDataRegister.putExtra("age", InputAge.getText().toString());
                         startActivity(intentToDataRegister);
                         finish();
+                    }else{
+                        Toast.makeText(Controller_data_register_personaldata.this,"Los datos ingresados son incorrectos",Toast.LENGTH_SHORT).show();
                     }
-
+                }else{
+                    Toast.makeText(Controller_data_register_personaldata.this,"Faltan campos por llenar",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
     }
-
     private boolean validateData() {
         boolean[] result = {validateFirstName(),validateLastName(),validateAge()};
         for (boolean isValid : result) {
@@ -71,8 +67,6 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
         }
         return true;
     }
-
-
     private boolean validateFirstName() {
         String firstName = InputFirstName.getText().toString();
         if (firstName.isEmpty()) {
@@ -86,7 +80,6 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validateLastName() {
         String lastname = InputLastName.getText().toString();
         if (lastname.isEmpty()) {
@@ -100,7 +93,6 @@ public class Controller_data_register_personaldata extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validateAge() {
         String Age = InputAge.getText().toString();
         if (Age.isEmpty()) {

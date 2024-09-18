@@ -126,7 +126,6 @@ public class AdapterContact extends BaseAdapter {
                         public void onClick(View v) {
                             try {
 
-
                                 firstNameContact=firstName.getText().toString().trim();
                                 lastNameContact=lastName.getText().toString().trim();
                                 nickNameContact=nickName.getText().toString().trim();
@@ -181,7 +180,7 @@ public class AdapterContact extends BaseAdapter {
     @NonNull
     private AlertDialog.Builder getDeleteAlert() {
         AlertDialog.Builder deleteAlert= new AlertDialog.Builder(activity);
-        deleteAlert.setTitle("Seguro que deseas borrar el contacto");
+        deleteAlert.setTitle("¿Seguro que desea borrar el contacto?");
         deleteAlert.setCancelable(false);
         deleteAlert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override

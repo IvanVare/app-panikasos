@@ -24,7 +24,6 @@ import com.example.app_botonpanico.utils.EncryptAndDesencrypt;
 public class Controller_sign_in_user extends AppCompatActivity implements SigninCallback {
 
     EditText InputPhoneNumber, InputPassword;
-
     RelativeLayout ForgotPasswordButton,SignInButtonToMenu,RegisterButtonToLogIn;
     String phonenumberString, passwordString;
     Custom_dialog_loading customDialogLoading = new Custom_dialog_loading(Controller_sign_in_user.this);
@@ -71,7 +70,6 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
             return insets;
         });
     }
-
     public void Signin(View view) {
         phonenumberString=InputPhoneNumber.getText().toString();
         passwordString=InputPassword.getText().toString();
@@ -89,7 +87,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
         try {
             if (data[0].equalsIgnoreCase("Datos vacios")){
                 customDialogLoading.dismissDialog();
-                Toast.makeText(this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "El número telefónico y/o la contraseña son incorrectos", Toast.LENGTH_SHORT).show();
             }else {
                 if (passwordString.equals(encryptAndDesencrypt.decrypt(data[4]))){
                     Intent intentToMainMenu = new Intent(this, Controller_qa_main_menu.class);
@@ -105,7 +103,6 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
                     Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
                 }
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
