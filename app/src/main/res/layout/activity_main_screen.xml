@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/BackGround_screen"
+    style="@style/BackGround_screen_menu"
     tools:context=".Controller.Controller_main_screen">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

@@ -91,13 +91,13 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/imageButton2"
-                    android:layout_width="320dp"
+                    android:layout_width="match_parent"
                     android:layout_height="320dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
@@ -139,12 +139,11 @@
                 </RelativeLayout>
             </LinearLayout>
 
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:textSize="30dp"
@@ -166,11 +165,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:gravity="center_vertical"
-                android:textColor="@color/pressBtn_WithoutBg"
                 android:text="@string/function_btnpanika"
-                android:layout_margin="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/pressBtn_WithoutBg"
                 android:textSize="15dp" />
         </LinearLayout>
     </FrameLayout>

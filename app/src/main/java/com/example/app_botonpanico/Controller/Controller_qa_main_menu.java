@@ -43,9 +43,6 @@ public class Controller_qa_main_menu extends AppCompatActivity {
     LottieAnimationView ButtonAnimationSOS;
     String first_name_IntentUser, last_name_IntentUser, phone_number_IntentUser,age_IntentUser,email_IntentUser;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +68,7 @@ public class Controller_qa_main_menu extends AppCompatActivity {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean isGpsEnabled = locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         SwitchCompatUbication.setChecked(isGpsEnabled);
-        registerReceiver(serviceStatusReceiver, filter);
+        registerReceiver(serviceStatusReceiver, filter, Context.RECEIVER_EXPORTED);
 
         FullNameUser.setText("Hola, "+first_name_IntentUser+" "+last_name_IntentUser);
 

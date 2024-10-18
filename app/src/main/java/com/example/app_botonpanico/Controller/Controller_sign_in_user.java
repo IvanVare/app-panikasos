@@ -98,6 +98,7 @@ public class Controller_sign_in_user extends AppCompatActivity implements Signin
                     intentToMainMenu.putExtra("email", data[5]);
                     startActivity(intentToMainMenu);
                     customDialogLoading.dismissDialog();
+                    finish();
                 } else {
                     customDialogLoading.dismissDialog();
                     Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();

@@ -60,7 +60,7 @@ public class Model_reset_password {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     if (jsonArray.length() == 0){
                         System.out.println("Model_reset_password -> reset_password -> datos vacío");
-                        Toast.makeText(context, "Correo no registrado", Toast.LENGTH_SHORT).show();
+                        resetPasswordCallback.OnFailure("Correo no registrado");
                     }
                     else{
                         if (exito.equals("1")){

@@ -7,7 +7,6 @@ import android.content.Intent;
 import com.example.app_botonpanico.Controller.Controller_qa_main_menu;
 
 public class ServiceStatusReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean isRunning = intent.getBooleanExtra("isRunning", false);

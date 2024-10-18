@@ -85,7 +85,7 @@ public class Controller_qa_panic_button extends AppCompatActivity {
         //BroadCastReceiver
         Intent send_message_service = new Intent(Controller_qa_panic_button.this, Send_Message_Service.class);
         IntentFilter filter = new IntentFilter("com.example.SERVICE_STATUS");
-        registerReceiver(serviceStatusReceiver2, filter);
+        registerReceiver(serviceStatusReceiver2, filter, Context.RECEIVER_EXPORTED);
 
         if (ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(Controller_qa_panic_button.this,
