@@ -42,7 +42,7 @@ public class Send_Message_Service extends Service {
     private Handler handler;
     private Runnable runnable;
     private long startTime;
-    private static final long INTERVAL = 60000; //300000;  5 minutes in milliseconds
+    private static final long INTERVAL = 300000; //300000;  5 minutes in milliseconds
     private static final long DURATION = 3600000; // 1 hour in milliseconds
     private boolean isSending = false; // Control variable
     private boolean isServiceRunning = false;
